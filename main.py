@@ -1,6 +1,6 @@
 """
-MedLink - Unified Medical Records System
-Entry point for the application
+    MedLink - Unified Medical Records System
+    Entry point for the application
 """
 import customtkinter as ctk
 from gui.login_window import LoginWindow

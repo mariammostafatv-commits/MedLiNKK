@@ -11,38 +11,14 @@
       "license_number": "MED12345",
       "email": "ahmed@hospital.eg",
       "phone": "01012345678",
-      "created_at": "2024-11-01 10:00:00"
-    },
-    {
-      "user_id": "P29501012345678",
-      "username": "patient_29501012345678",
-      "password_hash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
-      "role": "patient",
-      "national_id": "29501012345678",
-      "full_name": "Mohamed Ali Hassan",
-      "created_at": "2024-11-15 14:30:00"
-    },
-    {
-      "user_id": "D002",
-      "username": "dr.salma",
-      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-      "role": "doctor",
-      "full_name": "Dr. Salma Ibrahim",
-      "specialization": "Radiology",
-      "hospital": "Qasr El Aini Hospital",
-      "license_number": "MED67890",
-      "email": "salma@hospital.eg",
-      "phone": "01098765432",
-      "created_at": "2024-11-01 10:00:00"
-    },
-    {
-      "user_id": "P29012151234567",
-      "username": "patient_29012151234567",
-      "password_hash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
-      "role": "patient",
-      "national_id": "29012151234567",
-      "full_name": "Fatma Ahmed Ibrahim",
-      "created_at": "2024-11-10 09:15:00"
+      
+      
+      "fingerprint_id": 3,                    
+      "fingerprint_enrolled": true,           
+      "fingerprint_enrollment_date": "2024-11-20",
+      "nfc_card_uid": "04A1B2C3D4E5F6",      
+      "biometric_enabled": true,              
+      "last_fingerprint_login": "2024-11-27 08:30:00"
     }
   ]
 }

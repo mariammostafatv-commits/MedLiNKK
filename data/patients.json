@@ -7,22 +7,22 @@
       "age": 29,
       "gender": "Male",
       "blood_type": "A+",
-      "phone": "010100101010101",
-      "email": "sdasdasdas",
-      "address": "asdasdas",
+
+      "nfc_card_uid": "04B5C6D7E8F9A0",
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": "2024-11-25",
+      "nfc_card_type": "Mifare Classic 1K",
+      "nfc_card_status": "active",
+
+      "fingerprint_id": null,
+      "fingerprint_enrolled": false,
       "emergency_contact": {
         "name": "dasdasdasd",
         "relation": "dasdasdasdas",
         "phone": "asdas"
       },
-      "chronic_diseases": [
-        "Asthma",
-        "Hypertension"
-      ],
-      "allergies": [
-        "Penicillin",
-        "Peanuts"
-      ],
+      "chronic_diseases": ["Asthma", "Hypertension"],
+      "allergies": ["Penicillin", "Peanuts"],
       "current_medications": [
         {
           "name": "Ventolin Inhaler",
@@ -65,9 +65,7 @@
         "relation": "Husband",
         "phone": "01234567890"
       },
-      "chronic_diseases": [
-        "Type 2 Diabetes"
-      ],
+      "chronic_diseases": ["Type 2 Diabetes"],
       "allergies": [],
       "current_medications": [
         {

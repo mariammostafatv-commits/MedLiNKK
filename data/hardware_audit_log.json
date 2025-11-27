@@ -1,0 +1,24 @@
+{
+  "hardware_events": [
+    {
+      "event_id": "HW001",
+      "timestamp": "2024-11-27 09:15:23",
+      "event_type": "fingerprint_login",
+      "user_id": "D001",
+      "fingerprint_id": 3,
+      "success": true,
+      "ip_address": "192.168.1.100",
+      "device_name": "WORKSTATION-01"
+    },
+    {
+      "event_id": "HW002",
+      "timestamp": "2024-11-27 09:20:45",
+      "event_type": "nfc_card_scan",
+      "patient_national_id": "29501012345678",
+      "card_uid": "04B5C6D7E8F9A0",
+      "accessed_by": "D001",
+      "access_type": "emergency_profile",
+      "success": true
+    }
+  ]
+}
