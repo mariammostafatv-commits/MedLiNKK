@@ -26,6 +26,19 @@ class PatientDashboard(ctk.CTkToplevel):
         self.patient_data = patient_manager.get_patient_by_id(
             user_data.get('national_id')
         )
+        
+        # Debug: Check if patient data exists
+        print(f"🔍 Loading patient dashboard for: {user_data.get('national_id')}")
+        print(f"Patient data found: {self.patient_data is not None}")
+        
+        if not self.patient_data:
+            print("❌ ERROR: No patient data found!")
+            messagebox.showerror(
+                "Error",
+                "Could not load patient information. Please contact support."
+            )
+            self.destroy()
+            return
 
         # Configure window
         self.title("MedLink - Patient Portal")
@@ -43,23 +56,6 @@ class PatientDashboard(ctk.CTkToplevel):
         # Create UI
         self.after(100, self.create_ui)
         self.after(200, self.center_window)
-        # Lab Results tab - NOW FUNCTIONAL!
-
-        self.lab_tab = LabResultsTab(
-            self.tabview.tab("Lab Results"),
-            self.patient_data,
-            is_doctor=False
-        )
-        self.lab_tab.pack(fill='both', expand=True)
-
-        # Imaging Results tab - NOW FUNCTIONAL!
-
-        self.imaging_tab = ImagingTab(
-            self.tabview.tab("Imaging Results"),
-            self.patient_data,
-            is_doctor=False
-        )
-        self.imaging_tab.pack(fill='both', expand=True)
 
     def center_window(self):
         """Center window on screen"""
@@ -76,6 +72,9 @@ class PatientDashboard(ctk.CTkToplevel):
     def create_ui(self):
         """Create patient dashboard interface"""
         try:
+            print("🔍 Starting patient dashboard UI creation...")
+            print(f"Patient data: {self.patient_data.get('full_name', 'Unknown')}")
+            
             # Main container
             main_container = ctk.CTkFrame(self, fg_color=COLORS['bg_dark'])
             main_container.pack(fill='both', expand=True)
@@ -124,6 +123,8 @@ class PatientDashboard(ctk.CTkToplevel):
             )
             emergency_btn.pack(side='right')
 
+            print("✅ Top bar created")
+
             # Tab view
             self.tabview = ctk.CTkTabview(
                 content_area,
@@ -135,56 +136,74 @@ class PatientDashboard(ctk.CTkToplevel):
             )
             self.tabview.pack(fill='both', expand=True, padx=20, pady=(0, 20))
 
+            print("✅ Tabview created")
+
             # Add tabs
             self.tabview.add("My Profile")
             self.tabview.add("Medical History")
             self.tabview.add("Lab Results")
             self.tabview.add("Imaging Results")
 
+            print("✅ Tabs added")
+
             # My Profile tab
-            self.profile_tab = PatientProfileTab(
-                self.tabview.tab("My Profile"),
-                self.patient_data,
-                self.user_data
-            )
-            self.profile_tab.pack(fill='both', expand=True)
+            try:
+                print("Creating Profile tab...")
+                self.profile_tab = PatientProfileTab(
+                    self.tabview.tab("My Profile"),
+                    self.patient_data,
+                    self.user_data
+                )
+                self.profile_tab.pack(fill='both', expand=True, padx=10, pady=10)
+                print("✅ Profile tab created")
+            except Exception as e:
+                print(f"❌ Error creating Profile tab: {e}")
+                import traceback
+                traceback.print_exc()
 
             # Medical History tab
-            self.history_tab = MyHistoryTab(
-                self.tabview.tab("Medical History"),
-                self.patient_data
-            )
-            self.history_tab.pack(fill='both', expand=True)
+            try:
+                print("Creating Medical History tab...")
+                self.history_tab = MyHistoryTab(
+                    self.tabview.tab("Medical History"),
+                    self.patient_data
+                )
+                self.history_tab.pack(fill='both', expand=True, padx=10, pady=10)
+                print("✅ Medical History tab created")
+            except Exception as e:
+                print(f"❌ Error creating Medical History tab: {e}")
+                import traceback
+                traceback.print_exc()
 
-            # Lab Results tab (placeholder)
-            lab_frame = ctk.CTkFrame(
-                self.tabview.tab("Lab Results"),
-                fg_color='transparent'
-            )
-            lab_frame.pack(fill='both', expand=True, padx=20, pady=20)
+            # Lab Results tab
+            try:
+                print("Creating Lab Results tab...")
+                self.lab_tab = LabResultsTab(
+                    self.tabview.tab("Lab Results"),
+                    self.patient_data,
+                    is_doctor=False
+                )
+                self.lab_tab.pack(fill='both', expand=True, padx=10, pady=10)
+                print("✅ Lab Results tab created")
+            except Exception as e:
+                print(f"❌ Error creating Lab Results tab: {e}")
+                import traceback
+                traceback.print_exc()
 
-            lab_label = ctk.CTkLabel(
-                lab_frame,
-                text="🧪  Lab Results - Coming in Phase 5",
-                font=FONTS['heading'],
-                text_color=COLORS['text_muted']
-            )
-            lab_label.pack(expand=True)
-
-            # Imaging Results tab (placeholder)
-            imaging_frame = ctk.CTkFrame(
-                self.tabview.tab("Imaging Results"),
-                fg_color='transparent'
-            )
-            imaging_frame.pack(fill='both', expand=True, padx=20, pady=20)
-
-            imaging_label = ctk.CTkLabel(
-                imaging_frame,
-                text="📷  Imaging Results - Coming in Phase 5",
-                font=FONTS['heading'],
-                text_color=COLORS['text_muted']
-            )
-            imaging_label.pack(expand=True)
+            # Imaging Results tab
+            try:
+                print("Creating Imaging Results tab...")
+                self.imaging_tab = ImagingTab(
+                    self.tabview.tab("Imaging Results"),
+                    self.patient_data,
+                    is_doctor=False
+                )
+                self.imaging_tab.pack(fill='both', expand=True, padx=10, pady=10)
+                print("✅ Imaging Results tab created")
+            except Exception as e:
+                print(f"❌ Error creating Imaging Results tab: {e}")
+                import traceback
+                traceback.print_exc()
 
             print("✅ Patient dashboard UI created successfully!")
             self.update()
@@ -193,6 +212,7 @@ class PatientDashboard(ctk.CTkToplevel):
             print(f"❌ Error creating patient dashboard: {e}")
             import traceback
             traceback.print_exc()
+
 
     def create_sidebar(self, parent):
         """Create sidebar"""
@@ -318,6 +338,53 @@ class PatientDashboard(ctk.CTkToplevel):
         logout_btn.pack(fill='x', padx=20, pady=20, side='bottom')
 
         return sidebar
+
+    def create_info_item(self, parent, icon, value):
+        """Create info item in sidebar"""
+        item = ctk.CTkFrame(
+            parent, fg_color=COLORS['bg_light'], corner_radius=RADIUS['sm'])
+        item.pack(fill='x', pady=5)
+
+        content = ctk.CTkFrame(item, fg_color='transparent')
+        content.pack(fill='x', padx=10, pady=10)
+
+        icon_label = ctk.CTkLabel(
+            content,
+            text=icon,
+            font=('Segoe UI', 20)
+        )
+        icon_label.pack(side='left', padx=(0, 10))
+
+        value_label = ctk.CTkLabel(
+            content,
+            text=value,
+            font=FONTS['body_bold'],
+            text_color=COLORS['text_primary']
+        )
+        value_label.pack(side='left')
+
+    def show_emergency_card(self):
+        """Show emergency card"""
+        from gui.components.emergency_dialog import EmergencyDialog
+        dialog = EmergencyDialog(self, self.patient_data)
+        dialog.wait_window()
+
+    def show_link_accounts(self):
+        """Show link accounts dialog"""
+        dialog = LinkAccountsDialog(
+            self,
+            self.patient_data,
+            self.on_accounts_linked
+        )
+        dialog.wait_window()
+
+    def on_accounts_linked(self):
+        """Callback after accounts are linked"""
+        # Refresh patient data
+        self.patient_data = patient_manager.get_patient_by_id(
+            self.user_data.get('national_id')
+        )
+
     def download_records(self):
         """Download complete medical records as PDF"""
         try:
@@ -377,59 +444,6 @@ class PatientDashboard(ctk.CTkToplevel):
             messagebox.showerror("Error", f"Failed to download records: {str(e)}")
             import traceback
             traceback.print_exc()
-
-
-    def create_info_item(self, parent, icon, value):
-        """Create info item in sidebar"""
-        item = ctk.CTkFrame(
-            parent, fg_color=COLORS['bg_light'], corner_radius=RADIUS['sm'])
-        item.pack(fill='x', pady=5)
-
-        content = ctk.CTkFrame(item, fg_color='transparent')
-        content.pack(fill='x', padx=10, pady=10)
-
-        icon_label = ctk.CTkLabel(
-            content,
-            text=icon,
-            font=('Segoe UI', 20)
-        )
-        icon_label.pack(side='left', padx=(0, 10))
-
-        value_label = ctk.CTkLabel(
-            content,
-            text=value,
-            font=FONTS['body_bold'],
-            text_color=COLORS['text_primary']
-        )
-        value_label.pack(side='left')
-
-
-    def show_emergency_card(self):
-        """Show emergency card"""
-        from gui.components.emergency_dialog import EmergencyDialog
-        dialog = EmergencyDialog(self, self.patient_data)
-        dialog.wait_window()
-
-    def show_link_accounts(self):
-        """Show link accounts dialog"""
-        dialog = LinkAccountsDialog(
-            self,
-            self.patient_data,
-            self.on_accounts_linked
-        )
-        dialog.wait_window()
-
-    def on_accounts_linked(self):
-        """Callback after accounts are linked"""
-        # Refresh patient data
-        self.patient_data = patient_manager.get_patient_by_id(
-            self.user_data.get('national_id')
-        )
-
-    def download_records(self):
-        """Download medical records"""
-        messagebox.showinfo(
-            "Coming Soon", "Download Records feature coming in Phase 6!")
 
     def handle_logout(self):
         """Handle logout"""

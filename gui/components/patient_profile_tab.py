@@ -17,6 +17,8 @@ class PatientProfileTab(ctk.CTkFrame):
         self.user_data = user_data
         self.edit_mode = False
         
+        print(f"🔍 Creating PatientProfileTab for: {patient_data.get('full_name', 'Unknown')}")
+        
         self.create_ui()
     
     def create_ui(self):
@@ -133,20 +135,7 @@ class PatientProfileTab(ctk.CTkFrame):
         self.address_field = self.create_info_field(basic_grid, "Address", self.patient_data.get('address', 'N/A'), editable=True)
         
         # Emergency Contact Section
-        # In show_patient_profile method, add emergency button to patient card header:
-        emergency_btn = ctk.CTkButton(
-            header,
-            text="🆘 Emergency Info",
-            command=self.show_emergency_card,
-            font=FONTS['body_bold'],    
-            fg_color=COLORS['danger'],
-            hover_color='#dc2626',
-            height=40,
-            width=160
-        )
-        emergency_btn.pack(side='right')
         self.create_section_title(profile_content, "🆘  Emergency Contact")
-        
         
         emergency = self.patient_data.get('emergency_contact', {})
         
@@ -308,6 +297,8 @@ class PatientProfileTab(ctk.CTkFrame):
             hover_color='#059669'
         )
         save_btn.pack(fill='x')
+        
+        print("✅ PatientProfileTab created successfully")
     
     def create_section_title(self, parent, text):
         """Create section title"""
