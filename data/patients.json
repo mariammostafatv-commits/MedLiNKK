@@ -7,22 +7,22 @@
       "age": 29,
       "gender": "Male",
       "blood_type": "A+",
-
-      "nfc_card_uid": "04B5C6D7E8F9A0",
-      "nfc_card_assigned": true,
-      "nfc_card_assignment_date": "2024-11-25",
-      "nfc_card_type": "Mifare Classic 1K",
-      "nfc_card_status": "active",
-
-      "fingerprint_id": null,
-      "fingerprint_enrolled": false,
+      "phone": "01098765432",
+      "email": "mohamed.ali@email.com",
+      "address": "15 Tahrir Street, Cairo",
       "emergency_contact": {
-        "name": "dasdasdasd",
-        "relation": "dasdasdasdas",
-        "phone": "asdas"
+        "name": "Fatma Hassan",
+        "relation": "Mother",
+        "phone": "01123456789"
       },
-      "chronic_diseases": ["Asthma", "Hypertension"],
-      "allergies": ["Penicillin", "Peanuts"],
+      "chronic_diseases": [
+        "Asthma",
+        "Hypertension"
+      ],
+      "allergies": [
+        "Penicillin",
+        "Peanuts"
+      ],
       "current_medications": [
         {
           "name": "Ventolin Inhaler",
@@ -37,10 +37,149 @@
           "started_date": "2023-08-15"
         }
       ],
+      "surgeries": [
+        {
+          "surgery_id": "SRG001",
+          "date": "2020-03-15",
+          "procedure": "Appendectomy",
+          "hospital": "Cairo University Hospital",
+          "surgeon": "Dr. Hassan Mahmoud",
+          "complications": "None",
+          "notes": "Emergency appendicitis, successful recovery",
+          "recovery_time": "2 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP001",
+          "admission_date": "2020-03-14",
+          "discharge_date": "2020-03-17",
+          "reason": "Acute appendicitis",
+          "hospital": "Cairo University Hospital",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Hassan Mahmoud",
+          "diagnosis": "Acute appendicitis with peritonitis",
+          "treatment_summary": "Emergency appendectomy performed, antibiotics administered",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "EK9231",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "EK9845",
+          "next_dose_due": null
+        },
+        {
+          "vaccine_name": "Influenza",
+          "date_administered": "2024-10-01",
+          "dose_number": "Annual",
+          "location": "Local Clinic",
+          "batch_number": "FLU2024",
+          "next_dose_due": "2025-10-01"
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": false,
+          "age_at_death": 65,
+          "cause_of_death": "Heart attack",
+          "medical_conditions": [
+            "Hypertension",
+            "Diabetes Type 2",
+            "Coronary artery disease"
+          ]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "medical_conditions": [
+            "Hypertension",
+            "Arthritis"
+          ]
+        },
+        "siblings": [
+          {
+            "relation": "Brother",
+            "age": 32,
+            "medical_conditions": [
+              "Asthma"
+            ]
+          },
+          {
+            "relation": "Sister",
+            "age": 27,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": "OD123456",
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Fatma Hassan",
+          "relation": "Mother",
+          "phone": "01123456789",
+          "document_date": "2023-01-15"
+        },
+        "living_will": false,
+        "religious_preferences": {
+          "religion": "Islam",
+          "special_considerations": "Halal medications preferred, modesty requirements"
+        },
+        "blood_transfusion_consent": true,
+        "tissue_donation": true
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "3-4 times per week",
+        "exercise_type": "Running, Swimming",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [
+          "Peanut allergy"
+        ],
+        "occupation": "Software Engineer",
+        "occupation_hazards": [
+          "Sedentary work"
+        ],
+        "sleep_hours": 7,
+        "stress_level": "Moderate"
+      },
       "insurance": {
         "provider": "Misr Insurance",
         "policy_number": "INS123456",
-        "expiry": "2025-12-31"
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": true
       },
       "external_links": {
         "lab_account": "LAB789456",
@@ -48,7 +187,7 @@
         "pharmacy_id": "PHM456123"
       },
       "created_at": "2024-11-15 14:30:00",
-      "last_updated": "2024-11-27 10:00:00"
+      "last_updated": "2025-11-28 10:00:00"
     },
     {
       "national_id": "29012151234567",
@@ -65,7 +204,9 @@
         "relation": "Husband",
         "phone": "01234567890"
       },
-      "chronic_diseases": ["Type 2 Diabetes"],
+      "chronic_diseases": [
+        "Type 2 Diabetes"
+      ],
       "allergies": [],
       "current_medications": [
         {
@@ -75,14 +216,136 @@
           "started_date": "2022-03-20"
         }
       ],
+      "surgeries": [
+        {
+          "surgery_id": "SRG002",
+          "date": "2018-05-10",
+          "procedure": "Cesarean Section",
+          "hospital": "Qasr El Aini Hospital",
+          "surgeon": "Dr. Mona Farid",
+          "complications": "None",
+          "notes": "Delivery of healthy baby boy",
+          "recovery_time": "6 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP002",
+          "admission_date": "2018-05-09",
+          "discharge_date": "2018-05-12",
+          "reason": "Childbirth - Cesarean delivery",
+          "hospital": "Qasr El Aini Hospital",
+          "department": "Obstetrics",
+          "attending_doctor": "Dr. Mona Farid",
+          "diagnosis": "Term pregnancy, C-section delivery",
+          "treatment_summary": "Successful cesarean delivery, post-operative care",
+          "outcome": "Mother and baby healthy"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (AstraZeneca)",
+          "date_administered": "2021-08-01",
+          "dose_number": "1st dose",
+          "location": "Nasr City Health Center",
+          "batch_number": "AZ8765",
+          "next_dose_due": "2021-09-01"
+        },
+        {
+          "vaccine_name": "COVID-19 (AstraZeneca)",
+          "date_administered": "2021-09-05",
+          "dose_number": "2nd dose",
+          "location": "Nasr City Health Center",
+          "batch_number": "AZ8821",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 68,
+          "medical_conditions": [
+            "Diabetes Type 2",
+            "Hypertension"
+          ]
+        },
+        "mother": {
+          "alive": true,
+          "age": 65,
+          "medical_conditions": [
+            "Diabetes Type 2",
+            "Osteoporosis"
+          ]
+        },
+        "siblings": [
+          {
+            "relation": "Sister",
+            "age": 30,
+            "medical_conditions": [
+              "Gestational diabetes (previous)"
+            ]
+          }
+        ],
+        "genetic_conditions": [
+          "Strong family history of Type 2 Diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Ahmed Ibrahim",
+          "relation": "Husband",
+          "phone": "01234567890",
+          "document_date": "2022-06-20"
+        },
+        "living_will": false,
+        "religious_preferences": {
+          "religion": "Islam",
+          "special_considerations": "Female doctors preferred for examinations"
+        },
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "2-3 times per week",
+        "exercise_type": "Walking, Yoga",
+        "diet_type": "Diabetic diet",
+        "dietary_restrictions": [
+          "Low sugar",
+          "Limited carbohydrates"
+        ],
+        "occupation": "Teacher",
+        "occupation_hazards": [],
+        "sleep_hours": 6,
+        "stress_level": "Moderate to High"
+      },
       "insurance": {
         "provider": "Egyptian General Insurance",
         "policy_number": "INS789012",
-        "expiry": "2025-06-30"
+        "expiry": "2025-06-30",
+        "coverage_type": "Basic",
+        "pre_authorization_required": false
       },
       "external_links": {},
       "created_at": "2024-11-10 09:15:00",
-      "last_updated": "2024-11-20 15:30:00"
+      "last_updated": "2025-11-28 10:00:00"
     }
   ]
 }
