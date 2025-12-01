@@ -381,9 +381,9 @@ class DoctorDashboard(ctk.CTkToplevel):
             profile_scroll.pack(fill='both', expand=True, padx=10, pady=10)
             
             # Enhanced Patient Card (Phase 3 - with badges)
-            from gui.components.patient_card import EnhancedPatientCard
+            from gui.components.patient_card import PatientCard
             
-            patient_card = EnhancedPatientCard(profile_scroll, patient)
+            patient_card = PatientCard(profile_scroll, patient)
             patient_card.pack(fill='both', expand=True)
             
             # ========================================

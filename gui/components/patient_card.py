@@ -8,7 +8,7 @@ from core.disability_manager import disability_manager
 from utils.date_utils import calculate_age
 
 
-class EnhancedPatientCard(ctk.CTkFrame):
+class PatientCard(ctk.CTkFrame):
     """Enhanced patient card with medical status badges"""
     
     def __init__(self, parent, patient_data):

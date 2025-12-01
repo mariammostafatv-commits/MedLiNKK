@@ -1,5 +1,7 @@
 """
-PDF generation for emergency cards and medical records
+Enhanced PDF generation for emergency cards with Phase 8 comprehensive data
+Includes: surgeries, hospitalizations, disabilities, DNR status, organ donor, vaccinations
+Location: utils/pdf_generator_enhanced.py
 """
 from reportlab.lib.pagesizes import letter, A4
 from reportlab.lib.units import inch
@@ -14,12 +16,12 @@ from utils.qr_generator import generate_patient_qr, qr_to_bytes
 import io
 
 
-def generate_emergency_card(patient_data: dict, output_path: str) -> bool:
+def generate_emergency_card_enhanced(patient_data: dict, output_path: str) -> bool:
     """
-    Generate emergency card PDF for patient
+    Generate comprehensive emergency card PDF with Phase 8 data
 
     Args:
-        patient_data: Patient information dictionary
+        patient_data: Complete patient information dictionary
         output_path: Path to save PDF
 
     Returns:
@@ -30,7 +32,9 @@ def generate_emergency_card(patient_data: dict, output_path: str) -> bool:
         pdf = canvas.Canvas(output_path, pagesize=letter)
         width, height = letter
 
-        # Header - Red background
+        # ========================================
+        # HEADER - Red Emergency Banner
+        # ========================================
         pdf.setFillColorRGB(0.93, 0.26, 0.26)  # Red
         pdf.rect(0, height - 2*inch, width, 2*inch, fill=True, stroke=False)
 
@@ -41,95 +45,267 @@ def generate_emergency_card(patient_data: dict, output_path: str) -> bool:
 
         pdf.setFont("Helvetica", 14)
         pdf.drawCentredString(width/2, height - 1.5*inch,
-                              "Medical Records System")
+                              "Medical Records System - Comprehensive Profile")
 
-        # Patient Name - Large
+        # ========================================
+        # PATIENT NAME - Large and Bold
+        # ========================================
+        y_position = height - 2.5*inch
+
         pdf.setFillColorRGB(0, 0, 0)
         pdf.setFont("Helvetica-Bold", 24)
-        pdf.drawCentredString(width/2, height - 2.5*inch,
-                              patient_data.get('full_name', 'N/A'))
+        pdf.drawString(1*inch, y_position,
+                       patient_data.get('full_name', 'N/A'))
 
-        # National ID
-        pdf.setFont("Helvetica", 12)
-        pdf.setFillColorRGB(0.4, 0.4, 0.4)
-        pdf.drawCentredString(width/2, height - 2.9*inch,
-                              f"ID: {patient_data.get('national_id', 'N/A')}")
+        y_position -= 0.4*inch
 
-        # Divider line
-        pdf.setStrokeColorRGB(0.8, 0.8, 0.8)
-        pdf.setLineWidth(1)
-        pdf.line(1*inch, height - 3.2*inch, width - 1*inch, height - 3.2*inch)
+        # ========================================
+        # CRITICAL INFORMATION BOX
+        # ========================================
+        pdf.setFillColorRGB(1, 0.95, 0.95)  # Light red background
+        pdf.roundRect(1*inch, y_position - 2.2*inch, width -
+                      2*inch, 2.3*inch, 0.15*inch, fill=True)
 
-        # Critical Information Section
-        y_position = height - 3.7*inch
-
-        # Blood Type - Highlighted
-        pdf.setFillColorRGB(0.93, 0.26, 0.26)
-        pdf.roundRect(1*inch, y_position - 0.3*inch, 2 *
-                      inch, 0.5*inch, 0.1*inch, fill=True)
-        pdf.setFillColorRGB(1, 1, 1)
-        pdf.setFont("Helvetica-Bold", 16)
-        pdf.drawString(1.2*inch, y_position - 0.1*inch,
-                       f"🩸 {patient_data.get('blood_type', 'Unknown')}")
-
-        # Age & Gender
         pdf.setFillColorRGB(0, 0, 0)
-        pdf.setFont("Helvetica", 12)
-        pdf.drawString(3.5*inch, y_position,
-                       f"Age: {patient_data.get('age', 'N/A')} years")
-        pdf.drawString(5*inch, y_position,
-                       f"Gender: {patient_data.get('gender', 'N/A')}")
 
+        # Blood Type - LARGE
+        pdf.setFont("Helvetica-Bold", 18)
+        blood_type = patient_data.get('blood_type', 'Unknown')
+        pdf.drawString(1.2*inch, y_position - 0.3*inch, "🩸 Blood Type:")
+
+        pdf.setFillColorRGB(0.8, 0, 0)  # Red text
+        pdf.setFont("Helvetica-Bold", 32)
+        pdf.drawString(3.5*inch, y_position - 0.45*inch, blood_type)
+
+        pdf.setFillColorRGB(0, 0, 0)
         y_position -= 0.8*inch
 
-        # Allergies - Red box if present
+        # Age and Gender
+        pdf.setFont("Helvetica", 12)
+        age = patient_data.get('age', 'N/A')
+        gender = patient_data.get('gender', 'N/A')
+        pdf.drawString(1.2*inch, y_position,
+                       f"Age: {age} | Gender: {gender}")
+
+        y_position -= 0.25*inch
+
+        # National ID
+        pdf.drawString(1.2*inch, y_position,
+                       f"National ID: {patient_data.get('national_id', 'N/A')}")
+
+        y_position -= 0.4*inch
+
+        # ========================================
+        # ALLERGIES - Highlighted
+        # ========================================
         allergies = patient_data.get('allergies', [])
         if allergies:
-            pdf.setFillColorRGB(1, 0.95, 0.95)
-            pdf.roundRect(1*inch, y_position - 0.8*inch, width -
-                          2*inch, 1*inch, 0.1*inch, fill=True)
-
-            pdf.setFillColorRGB(0.8, 0, 0)
             pdf.setFont("Helvetica-Bold", 14)
-            pdf.drawString(1.2*inch, y_position - 0.2*inch, "⚠️ ALLERGIES:")
+            pdf.setFillColorRGB(0.8, 0, 0)  # Red
+            pdf.drawString(1.2*inch, y_position, "⚠️  ALLERGIES:")
 
-            pdf.setFillColorRGB(0, 0, 0)
-            pdf.setFont("Helvetica", 11)
-            allergy_text = ", ".join(allergies)
-            pdf.drawString(1.2*inch, y_position - 0.5*inch, allergy_text)
+            pdf.setFont("Helvetica-Bold", 12)
+            pdf.setFillColorRGB(0.6, 0, 0)
+            allergies_text = ", ".join(allergies)
+            pdf.drawString(1.2*inch, y_position - 0.25*inch, allergies_text)
 
-            y_position -= 1.2*inch
+            y_position -= 0.6*inch
         else:
             pdf.setFont("Helvetica", 11)
-            pdf.drawString(1*inch, y_position, "✓ No known allergies")
-            y_position -= 0.4*inch
+            pdf.drawString(1.2*inch, y_position, "⚠️  No known allergies")
+            y_position -= 0.35*inch
 
-        # Chronic Diseases
+        # ========================================
+        # CHRONIC DISEASES
+        # ========================================
         chronic = patient_data.get('chronic_diseases', [])
         if chronic:
             pdf.setFont("Helvetica-Bold", 12)
-            pdf.drawString(1*inch, y_position, "🏥 Chronic Conditions:")
-            pdf.setFont("Helvetica", 11)
-            chronic_text = ", ".join(chronic)
-            pdf.drawString(1*inch, y_position - 0.25*inch, chronic_text)
-            y_position -= 0.6*inch
+            pdf.setFillColorRGB(0, 0, 0)
+            pdf.drawString(1.2*inch, y_position, "🏥 Chronic Conditions:")
 
-        # Current Medications
-        medications = patient_data.get('current_medications', [])
-        if medications:
+            pdf.setFont("Helvetica", 11)
+            pdf.drawString(1.2*inch, y_position - 0.25*inch,
+                           ", ".join(chronic))
+
+            y_position -= 0.5*inch
+
+        y_position -= 0.2*inch
+
+        # ========================================
+        # PHASE 8: EMERGENCY DIRECTIVES
+        # ========================================
+        directives = patient_data.get('emergency_directives', {})
+
+        # DNR Status
+        if directives.get('dnr_status'):
+            pdf.setFillColorRGB(1, 0.9, 0.9)  # Very light red
+            pdf.roundRect(1*inch, y_position - 0.55*inch, 3 *
+                          inch, 0.6*inch, 0.1*inch, fill=True)
+
+            pdf.setFillColorRGB(0.8, 0, 0)
             pdf.setFont("Helvetica-Bold", 12)
-            pdf.drawString(1*inch, y_position, "💊 Current Medications:")
-            y_position -= 0.3*inch
+            pdf.drawString(1.2*inch, y_position - 0.25*inch,
+                           "⛔ DNR (DO NOT RESUSCITATE)")
+
+            dnr_date = directives.get('dnr_date', 'Date not specified')
+            pdf.setFont("Helvetica", 9)
+            pdf.drawString(1.2*inch, y_position - 0.45 *
+                           inch, f"Date: {dnr_date}")
+
+            y_position -= 0.75*inch
+
+        # Organ Donor Status
+        if directives.get('organ_donor'):
+            pdf.setFillColorRGB(0.9, 1, 0.9)  # Light green
+            pdf.roundRect(1*inch, y_position - 0.45*inch, 2.5 *
+                          inch, 0.5*inch, 0.1*inch, fill=True)
+
+            pdf.setFillColorRGB(0, 0.5, 0)
+            pdf.setFont("Helvetica-Bold", 11)
+            pdf.drawString(1.2*inch, y_position - 0.3*inch, "💚 ORGAN DONOR")
+
+            y_position -= 0.65*inch
+
+        # Religious Preferences
+        religious = directives.get('religious_preferences', {})
+        if religious.get('religion') or religious.get('special_considerations'):
+            pdf.setFillColorRGB(0, 0, 0)
+            pdf.setFont("Helvetica-Bold", 11)
+            pdf.drawString(1*inch, y_position, "🕌 Religious Considerations:")
 
             pdf.setFont("Helvetica", 10)
-            for i, med in enumerate(medications[:3], 1):  # Show first 3
-                med_text = f"{i}. {med.get('name', 'N/A')} - {med.get('dosage', '')} {med.get('frequency', '')}"
-                pdf.drawString(1.2*inch, y_position, med_text)
-                y_position -= 0.25*inch
+            if religious.get('religion'):
+                pdf.drawString(1.2*inch, y_position - 0.25*inch,
+                               f"Religion: {religious['religion']}")
 
-            y_position -= 0.2*inch
+            if religious.get('special_considerations'):
+                considerations = religious['special_considerations']
+                if len(considerations) > 60:
+                    considerations = considerations[:57] + "..."
+                pdf.drawString(1.2*inch, y_position -
+                               0.45*inch, considerations)
+                y_position -= 0.65*inch
+            else:
+                y_position -= 0.4*inch
 
-        # Emergency Contact
+        # ========================================
+        # PHASE 8: DISABILITIES / SPECIAL NEEDS
+        # ========================================
+        disability_info = patient_data.get('disabilities_special_needs', {})
+
+        if disability_info.get('has_disability'):
+            pdf.setFillColorRGB(0.95, 0.95, 1)  # Light blue
+            pdf.roundRect(1*inch, y_position - 0.9*inch, width -
+                          2*inch, 1*inch, 0.1*inch, fill=True)
+
+            pdf.setFillColorRGB(0, 0, 0)
+            pdf.setFont("Helvetica-Bold", 11)
+            pdf.drawString(1.2*inch, y_position - 0.25*inch,
+                           "♿ Disability / Special Needs:")
+
+            pdf.setFont("Helvetica", 10)
+
+            if disability_info.get('disability_type'):
+                pdf.drawString(1.2*inch, y_position - 0.45*inch,
+                               f"Type: {disability_info['disability_type']}")
+
+            # Communication needs
+            if disability_info.get('communication_needs'):
+                needs_text = ", ".join(
+                    disability_info['communication_needs'][:3])
+                pdf.drawString(1.2*inch, y_position - 0.65*inch,
+                               f"Communication: {needs_text}")
+
+            # Accessibility requirements
+            if disability_info.get('accessibility_requirements'):
+                access_text = ", ".join(
+                    disability_info['accessibility_requirements'][:3])
+                pdf.drawString(1.2*inch, y_position - 0.85*inch,
+                               f"Accessibility: {access_text}")
+
+            y_position -= 1.1*inch
+
+        # ========================================
+        # CURRENT MEDICATIONS
+        # ========================================
+        medications = patient_data.get('current_medications', [])
+        if medications:
+            pdf.setFillColorRGB(0.95, 0.98, 1)  # Very light blue
+            pdf.roundRect(1*inch, y_position - (0.3*inch + len(medications[:4]) * 0.25*inch),
+                          width - 2*inch, 0.4*inch +
+                          len(medications[:4]) * 0.25*inch,
+                          0.1*inch, fill=True)
+
+            pdf.setFillColorRGB(0, 0, 0)
+            pdf.setFont("Helvetica-Bold", 11)
+            pdf.drawString(1.2*inch, y_position - 0.2 *
+                           inch, "💊 Current Medications:")
+
+            pdf.setFont("Helvetica", 9)
+            for i, med in enumerate(medications[:4]):  # Show max 4
+                med_text = f"{med.get('name', 'N/A')} - {med.get(
+                    'dosage', '')} {med.get('frequency', '')}"
+                pdf.drawString(1.2*inch, y_position -
+                               (0.4 + i * 0.25)*inch, med_text)
+
+            y_position -= (0.5 + len(medications[:4]) * 0.25)*inch
+
+        # ========================================
+        # PHASE 8: RECENT SURGERIES
+        # ========================================
+        surgeries = patient_data.get('surgeries', [])
+        if surgeries:
+            # Show most recent surgery
+            recent_surgery = sorted(
+                surgeries, key=lambda x: x.get('date', ''), reverse=True)[0]
+
+            pdf.setFillColorRGB(1, 0.98, 0.95)  # Light orange
+            pdf.roundRect(1*inch, y_position - 0.7*inch, width -
+                          2*inch, 0.8*inch, 0.1*inch, fill=True)
+
+            pdf.setFillColorRGB(0, 0, 0)
+            pdf.setFont("Helvetica-Bold", 11)
+            pdf.drawString(1.2*inch, y_position - 0.2 *
+                           inch, "🏥 Recent Surgery:")
+
+            pdf.setFont("Helvetica", 10)
+            pdf.drawString(1.2*inch, y_position - 0.4*inch,
+                           f"{recent_surgery.get('procedure', 'N/A')} - {recent_surgery.get('date', 'N/A')}")
+            pdf.drawString(1.2*inch, y_position - 0.6*inch,
+                           f"Hospital: {recent_surgery.get('hospital', 'N/A')}")
+
+            y_position -= 0.9*inch
+
+        # ========================================
+        # PHASE 8: RECENT HOSPITALIZATION
+        # ========================================
+        hospitalizations = patient_data.get('hospitalizations', [])
+        if hospitalizations:
+            # Show most recent hospitalization
+            recent_hosp = sorted(hospitalizations, key=lambda x: x.get(
+                'admission_date', ''), reverse=True)[0]
+
+            pdf.setFillColorRGB(0.98, 0.95, 1)  # Light purple
+            pdf.roundRect(1*inch, y_position - 0.7*inch, width -
+                          2*inch, 0.8*inch, 0.1*inch, fill=True)
+
+            pdf.setFillColorRGB(0, 0, 0)
+            pdf.setFont("Helvetica-Bold", 11)
+            pdf.drawString(1.2*inch, y_position - 0.2*inch,
+                           "🏥 Recent Hospitalization:")
+
+            pdf.setFont("Helvetica", 10)
+            pdf.drawString(1.2*inch, y_position - 0.4*inch,
+                           f"{recent_hosp.get('reason', 'N/A')}")
+            pdf.drawString(1.2*inch, y_position - 0.6*inch,
+                           f"{recent_hosp.get('admission_date', 'N/A')} to {recent_hosp.get('discharge_date', 'N/A')}")
+
+            y_position -= 0.9*inch
+
+        # ========================================
+        # EMERGENCY CONTACT
+        # ========================================
         emergency = patient_data.get('emergency_contact', {})
         if emergency:
             pdf.setFillColorRGB(0.95, 0.98, 1)
@@ -147,196 +323,58 @@ def generate_emergency_card(patient_data: dict, output_path: str) -> bool:
             pdf.drawString(1.2*inch, y_position - 0.7*inch,
                            f"Phone: {emergency.get('phone', 'N/A')}")
 
-            y_position -= 1.3*inch
+            y_position -= 1.2*inch
 
-        # QR Code
+        # ========================================
+        # QR CODE
+        # ========================================
         try:
             qr_img = generate_patient_qr(patient_data.get('national_id', ''))
             qr_bytes = qr_to_bytes(qr_img)
-            qr_image = RLImage(io.BytesIO(qr_bytes),
-                               width=1.5*inch, height=1.5*inch)
 
             # Draw QR code
             pdf.drawImage(RLImage(io.BytesIO(qr_bytes), width=1.5*inch, height=1.5*inch),
-                          width - 2.5*inch, 1*inch, width=1.5*inch, height=1.5*inch,
+                          width - 2.5*inch, 0.8*inch, width=1.5*inch, height=1.5*inch,
                           preserveAspectRatio=True, mask='auto')
 
             pdf.setFont("Helvetica", 8)
             pdf.setFillColorRGB(0.5, 0.5, 0.5)
-            pdf.drawCentredString(width - 1.75*inch, 0.7 *
-                                  inch, "Scan for quick access")
+            pdf.drawCentredString(width - 1.75*inch, 0.5 *
+                                  inch, "Scan for full records")
         except Exception as e:
             print(f"QR code generation error: {e}")
 
-        # Footer
+        # ========================================
+        # FOOTER
+        # ========================================
         pdf.setFont("Helvetica", 8)
         pdf.setFillColorRGB(0.5, 0.5, 0.5)
         pdf.drawString(
-            1*inch, 0.7*inch, f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+            1*inch, 0.5*inch, f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
         pdf.drawCentredString(
-            width/2, 0.5*inch, "MedLink - Unified Medical Records System")
+            width/2, 0.3*inch, "MedLink - Unified Medical Records System")
 
         # Instructions at bottom
         pdf.setFont("Helvetica-Bold", 9)
         pdf.setFillColorRGB(0, 0, 0)
-        pdf.drawString(1*inch, 0.3*inch,
-                       "⚠️ KEEP THIS CARD WITH YOU AT ALL TIMES")
+        pdf.drawString(1*inch, 0.15*inch,
+                       "⚠️ KEEP THIS CARD WITH YOU AT ALL TIMES - Updated with comprehensive medical profile")
 
         # Save PDF
         pdf.save()
         return True
 
     except Exception as e:
-        print(f"Error generating emergency card: {e}")
-        return False
-
-
-def generate_medical_record_pdf(patient_data: dict, visits: list,
-                                lab_results: list, imaging_results: list,
-                                output_path: str) -> bool:
-    """
-    Generate complete medical record PDF
-
-    Args:
-        patient_data: Patient information
-        visits: List of visits
-        lab_results: List of lab results
-        imaging_results: List of imaging results
-        output_path: Path to save PDF
-
-    Returns:
-        Success boolean
-    """
-    try:
-        doc = SimpleDocTemplate(output_path, pagesize=letter)
-        story = []
-        styles = getSampleStyleSheet()
-
-        # Custom styles
-        title_style = ParagraphStyle(
-            'CustomTitle',
-            parent=styles['Heading1'],
-            fontSize=24,
-            textColor=colors.HexColor('#2563eb'),
-            spaceAfter=30,
-            alignment=TA_CENTER
-        )
-
-        heading_style = ParagraphStyle(
-            'CustomHeading',
-            parent=styles['Heading2'],
-            fontSize=16,
-            textColor=colors.HexColor('#1e293b'),
-            spaceAfter=12,
-            spaceBefore=20
-        )
-
-        # Title
-        story.append(Paragraph("🏥 Medical Records Report", title_style))
-        story.append(Spacer(1, 0.3*inch))
-
-        # Patient Information
-        story.append(Paragraph("Patient Information", heading_style))
-
-        patient_info = [
-            ['Full Name:', patient_data.get('full_name', 'N/A')],
-            ['National ID:', patient_data.get('national_id', 'N/A')],
-            ['Date of Birth:', patient_data.get('date_of_birth', 'N/A')],
-            ['Age:', f"{patient_data.get('age', 'N/A')} years"],
-            ['Gender:', patient_data.get('gender', 'N/A')],
-            ['Blood Type:', patient_data.get('blood_type', 'N/A')],
-            ['Phone:', patient_data.get('phone', 'N/A')],
-        ]
-
-        patient_table = Table(patient_info, colWidths=[2*inch, 4*inch])
-        patient_table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f1f5f9')),
-            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, -1), 10),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
-            ('TOPPADDING', (0, 0), (-1, -1), 8),
-            ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
-        ]))
-
-        story.append(patient_table)
-        story.append(Spacer(1, 0.3*inch))
-
-        # Medical Alerts
-        allergies = patient_data.get('allergies', [])
-        chronic = patient_data.get('chronic_diseases', [])
-
-        if allergies or chronic:
-            story.append(Paragraph("⚠️ Medical Alerts", heading_style))
-
-            if allergies:
-                story.append(
-                    Paragraph(f"<b>Allergies:</b> {', '.join(allergies)}", styles['Normal']))
-            if chronic:
-                story.append(Paragraph(
-                    f"<b>Chronic Conditions:</b> {', '.join(chronic)}", styles['Normal']))
-
-            story.append(Spacer(1, 0.2*inch))
-
-        # Visit Summary
-        story.append(
-            Paragraph(f"📋 Medical Visits ({len(visits)} total)", heading_style))
-
-        if visits:
-            for visit in visits[:10]:  # Show last 10
-                visit_text = f"<b>{visit.get('date', 'N/A')}</b> - {visit.get('doctor_name', 'N/A')}<br/>"
-                visit_text += f"Diagnosis: {visit.get('diagnosis', 'N/A')}"
-                story.append(Paragraph(visit_text, styles['Normal']))
-                story.append(Spacer(1, 0.1*inch))
-        else:
-            story.append(Paragraph("No visits recorded", styles['Normal']))
-
-        story.append(Spacer(1, 0.2*inch))
-
-        # Lab Results Summary
-        story.append(
-            Paragraph(f"🧪 Lab Results ({len(lab_results)} total)", heading_style))
-
-        if lab_results:
-            for result in lab_results[:5]:  # Show last 5
-                lab_text = f"<b>{result.get('date', 'N/A')}</b> - {result.get('test_type', 'N/A')}<br/>"
-                lab_text += f"Lab: {result.get('lab_name', 'N/A')} | Status: {result.get('status', 'N/A')}"
-                story.append(Paragraph(lab_text, styles['Normal']))
-                story.append(Spacer(1, 0.1*inch))
-        else:
-            story.append(
-                Paragraph("No lab results recorded", styles['Normal']))
-
-        story.append(Spacer(1, 0.2*inch))
-
-        # Imaging Results Summary
-        story.append(
-            Paragraph(f"📷 Imaging Results ({len(imaging_results)} total)", heading_style))
-
-        if imaging_results:
-            for result in imaging_results[:5]:  # Show last 5
-                imaging_text = f"<b>{result.get('date', 'N/A')}</b> - {result.get('imaging_type', 'N/A')}<br/>"
-                imaging_text += f"Body Part: {result.get('body_part', 'N/A')} | Center: {result.get('imaging_center', 'N/A')}"
-                story.append(Paragraph(imaging_text, styles['Normal']))
-                story.append(Spacer(1, 0.1*inch))
-        else:
-            story.append(
-                Paragraph("No imaging results recorded", styles['Normal']))
-
-        # Footer
-        story.append(Spacer(1, 0.5*inch))
-        footer_text = f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')} | MedLink Medical Records System"
-        story.append(Paragraph(footer_text, ParagraphStyle('Footer', parent=styles['Normal'],
-                                                           fontSize=8, textColor=colors.grey,
-                                                           alignment=TA_CENTER)))
-
-        # Build PDF
-        doc.build(story)
-        return True
-
-    except Exception as e:
-        print(f"Error generating medical record PDF: {e}")
+        print(f"Error generating enhanced emergency card: {e}")
         import traceback
         traceback.print_exc()
         return False
+
+
+# Keep original function for backward compatibility
+def generate_emergency_card(patient_data: dict, output_path: str) -> bool:
+    """
+    Wrapper function - calls enhanced version
+    Maintains backward compatibility
+    """
+    return generate_emergency_card_enhanced(patient_data, output_path)
