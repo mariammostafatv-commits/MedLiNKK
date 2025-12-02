@@ -226,6 +226,16 @@ class EmergencyDialog(ctk.CTkToplevel):
 
         # Current Medications
         medications = self.patient_data.get('current_medications', [])
+       
+        if medications:
+            # Extract medication names from dictionaries
+            if isinstance(medications[0], dict):
+                med_names = [med.get('name', 'Unknown') for med in medications[:3]]
+            else:
+                med_names = medications[:3]
+            
+            med_text = "💊 Medications: " + ", ".join(med_names)
+ 
         if medications:
             meds_frame = ctk.CTkFrame(
                 content_scroll,

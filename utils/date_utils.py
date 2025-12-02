@@ -242,6 +242,25 @@ def get_age_group(age: int) -> str:
         return "Elderly"
 
 
+def format_datetime(date_str: str, time_str: str) -> str:
+    """
+    Format date and time to readable format
+
+    Args:
+        date_str: Date in YYYY-MM-DD format
+        time_str: Time in HH:MM format
+
+    Returns:
+        Formatted datetime string (e.g., "Jan 15, 2024 at 10:30 AM")
+    """
+    try:
+        datetime_str = f"{date_str} {time_str}"
+        dt = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
+        return dt.strftime("%b %d, %Y at %I:%M %p")
+    except:
+        return f"{date_str} {time_str}"
+
+
 def format_date_arabic(date_str: str, format_str: str = '%Y-%m-%d') -> str:
     """
     Format date with Arabic month names
@@ -282,6 +301,40 @@ def is_valid_date(date_str: str) -> bool:
 # For backwards compatibility
 
 
+def time_ago(date_str: str) -> str:
+    """
+    Get human-readable time ago
+
+    Args:
+        date_str: Date in YYYY-MM-DD format
+
+    Returns:
+        Time ago string (e.g., "2 days ago", "3 months ago")
+    """
+    try:
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d")
+        now = datetime.now()
+        diff = now - date_obj
+
+        if diff.days == 0:
+            return "Today"
+        elif diff.days == 1:
+            return "Yesterday"
+        elif diff.days < 7:
+            return f"{diff.days} days ago"
+        elif diff.days < 30:
+            weeks = diff.days // 7
+            return f"{weeks} week{'s' if weeks > 1 else ''} ago"
+        elif diff.days < 365:
+            months = diff.days // 30
+            return f"{months} month{'s' if months > 1 else ''} ago"
+        else:
+            years = diff.days // 365
+            return f"{years} year{'s' if years > 1 else ''} ago"
+    except:
+        return date_str
+
+
 def get_age_from_dob(dob: str) -> int:
     """
     Alias for calculate_age for backwards compatibility
@@ -294,12 +347,14 @@ def get_age_from_dob(dob: str) -> int:
     """
     return calculate_age(dob)
 
+
 def parse_date(date_str: str) -> Optional[datetime]:
     """Parse date string to datetime object"""
     try:
         return datetime.strptime(date_str, "%Y-%m-%d")
     except:
         return None
+
 
 if __name__ == "__main__":
     # Test functions

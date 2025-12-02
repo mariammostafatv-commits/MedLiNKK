@@ -42,6 +42,7 @@ FONTS = {
     'body': ('Segoe UI', 12),
     'body_bold': ('Segoe UI', 12, 'bold'),
     'small': ('Segoe UI', 10),
+    'small_bold': ('Segoe UI', 10, 'bold'),
     'code': ('Consolas', 11),
 }
 
@@ -59,7 +60,8 @@ RADIUS = {
     'sm': 4,
     'md': 8,
     'lg': 12,
-    'full': 16,
+    'xl': 16,
+    'full': 40  # ← ADD THIS LINE
 }
 
 

@@ -1,34 +1,53 @@
 """
-Enhanced patient card - Shows patient info with medical badges
-Location: gui/components/enhanced_patient_card.py
+Patient Card Component - FIXED VERSION
+Displays patient information in a card format
+Location: gui/components/patient_card.py
 """
 import customtkinter as ctk
 from gui.styles import *
-from core.disability_manager import disability_manager
-from utils.date_utils import calculate_age
 
 
 class PatientCard(ctk.CTkFrame):
-    """Enhanced patient card with medical status badges"""
-    
-    def __init__(self, parent, patient_data):
-        super().__init__(
-            parent,
-            fg_color=COLORS['bg_medium'],
-            corner_radius=RADIUS['lg']
-        )
+    def __init__(self, parent, patient_data, on_emergency=None):
+        """
+        Initialize patient card
+        
+        Args:
+            parent: Parent widget
+            patient_data: Dictionary containing patient information
+            on_emergency: Optional callback function for emergency button
+        """
+        super().__init__(parent, fg_color=COLORS['bg_medium'], corner_radius=RADIUS['lg'])
         
         self.patient_data = patient_data
+        self.on_emergency = on_emergency  # Store callback
+        if self.on_emergency:
+            self.create_emergency_button(container)
+        
         self.create_ui()
     
     def create_ui(self):
-        """Create enhanced patient card UI"""
-        # Main content
-        content = ctk.CTkFrame(self, fg_color='transparent')
-        content.pack(fill='both', expand=True, padx=20, pady=20)
+        """Create the patient card UI"""
+        # Main container with padding
+        container = ctk.CTkFrame(self, fg_color='transparent')
+        container.pack(fill='both', expand=True, padx=20, pady=20)
         
-        # Header with photo placeholder and basic info
-        header = ctk.CTkFrame(content, fg_color='transparent')
+        # Header section
+        self.create_header(container)
+        
+        # Basic info section
+        self.create_basic_info(container)
+        
+        # Medical summary section
+        self.create_medical_summary(container)
+        
+        # Emergency button (if callback provided)
+        if self.on_emergency:
+            self.create_emergency_button(container)
+    
+    def create_header(self, parent):
+        """Create patient header with photo and name"""
+        header = ctk.CTkFrame(parent, fg_color='transparent')
         header.pack(fill='x', pady=(0, 15))
         
         # Photo placeholder
@@ -37,267 +56,188 @@ class PatientCard(ctk.CTkFrame):
             width=80,
             height=80,
             fg_color=COLORS['primary'],
-            corner_radius=RADIUS['full']
+            corner_radius=40  # Fixed: Use number instead of RADIUS['full']
         )
         photo_frame.pack(side='left', padx=(0, 15))
         photo_frame.pack_propagate(False)
         
-        initials = self.get_initials()
-        photo_label = ctk.CTkLabel(
+        # Initials in photo
+        initials = self.get_initials(self.patient_data.get('full_name', 'N/A'))
+        initials_label = ctk.CTkLabel(
             photo_frame,
             text=initials,
-            font=('Segoe UI', 32, 'bold'),
+            font=('Segoe UI', 28, 'bold'),
             text_color='white'
         )
-        photo_label.place(relx=0.5, rely=0.5, anchor='center')
+        initials_label.place(relx=0.5, rely=0.5, anchor='center')
         
-        # Patient info
+        # Name and ID
         info_frame = ctk.CTkFrame(header, fg_color='transparent')
         info_frame.pack(side='left', fill='both', expand=True)
         
-        # Name
+        # Patient name
         name_label = ctk.CTkLabel(
             info_frame,
-            text=self.patient_data.get('full_name', 'N/A'),
+            text=self.patient_data.get('full_name', 'Unknown Patient'),
             font=FONTS['heading'],
-            text_color=COLORS['text_primary']
+            text_color=COLORS['text_primary'],
+            anchor='w'
         )
         name_label.pack(anchor='w')
         
-        # Age, Gender, Blood Type
-        age = calculate_age(self.patient_data.get('date_of_birth', ''))
-        gender = self.patient_data.get('gender', 'N/A')
-        blood_type = self.patient_data.get('blood_type', 'N/A')
-        
-        demographics = f"{age} years • {gender} • Blood Type: {blood_type}"
-        demo_label = ctk.CTkLabel(
-            info_frame,
-            text=demographics,
-            font=FONTS['body'],
-            text_color=COLORS['text_secondary']
-        )
-        demo_label.pack(anchor='w', pady=(5, 0))
-        
         # National ID
-        national_id = self.patient_data.get('national_id', 'N/A')
         id_label = ctk.CTkLabel(
             info_frame,
-            text=f"ID: {national_id}",
-            font=FONTS['small'],
-            text_color=COLORS['text_secondary']
+            text=f"📋 ID: {self.patient_data.get('national_id', 'N/A')}",
+            font=FONTS['body'],
+            text_color=COLORS['text_secondary'],
+            anchor='w'
         )
-        id_label.pack(anchor='w', pady=(3, 0))
-        
-        # Badges Section
-        self.create_badges(content)
-        
-        # Divider
-        divider = ctk.CTkFrame(content, height=1, fg_color=COLORS['bg_light'])
-        divider.pack(fill='x', pady=15)
-        
-        # Contact Information
-        self.create_contact_info(content)
-        
-        # Medical Summary
-        self.create_medical_summary(content)
+        id_label.pack(anchor='w', pady=(2, 0))
     
-    def create_badges(self, parent):
-        """Create status badges"""
-        badge_frame = ctk.CTkFrame(parent, fg_color='transparent')
-        badge_frame.pack(fill='x', pady=(0, 10))
+    def create_basic_info(self, parent):
+        """Create basic patient information grid"""
+        info_frame = ctk.CTkFrame(parent, fg_color=COLORS['bg_light'], corner_radius=RADIUS['md'])
+        info_frame.pack(fill='x', pady=(0, 15))
         
-        # Check for disability
-        disability_info = disability_manager.get_disability_info(
-            self.patient_data.get('national_id')
-        )
+        # Info grid
+        grid = ctk.CTkFrame(info_frame, fg_color='transparent')
+        grid.pack(fill='x', padx=15, pady=15)
         
-        if disability_info and disability_info.get('has_disability'):
-            disability_badge = self.create_badge(
-                badge_frame,
-                "♿ DISABILITY",
-                COLORS['warning']
-            )
-            disability_badge.pack(side='left', padx=(0, 10))
+        # Configure grid
+        grid.grid_columnconfigure((0, 1, 2, 3), weight=1)
         
-        # Check for DNR status (from emergency directives)
-        emergency_directives = self.patient_data.get('emergency_directives', {})
-        if emergency_directives.get('dnr_status'):
-            dnr_badge = self.create_badge(
-                badge_frame,
-                "🚫 DNR",
-                COLORS['danger']
-            )
-            dnr_badge.pack(side='left', padx=(0, 10))
+        # Info items
+        info_items = [
+            ("🩸 Blood Type", self.patient_data.get('blood_type', 'N/A')),
+            ("🎂 Age", f"{self.patient_data.get('age', 'N/A')} years"),
+            ("⚧ Gender", self.patient_data.get('gender', 'N/A')),
+            ("📞 Phone", self.patient_data.get('phone', 'N/A'))
+        ]
         
-        # Check for organ donor
-        if emergency_directives.get('organ_donor'):
-            donor_badge = self.create_badge(
-                badge_frame,
-                "❤️ ORGAN DONOR",
-                COLORS['success']
-            )
-            donor_badge.pack(side='left', padx=(0, 10))
-        
-        # Check for allergies
-        allergies = self.patient_data.get('allergies', [])
-        if allergies and len(allergies) > 0:
-            allergy_badge = self.create_badge(
-                badge_frame,
-                f"⚠️ ALLERGIES ({len(allergies)})",
-                COLORS['danger']
-            )
-            allergy_badge.pack(side='left', padx=(0, 10))
-        
-        # Check for chronic conditions
-        chronic_conditions = self.patient_data.get('chronic_conditions', [])
-        if chronic_conditions and len(chronic_conditions) > 0:
-            chronic_badge = self.create_badge(
-                badge_frame,
-                f"📋 CHRONIC ({len(chronic_conditions)})",
-                COLORS['info']
-            )
-            chronic_badge.pack(side='left', padx=(0, 10))
+        for i, (label, value) in enumerate(info_items):
+            self.create_info_item(grid, label, value, i // 2, i % 2 * 2)
     
-    def create_badge(self, parent, text, color):
-        """Create status badge"""
-        badge = ctk.CTkFrame(
+    def create_info_item(self, parent, label, value, row, col):
+        """Create a single info item"""
+        # Label
+        label_widget = ctk.CTkLabel(
             parent,
-            fg_color=color,
-            corner_radius=RADIUS['sm'],
-            height=28
+            text=label,
+            font=FONTS['small'],
+            text_color=COLORS['text_secondary'],
+            anchor='w'
         )
+        label_widget.grid(row=row, column=col, sticky='w', padx=(0, 10), pady=5)
         
-        badge_label = ctk.CTkLabel(
-            badge,
-            text=text,
-            font=('Segoe UI', 11, 'bold'),
-            text_color='white'
+        # Value
+        value_widget = ctk.CTkLabel(
+            parent,
+            text=str(value),
+            font=FONTS['body_bold'],
+            text_color=COLORS['text_primary'],
+            anchor='w'
         )
-        badge_label.pack(padx=12, pady=5)
-        
-        return badge
-    
-    def create_contact_info(self, parent):
-        """Create contact information section"""
-        contact_frame = ctk.CTkFrame(parent, fg_color='transparent')
-        contact_frame.pack(fill='x', pady=(0, 15))
-        
-        # Phone
-        phone = self.patient_data.get('phone', 'N/A')
-        phone_row = self.create_info_row(contact_frame, "📱", "Phone", phone)
-        phone_row.pack(fill='x', pady=3)
-        
-        # Email
-        email = self.patient_data.get('email', 'N/A')
-        email_row = self.create_info_row(contact_frame, "📧", "Email", email)
-        email_row.pack(fill='x', pady=3)
-        
-        # Address
-        address = self.patient_data.get('address', 'N/A')
-        address_row = self.create_info_row(contact_frame, "📍", "Address", address)
-        address_row.pack(fill='x', pady=3)
-        
-        # Emergency Contact
-        emergency_contact = self.patient_data.get('emergency_contact', {})
-        if emergency_contact:
-            ec_name = emergency_contact.get('name', 'N/A')
-            ec_phone = emergency_contact.get('phone', 'N/A')
-            ec_text = f"{ec_name} - {ec_phone}"
-            ec_row = self.create_info_row(contact_frame, "🚨", "Emergency", ec_text)
-            ec_row.pack(fill='x', pady=3)
+        value_widget.grid(row=row, column=col+1, sticky='w', pady=5)
     
     def create_medical_summary(self, parent):
         """Create medical summary section"""
-        summary_frame = ctk.CTkFrame(parent, fg_color='transparent')
-        summary_frame.pack(fill='x')
-        
-        title = ctk.CTkLabel(
-            summary_frame,
-            text="Quick Medical Summary",
-            font=FONTS['body_bold'],
-            text_color=COLORS['text_primary']
-        )
-        title.pack(anchor='w', pady=(0, 10))
+        content = ctk.CTkFrame(parent, fg_color='transparent')
+        content.pack(fill='x')
         
         # Allergies
         allergies = self.patient_data.get('allergies', [])
         if allergies:
-            allergies_text = "⚠️ Allergies: " + ", ".join(allergies)
-            allergies_label = ctk.CTkLabel(
-                summary_frame,
-                text=allergies_text,
-                font=FONTS['small'],
-                text_color=COLORS['danger'],
-                wraplength=350,
-                justify='left'
+            allergy_frame = ctk.CTkFrame(content, fg_color=COLORS['danger'], corner_radius=RADIUS['md'])
+            allergy_frame.pack(fill='x', pady=(0, 8))
+            
+            allergy_text = "⚠️  ALLERGIES: " + ", ".join(allergies[:3])
+            if len(allergies) > 3:
+                allergy_text += f" (+{len(allergies)-3} more)"
+            
+            allergy_label = ctk.CTkLabel(
+                allergy_frame,
+                text=allergy_text,
+                font=FONTS['body_bold'],
+                text_color='white'
             )
-            allergies_label.pack(anchor='w', pady=2)
+            allergy_label.pack(padx=15, pady=10)
         
-        # Chronic Conditions
-        chronic = self.patient_data.get('chronic_conditions', [])
+        # Chronic diseases
+        chronic = self.patient_data.get('chronic_diseases', [])
         if chronic:
-            chronic_text = "📋 Chronic: " + ", ".join(chronic)
+            chronic_text = "🏥 Chronic: " + ", ".join(chronic[:3])
+            if len(chronic) > 3:
+                chronic_text += f" (+{len(chronic)-3} more)"
+            
             chronic_label = ctk.CTkLabel(
-                summary_frame,
+                content,
                 text=chronic_text,
-                font=FONTS['small'],
+                font=FONTS['body'],
                 text_color=COLORS['text_secondary'],
-                wraplength=350,
-                justify='left'
+                anchor='w'
             )
             chronic_label.pack(anchor='w', pady=2)
         
-        # Current Medications
+        # Current medications - FIXED: Handle dictionaries
         medications = self.patient_data.get('current_medications', [])
         if medications:
-            med_text = "💊 Medications: " + ", ".join(medications[:3])
+            # Extract medication names from dictionaries
+            if isinstance(medications[0], dict):
+                # Medications are dictionaries with 'name' key
+                med_names = [med.get('name', 'Unknown') for med in medications[:3]]
+            else:
+                # Medications are already strings
+                med_names = medications[:3]
+            
+            med_text = "💊 Medications: " + ", ".join(med_names)
             if len(medications) > 3:
-                med_text += f" (+{len(medications) - 3} more)"
+                med_text += f" (+{len(medications)-3} more)"
             
             med_label = ctk.CTkLabel(
-                summary_frame,
+                content,
                 text=med_text,
-                font=FONTS['small'],
+                font=FONTS['body'],
                 text_color=COLORS['text_secondary'],
-                wraplength=350,
-                justify='left'
+                anchor='w'
             )
             med_label.pack(anchor='w', pady=2)
     
-    def create_info_row(self, parent, icon, label, value):
-        """Create information row"""
-        row = ctk.CTkFrame(parent, fg_color='transparent')
+    def create_emergency_button(self, parent):
+        """Create emergency card button"""
+        button_frame = ctk.CTkFrame(parent, fg_color='transparent')
+        button_frame.pack(fill='x', pady=(15, 0))
         
-        # Icon and label
-        left = ctk.CTkFrame(row, fg_color='transparent')
-        left.pack(side='left', fill='x', expand=True)
-        
-        text = f"{icon} {label}:"
-        label_widget = ctk.CTkLabel(
-            left,
-            text=text,
-            font=FONTS['small'],
-            text_color=COLORS['text_secondary']
+        emergency_btn = ctk.CTkButton(
+            button_frame,
+            text="🆘 View Emergency Card",
+            command=self.on_emergency,
+            font=FONTS['body_bold'],
+            fg_color=COLORS['danger'],
+            hover_color='#dc2626',
+            height=40,
+            corner_radius=RADIUS['md']
         )
-        label_widget.pack(side='left')
-        
-        # Value
-        value_label = ctk.CTkLabel(
-            row,
-            text=value,
-            font=FONTS['small'],
-            text_color=COLORS['text_primary']
-        )
-        value_label.pack(side='right')
-        
-        return row
+        emergency_btn.pack(fill='x')
     
-    def get_initials(self):
-        """Get patient initials"""
-        name = self.patient_data.get('full_name', 'NA')
-        parts = name.split()
-        if len(parts) >= 2:
-            return f"{parts[0][0]}{parts[1][0]}".upper()
-        elif len(parts) == 1:
-            return parts[0][:2].upper()
-        return "NA"
+    def get_initials(self, full_name):
+        """Get initials from full name"""
+        try:
+            if not full_name or full_name == 'N/A':
+                return "?"
+            
+            parts = full_name.split()
+            if len(parts) >= 2:
+                return (parts[0][0] + parts[1][0]).upper()
+            elif len(parts) == 1:
+                return parts[0][0].upper()
+            else:
+                return "?"
+        except:
+            return "?"
+
+
+# For backwards compatibility
+class EnhancedPatientCard(PatientCard):
+    """Alias for backwards compatibility"""
+    pass

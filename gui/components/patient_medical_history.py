@@ -162,7 +162,15 @@ class PatientMedicalHistory(ctk.CTkFrame):
         content.pack(fill='x', padx=20, pady=(0, 15))
         
         medications = self.patient_data.get('current_medications', [])
-        
+   
+        if medications:
+            # Extract medication names from dictionaries
+            if isinstance(medications[0], dict):
+                med_names = [med.get('name', 'Unknown') for med in medications[:3]]
+            else:
+                med_names = medications[:3]
+            
+            med_text = "💊 Medications: " + ", ".join(med_names)
         if not medications:
             no_data = ctk.CTkLabel(
                 content,
