@@ -40,8 +40,8 @@ class PatientCard(ctk.CTkFrame):
         self.create_medical_summary(container)
         
         # Emergency button (if callback provided)
-        if self.on_emergency:
-            self.create_emergency_button(container)
+        # if self.on_emergency:
+        #     self.create_emergency_button(container)
     
     def create_header(self, parent):
         """Create patient header with photo and name"""
