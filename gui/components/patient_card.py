@@ -21,8 +21,6 @@ class PatientCard(ctk.CTkFrame):
         
         self.patient_data = patient_data
         self.on_emergency = on_emergency  # Store callback
-        if self.on_emergency:
-            self.create_emergency_button(container)
         
         self.create_ui()
     

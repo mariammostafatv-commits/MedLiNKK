@@ -4,6 +4,10 @@ Doctor dashboard - Main interface for doctors
 import customtkinter as ctk
 from tkinter import messagebox
 from gui.components import add_hospitalization_dialog, add_surgery_dialog, add_vaccination_dialog, disability_dialog, family_history_dialog
+from gui.components.add_hospitalization_dialog import AddHospitalizationDialog
+from gui.components.add_vaccination_dialog import AddVaccinationDialog
+from gui.components.family_history_dialog import FamilyHistoryDialog
+from gui.components.disability_dialog import DisabilityDialog
 from gui.styles import *
 from gui.components.sidebar import Sidebar
 from gui.components.patient_card import PatientCard

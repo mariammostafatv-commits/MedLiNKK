@@ -48,7 +48,7 @@ class PatientManager:
         results = self.data_manager.find_items('lab_results', 'lab_results', 'patient_national_id', national_id)
         return sorted(results, key=lambda x: x.get('date', ''), reverse=True)
     
-    def get_patient_imaging(self, national_id: str) -> List[Dict]:
+    def get_patient_imaging_results(self, national_id: str) -> List[Dict]:
         """Get imaging results for a patient"""
         results = self.data_manager.find_items('imaging_results', 'imaging_results', 'patient_national_id', national_id)
         return sorted(results, key=lambda x: x.get('date', ''), reverse=True)
@@ -69,7 +69,7 @@ class PatientManager:
         
         visits = self.get_patient_visits(national_id)
         lab_results = self.get_patient_lab_results(national_id)
-        imaging = self.get_patient_imaging(national_id)
+        imaging = self.get_patient_imaging_results(national_id)
         
         return {
             'patient': patient,

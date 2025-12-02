@@ -5,12 +5,12 @@ Location: gui/components/lab_results_manager.py
 """
 import customtkinter as ctk
 from gui.styles import *
-from gui.components.lab_results_manager import LabManager
+from core.lab_manager import lab_manager
 from datetime import datetime
 
 
 class EnhancedLabResultsManager(ctk.CTkFrame):
-    def __init__(self, parent, patient_id, on_add=None, on_view=None):
+    def __init__(self, parent, patient_id, is_doctor, on_add=None, on_view=None):
         """
         Initialize lab results manager
         
@@ -86,7 +86,7 @@ class EnhancedLabResultsManager(ctk.CTkFrame):
             placeholder_text="🔍 Search by test name...",
             textvariable=self.search_var,
             fg_color=COLORS['bg_medium'],
-            border_color=COLORS['border'],
+            border_color=COLORS['secondary'],
             height=35,
             width=250,
             corner_radius=RADIUS['md']
@@ -127,7 +127,7 @@ class EnhancedLabResultsManager(ctk.CTkFrame):
     def load_results(self):
         """Load lab results for patient"""
         try:
-            lab_manager = LabManager()
+            # lab_manager = LabManager()
             # FIXED: Changed from get_patient_results to get_patient_lab_results
             self.all_results = lab_manager.get_patient_lab_results(self.patient_id)
             self.filter_results()
@@ -181,7 +181,7 @@ class EnhancedLabResultsManager(ctk.CTkFrame):
             fg_color=COLORS['bg_medium'],
             corner_radius=RADIUS['md'],
             border_width=1,
-            border_color=COLORS['border']
+            border_color=COLORS['secondary']
         )
         card.pack(fill='x', pady=(0, 10))
         

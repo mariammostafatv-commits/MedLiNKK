@@ -110,7 +110,7 @@ class EnhancedImagingResultsManager(ctk.CTkFrame):
     
     def load_results(self):
         """Load all imaging results"""
-        self.all_results = imaging_manager.get_patient_imaging(
+        self.all_results = imaging_manager.get_patient_imaging_results(
             self.patient_data.get('national_id')
         )
         self.apply_filters()

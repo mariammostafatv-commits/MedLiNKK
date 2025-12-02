@@ -1,7 +1,4 @@
-"""
-Add vaccination dialog - Add vaccination record to patient
-Location: gui/components/add_vaccination_dialog.py
-"""
+
 import customtkinter as ctk
 from tkinter import messagebox
 from gui.styles import *
@@ -10,7 +7,7 @@ from utils.date_utils import get_current_date, is_valid_date
 
 
 class AddVaccinationDialog(ctk.CTkToplevel):
-    """Dialog for adding new vaccination record"""
+    """Dialog for adding new vaccination record - FIXED VERSION"""
     
     def __init__(self, parent, patient_data, doctor_data, on_success):
         super().__init__(parent)
@@ -21,7 +18,7 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         
         # Configure window
         self.title("Add Vaccination Record")
-        self.geometry("600x650")
+        self.geometry("600x700")
         self.resizable(False, False)
         
         # Center on parent
@@ -34,6 +31,12 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         x = parent.winfo_x() + (parent.winfo_width() // 2) - (width // 2)
         y = parent.winfo_y() + (parent.winfo_height() // 2) - (height // 2)
         self.geometry(f'{width}x{height}+{x}+{y}')
+        
+        # ✅ FIX: Handle window close button (X)
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
+        
+        # ✅ FIX: Bind ESC key to close
+        self.bind("<Escape>", lambda e: self.on_closing())
         
         self.create_ui()
     
@@ -70,15 +73,16 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         )
         patient_label.pack(pady=(5, 0))
         
-        # Form card
-        form_card = ctk.CTkFrame(
+        # Scrollable form card
+        form_scroll = ctk.CTkScrollableFrame(
             main_frame,
             fg_color=COLORS['bg_medium'],
-            corner_radius=RADIUS['lg']
+            corner_radius=RADIUS['lg'],
+            height=400
         )
-        form_card.pack(fill='both', expand=True, pady=20)
+        form_scroll.pack(fill='both', expand=True, pady=(0, 20))
         
-        form_content = ctk.CTkFrame(form_card, fg_color='transparent')
+        form_content = ctk.CTkFrame(form_scroll, fg_color='transparent')
         form_content.pack(fill='both', expand=True, padx=25, pady=25)
         
         # Vaccine Name
@@ -93,23 +97,29 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         self.vaccine_entry = ctk.CTkOptionMenu(
             form_content,
             values=[
-                "COVID-19 (Pfizer)",
+                "COVID-19 (Pfizer-BioNTech)",
                 "COVID-19 (Moderna)",
                 "COVID-19 (AstraZeneca)",
                 "COVID-19 (Sinovac)",
-                "Influenza (Flu)",
+                "COVID-19 (Sinopharm)",
+                "Influenza (Flu Shot)",
                 "Hepatitis B",
                 "Hepatitis A",
                 "MMR (Measles, Mumps, Rubella)",
-                "Tetanus",
-                "Polio",
+                "Tetanus/Diphtheria (Td)",
+                "Tetanus/Diphtheria/Pertussis (Tdap)",
+                "Polio (IPV)",
                 "Pneumococcal",
-                "HPV",
+                "HPV (Human Papillomavirus)",
                 "Meningococcal",
+                "Varicella (Chickenpox)",
+                "Rotavirus",
                 "Other"
             ],
             font=FONTS['body'],
-            height=40
+            height=40,
+            fg_color=COLORS['bg_light'],
+            button_color=COLORS['primary']
         )
         self.vaccine_entry.pack(fill='x', pady=(0, 15))
         
@@ -122,14 +132,29 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         )
         date_label.pack(anchor='w', pady=(0, 5))
         
+        date_frame = ctk.CTkFrame(form_content, fg_color='transparent')
+        date_frame.pack(fill='x', pady=(0, 15))
+        
         self.date_entry = ctk.CTkEntry(
-            form_content,
+            date_frame,
             placeholder_text="YYYY-MM-DD",
             font=FONTS['body'],
-            height=40
+            height=40,
+            width=200
         )
-        self.date_entry.pack(fill='x', pady=(0, 15))
+        self.date_entry.pack(side='left', fill='x', expand=True)
         self.date_entry.insert(0, get_current_date())
+        
+        today_btn = ctk.CTkButton(
+            date_frame,
+            text="Today",
+            command=lambda: self.date_entry.delete(0, 'end') or self.date_entry.insert(0, get_current_date()),
+            width=80,
+            height=40,
+            fg_color=COLORS['secondary'],
+            hover_color='#059669'
+        )
+        today_btn.pack(side='left', padx=(10, 0))
         
         # Dose Number
         dose_label = ctk.CTkLabel(
@@ -142,16 +167,18 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         
         self.dose_entry = ctk.CTkOptionMenu(
             form_content,
-            values=["1", "2", "3", "Booster"],
+            values=["1st Dose", "2nd Dose", "3rd Dose", "Booster", "Annual"],
             font=FONTS['body'],
-            height=40
+            height=40,
+            fg_color=COLORS['bg_light'],
+            button_color=COLORS['primary']
         )
         self.dose_entry.pack(fill='x', pady=(0, 15))
         
         # Location
         location_label = ctk.CTkLabel(
             form_content,
-            text="📍  Location *",
+            text="📍  Vaccination Location *",
             font=FONTS['body_bold'],
             text_color=COLORS['text_primary']
         )
@@ -159,7 +186,7 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         
         self.location_entry = ctk.CTkEntry(
             form_content,
-            placeholder_text="e.g., Cairo Health Center, Vacsera",
+            placeholder_text="e.g., Cairo Vaccination Center, Ministry of Health Clinic",
             font=FONTS['body'],
             height=40
         )
@@ -168,7 +195,7 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         # Batch Number
         batch_label = ctk.CTkLabel(
             form_content,
-            text="🏷️  Batch Number",
+            text="🏷️  Batch/Lot Number",
             font=FONTS['body_bold'],
             text_color=COLORS['text_primary']
         )
@@ -176,7 +203,7 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         
         self.batch_entry = ctk.CTkEntry(
             form_content,
-            placeholder_text="Optional",
+            placeholder_text="Optional - for tracking purposes",
             font=FONTS['body'],
             height=40
         )
@@ -185,7 +212,7 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         # Next Dose Due
         next_dose_label = ctk.CTkLabel(
             form_content,
-            text="📅  Next Dose Due",
+            text="📅  Next Dose Due Date",
             font=FONTS['body_bold'],
             text_color=COLORS['text_primary']
         )
@@ -193,11 +220,20 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         
         self.next_dose_entry = ctk.CTkEntry(
             form_content,
-            placeholder_text="YYYY-MM-DD (Optional)",
+            placeholder_text="YYYY-MM-DD (Leave empty if not applicable)",
             font=FONTS['body'],
             height=40
         )
-        self.next_dose_entry.pack(fill='x')
+        self.next_dose_entry.pack(fill='x', pady=(0, 5))
+        
+        # Help text
+        help_text = ctk.CTkLabel(
+            form_content,
+            text="💡 Tip: Leave 'Next Dose Due' empty for single-dose vaccines",
+            font=FONTS['small'],
+            text_color=COLORS['text_muted']
+        )
+        help_text.pack(anchor='w')
         
         # Buttons
         btn_frame = ctk.CTkFrame(main_frame, fg_color='transparent')
@@ -205,8 +241,8 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         
         cancel_btn = ctk.CTkButton(
             btn_frame,
-            text="Cancel",
-            command=self.destroy,
+            text="✖  Cancel",
+            command=self.on_closing,  # ✅ FIX: Use on_closing instead of destroy
             font=FONTS['body_bold'],
             height=50,
             fg_color='transparent',
@@ -219,7 +255,7 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         
         save_btn = ctk.CTkButton(
             btn_frame,
-            text="Save Vaccination",
+            text="✓  Save Vaccination",
             command=self.handle_save,
             font=FONTS['body_bold'],
             height=50,
@@ -227,6 +263,30 @@ class AddVaccinationDialog(ctk.CTkToplevel):
             hover_color='#059669'
         )
         save_btn.pack(side='right', fill='x', expand=True, padx=(10, 0))
+    
+    def on_closing(self):
+        """Handle dialog close - with confirmation if form has data"""
+        # Check if form has any data entered
+        has_data = (
+            self.date_entry.get() != get_current_date() or
+            self.location_entry.get().strip() != "" or
+            self.batch_entry.get().strip() != "" or
+            self.next_dose_entry.get().strip() != ""
+        )
+        
+        if has_data:
+            # Ask for confirmation
+            result = messagebox.askyesno(
+                "Discard Changes?",
+                "You have unsaved changes. Close anyway?",
+                parent=self
+            )
+            if not result:
+                return  # Don't close
+        
+        # Close the dialog properly
+        self.grab_release()
+        self.destroy()
     
     def handle_save(self):
         """Save new vaccination record"""
@@ -240,16 +300,31 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         
         # Validate required fields
         if not all([vaccine_name, date_administered, location]):
-            messagebox.showerror("Validation Error", "Please fill all required fields (*)")
+            messagebox.showerror(
+                "Missing Information", 
+                "Please fill in:\n• Vaccine Name\n• Date Administered\n• Location",
+                parent=self
+            )
             return
         
+        # Validate date format
         if not is_valid_date(date_administered):
-            messagebox.showerror("Invalid Date", "Please enter date in YYYY-MM-DD format")
+            messagebox.showerror(
+                "Invalid Date", 
+                "Date must be in YYYY-MM-DD format\nExample: 2024-03-15",
+                parent=self
+            )
+            self.date_entry.focus()
             return
         
         # Validate next dose date if provided
         if next_dose_due and not is_valid_date(next_dose_due):
-            messagebox.showerror("Invalid Date", "Next dose date must be in YYYY-MM-DD format")
+            messagebox.showerror(
+                "Invalid Date", 
+                "Next dose date must be in YYYY-MM-DD format\nExample: 2024-06-15",
+                parent=self
+            )
+            self.next_dose_entry.focus()
             return
         
         # Create vaccination data
@@ -263,14 +338,35 @@ class AddVaccinationDialog(ctk.CTkToplevel):
         }
         
         # Save vaccination
-        success, message = vaccination_manager.add_vaccination(
-            self.patient_data.get('national_id'),
-            vaccination_data
-        )
-        
-        if success:
-            messagebox.showinfo("Success", "Vaccination record added successfully!")
-            self.on_success()
-            self.destroy()
-        else:
-            messagebox.showerror("Error", f"Failed to save vaccination: {message}")
+        try:
+            success, message = vaccination_manager.add_vaccination(
+                self.patient_data.get('national_id'),
+                vaccination_data
+            )
+            
+            if success:
+                messagebox.showinfo(
+                    "Success", 
+                    "✓ Vaccination record saved successfully!",
+                    parent=self
+                )
+                # Refresh the parent view
+                if self.on_success:
+                    self.on_success()
+                # Close dialog
+                self.grab_release()
+                self.destroy()
+            else:
+                messagebox.showerror(
+                    "Save Failed", 
+                    f"Could not save vaccination:\n{message}",
+                    parent=self
+                )
+        except Exception as e:
+            messagebox.showerror(
+                "Error", 
+                f"An error occurred:\n{str(e)}",
+                parent=self
+            )
+
+

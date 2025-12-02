@@ -334,7 +334,21 @@ def time_ago(date_str: str) -> str:
     except:
         return date_str
 
-
+def get_current_time(format_str: str = '%H:%M') -> str:
+    """
+    Get current time in specified format
+    
+    Args:
+        format_str: Desired time format (default: HH:MM)
+    
+    Returns:
+        Current time string
+    
+    Example:
+        >>> get_current_time()
+        '14:30'
+    """
+    return datetime.now().strftime(format_str)
 def get_age_from_dob(dob: str) -> int:
     """
     Alias for calculate_age for backwards compatibility
