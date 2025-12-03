@@ -1,7 +1,53 @@
-# Add your Python dependencies here
-customtkinter>=5.2.0
-cryptography>=41.0.7
-Pillow>=10.1.0
-reportlab>=4.0.7
-qrcode>=7.4.2
-python-dateutil>=2.8.2
+# MedLink - Unified Medical Records System
+# Requirements File - Production Dependencies
+# Python Version: 3.9+
+
+# ============================================
+# GUI Framework
+# ============================================
+customtkinter==5.2.0                # Modern tkinter-based GUI framework with dark theme
+
+# ============================================
+# Security & Encryption
+# ============================================
+cryptography==41.0.7                # Fernet encryption for sensitive data
+# Note: hashlib is built-in (SHA-256 password hashing)
+
+# ============================================
+# Image Processing
+# ============================================
+Pillow==10.1.0                      # Image viewing, format conversion, thumbnails
+
+# ============================================
+# QR Code Generation
+# ============================================
+qrcode[pil]==7.4.2                  # QR code generation for emergency cards
+# [pil] ensures Pillow integration
+
+# ============================================
+# PDF Generation & Manipulation
+# ============================================
+reportlab==4.0.7                    # Professional PDF creation (emergency cards)
+PyPDF2==3.0.1                       # PDF reading and text extraction
+
+# ============================================
+# Date & Time Handling
+# ============================================
+python-dateutil==2.8.2              # Advanced date/time parsing and manipulation
+
+# ============================================
+# Hardware Communication (NFC)
+# ============================================
+pyserial==3.5                       # Serial communication for R20C NFC card reader
+
+# ============================================
+# Additional Dependencies
+# ============================================
+# The following are built-in with Python 3.9+:
+# - json (JSON data storage)
+# - hashlib (password hashing)
+# - secrets (secure token generation)
+# - uuid (unique ID generation)
+# - pathlib (file path operations)
+# - datetime (date/time operations)
+# - typing (type hints)

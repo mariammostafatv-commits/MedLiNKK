@@ -2768,7 +2768,7 @@ MedLink represents a comprehensive solution to healthcare record fragmentation i
 
 This project is created for academic purposes as part of CET111 course requirements.
 
-**© 2024 MedLink - Elsewedy University of Technology**
+**© 2025 MedLink - Youssef Mekkkawy**
 
 ---
 

@@ -985,7 +985,7 @@ This project is created for **academic purposes** as part of CET111 course requi
 Department of Computer Science Technology  
 Fall 2025
 
-For licensing inquiries regarding commercial use, please contact the author.
+For licensing inquiries regarding commercial use, please contact the author (Youssef Mekkkawy).
 
 ---
 
@@ -1041,16 +1041,11 @@ This project draws inspiration from:
 
 **Technical Issues**:
 - Open an issue on GitHub
-- Email: support@medlink.eg
 - Check [Documentation](docs/)
 
 **Feature Requests**:
 - Open a feature request on GitHub
-- Email: feedback@medlink.eg
 
-**General Inquiries**:
-- Email: info@medlink.eg
-- Visit: Elsewedy University of Technology
 
 ### Community
 
@@ -1112,6 +1107,6 @@ MedLink is more than just code — it's a mission to save lives, improve healthc
 ![](https://img.shields.io/badge/Powered%20by-Innovation-10B981?style=for-the-badge)
 ![](https://img.shields.io/badge/Driven%20by-Purpose-EF4444?style=for-the-badge)
 
-© 2024 MedLink - Elsewedy University of Technology
+© 2025 MedLink - Youssef Mekkkawy
 
 </div>

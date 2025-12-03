@@ -1,0 +1,52 @@
+# MedLink - Unified Medical Records System
+# Development Requirements File
+# Python Version: 3.9+
+
+# ============================================
+# Include Production Requirements
+# ============================================
+-r requirements.txt
+
+# ============================================
+# Testing Frameworks
+# ============================================
+pytest==7.4.3                       # Testing framework
+pytest-cov==4.1.0                   # Code coverage plugin for pytest
+pytest-mock==3.12.0                 # Mocking plugin for pytest
+
+# ============================================
+# Code Quality & Linting
+# ============================================
+pylint==3.0.3                       # Python code linter
+flake8==6.1.0                       # Style guide enforcement
+black==23.12.1                      # Code formatter
+autopep8==2.0.4                     # Auto-format to PEP 8
+
+# ============================================
+# Type Checking
+# ============================================
+mypy==1.7.1                         # Static type checker
+
+# ============================================
+# Documentation
+# ============================================
+sphinx==7.2.6                       # Documentation generator
+sphinx-rtd-theme==2.0.0             # ReadTheDocs theme for Sphinx
+
+# ============================================
+# Development Tools
+# ============================================
+ipython==8.18.1                     # Enhanced Python shell
+ipdb==0.13.13                       # IPython debugger
+
+# ============================================
+# Build & Package Tools
+# ============================================
+build==1.0.3                        # PEP 517 build frontend
+twine==4.0.2                        # Package upload tool for PyPI
+wheel==0.42.0                       # Built-in package format
+
+# ============================================
+# Git Hooks
+# ============================================
+pre-commit==3.6.0                   # Git pre-commit hooks framework
