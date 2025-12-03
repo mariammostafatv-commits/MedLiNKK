@@ -123,7 +123,7 @@ class LoginWindow(ctk.CTk):
             national_id = user_info.get('national_id')
             
             from core.patient_manager import patient_manager
-            patient = patient_manager.get_patient(national_id)
+            patient = patient_manager.get_patient_by_id(national_id)
             
             if patient:
                 # Success!

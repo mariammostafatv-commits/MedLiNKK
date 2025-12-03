@@ -23,6 +23,8 @@ class PatientDashboard(ctk.CTkToplevel):
 
         self.parent = parent
         self.user_data = user_data
+        self.card_buffer = ""
+        self.card_reading_active = True
         self.patient_data = None
 
         # Configure window
@@ -278,6 +280,7 @@ class PatientDashboard(ctk.CTkToplevel):
             traceback.print_exc()
             messagebox.showerror("Error", f"Failed to create dashboard: {
                                  str(e)}")
+        self.bind("<Key>", self.on_key_press)
 
     def show_emergency_card(self):
         """Show emergency card dialog"""
@@ -293,3 +296,98 @@ class PatientDashboard(ctk.CTkToplevel):
         """Logout and return to login screen"""
         self.destroy()
         self.parent.deiconify()
+    def on_key_press(self, event):
+        """Handle NFC card scanning"""
+        if not self.card_reading_active:
+            return
+        
+        # Don't interfere if typing in entry fields
+        focused = self.focus_get()
+        if isinstance(focused, ctk.CTkEntry) or isinstance(focused, ctk.CTkTextbox):
+            return
+        
+        # Enter key = card scan complete
+        if event.keysym == "Return":
+            card_id = self.card_buffer.strip()
+            self.card_buffer = ""
+            
+            if card_id and len(card_id) >= 8:
+                self.process_card(card_id)
+        else:
+            # Build card ID
+            if len(event.char) > 0 and event.char.isprintable():
+                self.card_buffer += event.char
+
+    def process_card(self, card_id: str):
+        """Process scanned NFC card"""
+        from core.card_manager import card_manager
+        from core.patient_manager import patient_manager
+        from tkinter import messagebox
+        
+        print(f"🔍 Card scanned in patient dashboard: {card_id}")
+        
+        # Get user from card
+        user_info = card_manager.get_user_by_card(card_id)
+        
+        if not user_info:
+            messagebox.showerror(
+                "Card Not Registered",
+                f"Card ID {card_id} is not registered in the system."
+            )
+            return
+        
+        user_type = user_info.get('type')
+        
+        if user_type == 'patient':
+            # Patient card → Switch patient
+            national_id = user_info.get('national_id')
+            patient_name = user_info.get('name', '')
+            
+            # Check if same patient
+            current_id = self.patient_data.get('national_id')
+            if current_id == national_id:
+                messagebox.showinfo(
+                    "Same Patient",
+                    "You are already logged in with this account."
+                )
+                return
+            
+            # Ask for confirmation
+            confirm = messagebox.askyesno(
+                "Switch Patient Account",
+                f"Switch to {patient_name}'s account?\n\n"
+                "This will logout the current patient."
+            )
+            
+            if not confirm:
+                return
+            
+            # Get patient data
+            new_patient = patient_manager.get_patient(national_id)
+            
+            if new_patient:
+                # Success! Switch patient
+                messagebox.showinfo(
+                    "Account Switched",
+                    f"Now logged in as {patient_name}"
+                )
+                
+                # Close current dashboard
+                self.destroy()
+                
+                # Open new dashboard with new patient
+                from gui.patient_dashboard import PatientDashboard
+                new_dashboard = PatientDashboard(self.parent, new_patient)
+                new_dashboard.protocol("WM_DELETE_WINDOW", 
+                                    lambda: self.parent.on_dashboard_close(new_dashboard))
+            else:
+                messagebox.showerror("Error", "Patient record not found")
+        
+        elif user_type == 'doctor':
+            # Doctor card scanned in patient dashboard
+            messagebox.showwarning(
+                "Wrong Card Type",
+                "This is a doctor card.\n\n"
+                "Please use a patient card to switch accounts,\n"
+                "or logout and login as a doctor."
+            )
