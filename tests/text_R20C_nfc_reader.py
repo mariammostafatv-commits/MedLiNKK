@@ -44,7 +44,9 @@ def on_key(event):
 
 def process_card(card_id):
     print("Card read:", card_id)
-    if card_id == "0724975956":
+    with open("card_id.txt", "a") as f:
+        valid_card_id = f.write(card_id + "\n")
+    if valid_card_id == "0724975956":
         # messagebox.showinfo("Access", "Login Success")
         ...
     else:

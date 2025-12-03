@@ -24,6 +24,8 @@ class DoctorDashboard(ctk.CTkToplevel):
         self.parent = parent
         self.user_data = user_data
         self.current_patient = None
+        self.card_buffer = ""
+        self.card_reading_active = True
 
         # Configure window FIRST
         self.title("MedLink - Doctor Portal")
@@ -102,13 +104,38 @@ class DoctorDashboard(ctk.CTkToplevel):
             top_content.pack(fill='both', expand=True, padx=20, pady=15)
 
             # Search section
+            search_container = ctk.CTkFrame(
+                top_content, fg_color='transparent')
+            search_container.pack(side='left', fill='x', expand=True)
+
+            search_label_frame = ctk.CTkFrame(
+                search_container, fg_color='transparent')
+            search_label_frame.pack(side='left')
+
             search_label = ctk.CTkLabel(
-                top_content,
+                search_label_frame,
                 text="🔍  Search Patient",
                 font=FONTS['subheading'],
                 text_color=COLORS['text_primary']
             )
-            search_label.pack(side='left', padx=(0, 20))
+            search_label.pack(side='left')
+
+            # NFC card indicator
+            self.nfc_indicator = ctk.CTkLabel(
+                search_label_frame,
+                text="  💳",
+                font=('Segoe UI', 16),
+                text_color=COLORS['success']
+            )
+            self.nfc_indicator.pack(side='left', padx=(5, 0))
+
+            nfc_hint = ctk.CTkLabel(
+                search_container,
+                text="Type National ID or tap patient NFC card",
+                font=('Segoe UI', 9),
+                text_color=COLORS['text_secondary']
+            )
+            nfc_hint.pack(side='left', padx=(10, 0))
 
             # Search entry
             self.search_entry = ctk.CTkEntry(
@@ -136,7 +163,7 @@ class DoctorDashboard(ctk.CTkToplevel):
                 hover_color=COLORS['primary_hover']
             )
             search_btn.pack(side='left', padx=(0, 20))
-            
+
             # Emergency Card button (top right) - hidden initially
             self.emergency_btn = ctk.CTkButton(
                 top_content,
@@ -170,6 +197,7 @@ class DoctorDashboard(ctk.CTkToplevel):
 
             # Force update
             self.update()
+            self.bind("<Key>", self.on_key_press)
 
         except Exception as e:
             print(f"❌ Error creating dashboard UI: {e}")
@@ -367,6 +395,7 @@ class DoctorDashboard(ctk.CTkToplevel):
 
         # Show patient profile
         self.show_patient_profile(patient)
+
     def show_patient_profile(self, patient):
         """Display patient profile with all enhanced features"""
         try:
@@ -376,7 +405,7 @@ class DoctorDashboard(ctk.CTkToplevel):
             # Clear content
             for widget in self.content_frame.winfo_children():
                 widget.destroy()
-            
+
             # Create tabview
             tabview = ctk.CTkTabview(
                 self.content_frame,
@@ -387,24 +416,24 @@ class DoctorDashboard(ctk.CTkToplevel):
                 segmented_button_unselected_color=COLORS['bg_light']
             )
             tabview.pack(fill='both', expand=True)
-            
+
             # ========================================
             # TAB 1: PROFILE (Enhanced Patient Card)
             # ========================================
             tabview.add("Profile")
-            
+
             profile_scroll = ctk.CTkScrollableFrame(
                 tabview.tab("Profile"),
                 fg_color='transparent'
             )
             profile_scroll.pack(fill='both', expand=True, padx=10, pady=10)
-            
+
             # Enhanced Patient Card (Phase 3 - with badges)
             from gui.components.patient_card import PatientCard
-            
+
             patient_card = PatientCard(profile_scroll, patient)
             patient_card.pack(fill='both', expand=True)
-            
+
             # ========================================
             # TAB 2: MEDICAL PROFILE (NEW - Phase 3)
             # ========================================
@@ -415,23 +444,24 @@ class DoctorDashboard(ctk.CTkToplevel):
             # - Update Family History
             # - Update Disability Info
             tabview.add("Medical Profile")
-            
+
             from gui.components.medical_profile_tab import MedicalProfileTab
-            
+
             self.medical_profile_tab = MedicalProfileTab(
                 tabview.tab("Medical Profile"),
                 patient,
                 self.user_data  # Doctor data
             )
-            self.medical_profile_tab.pack(fill='both', expand=True, padx=10, pady=10)
-            
+            self.medical_profile_tab.pack(
+                fill='both', expand=True, padx=10, pady=10)
+
             # ========================================
             # TAB 3: MEDICAL HISTORY (with Timeline option)
             # ========================================
             tabview.add("Medical History")
-            
+
             from gui.components.history_tab import HistoryTab
-            
+
             self.history_tab = HistoryTab(
                 tabview.tab("Medical History"),
                 patient,
@@ -439,51 +469,52 @@ class DoctorDashboard(ctk.CTkToplevel):
                 self.show_add_visit_dialog
             )
             self.history_tab.pack(fill='both', expand=True, padx=10, pady=10)
-            
+
             # ========================================
             # TAB 4: LAB RESULTS (Enhanced - Phase 5)
             # ========================================
             tabview.add("Lab Results")
-            
+
             from gui.components.lab_results_manager import EnhancedLabResultsManager
-            
+
             self.lab_tab = EnhancedLabResultsManager(
                 tabview.tab("Lab Results"),
                 patient,
                 is_doctor=True  # Shows "Add Lab Result" button
             )
             self.lab_tab.pack(fill='both', expand=True, padx=10, pady=10)
-            
+
             # ========================================
             # TAB 5: IMAGING (Enhanced - Phase 5)
             # ========================================
             tabview.add("Imaging")
-            
+
             from gui.components.imaging_results_manager import EnhancedImagingResultsManager
-            
+
             self.imaging_tab = EnhancedImagingResultsManager(
                 tabview.tab("Imaging"),
                 patient,
                 is_doctor=True  # Shows "Add Imaging" button
             )
             self.imaging_tab.pack(fill='both', expand=True, padx=10, pady=10)
-            
+
             # Set default tab to Medical Profile (most important)
             tabview.set("Medical Profile")
-        
+
         except Exception as e:
             print(f"Error showing patient profile: {e}")
             import traceback
             traceback.print_exc()
-            messagebox.showerror("Error", f"Could not load patient profile: {str(e)}")
+            messagebox.showerror(
+                "Error", f"Could not load patient profile: {str(e)}")
             """Display patient profile"""
             try:
                 self.current_patient = patient
-                
+
                 # Clear content
                 for widget in self.content_frame.winfo_children():
                     widget.destroy()
-               
+
                 # Create tabview
                 tabview = ctk.CTkTabview(
                     self.content_frame,
@@ -494,7 +525,7 @@ class DoctorDashboard(ctk.CTkToplevel):
                     segmented_button_unselected_color=COLORS['bg_light']
                 )
                 tabview.pack(fill='both', expand=True)
-                
+
                 # Add tabs
                 tabview.add("Profile")
                 # Buttons to launch dialogs:
@@ -506,32 +537,34 @@ class DoctorDashboard(ctk.CTkToplevel):
                 tabview.add("Medical History")
                 tabview.add("Lab Results")
                 tabview.add("Imaging")
-                
+
                 # Profile tab
                 profile_scroll = ctk.CTkScrollableFrame(
                     tabview.tab("Profile"),
                     fg_color='transparent'
                 )
                 profile_scroll.pack(fill='both', expand=True, padx=10, pady=10)
-                
+
                 # Patient card WITH emergency callback
-                patient_card = PatientCard(profile_scroll, patient, on_emergency=self.show_emergency_card)
+                patient_card = PatientCard(
+                    profile_scroll, patient, on_emergency=self.show_emergency_card)
                 patient_card.pack(fill='both', expand=True)
-                
+
                 # Medical History tab
                 from gui.components.history_tab import HistoryTab
-                
+
                 self.history_tab = HistoryTab(
                     tabview.tab("Medical History"),
                     patient,
                     self.user_data,
                     self.show_add_visit_dialog
                 )
-                self.history_tab.pack(fill='both', expand=True, padx=10, pady=10)
-                
+                self.history_tab.pack(
+                    fill='both', expand=True, padx=10, pady=10)
+
                 # Lab Results tab
                 from gui.components.lab_results_tab import LabResultsTab
-                
+
                 self.lab_tab = LabResultsTab(
                     tabview.tab("Lab Results"),
                     patient,
@@ -539,37 +572,42 @@ class DoctorDashboard(ctk.CTkToplevel):
                     is_doctor=True
                 )
                 self.lab_tab.pack(fill='both', expand=True, padx=10, pady=10)
-                
+
                 # Imaging tab
                 from gui.components.imaging_tab import ImagingTab
-                
+
                 self.imaging_tab = ImagingTab(
                     tabview.tab("Imaging"),
                     patient,
                     self.user_data,
                     is_doctor=True
                 )
-                self.imaging_tab.pack(fill='both', expand=True, padx=10, pady=10)
-            
+                self.imaging_tab.pack(
+                    fill='both', expand=True, padx=10, pady=10)
+
             except Exception as e:
                 print(f"Error showing patient profile: {e}")
                 import traceback
                 traceback.print_exc()
-                messagebox.showerror("Error", f"Could not load patient profile: {str(e)}")
+                messagebox.showerror(
+                    "Error", f"Could not load patient profile: {str(e)}")
 
     def show_emergency_card(self):
         """Show emergency card for current patient"""
         if not self.current_patient:
-            messagebox.showwarning("No Patient", "Please select a patient first")
+            messagebox.showwarning(
+                "No Patient", "Please select a patient first")
             return
-        
+
         from gui.components.emergency_dialog import EmergencyDialog
         dialog = EmergencyDialog(self, self.current_patient)
         dialog.wait_window()
+
     def show_add_visit_dialog(self):
         """Show add visit dialog"""
         if not self.current_patient:
-            messagebox.showwarning("No Patient", "Please select a patient first")
+            messagebox.showwarning(
+                "No Patient", "Please select a patient first")
             return
 
         from gui.components.add_visit_dialog import AddVisitDialog
@@ -581,7 +619,6 @@ class DoctorDashboard(ctk.CTkToplevel):
             self.on_visit_added
         )
         dialog.wait_window()
-
 
     def on_visit_added(self):
         """Callback after visit is added"""
@@ -649,12 +686,108 @@ class DoctorDashboard(ctk.CTkToplevel):
     def show_emergency_card(self):
         """Show emergency card for current patient"""
         if not self.current_patient:
-            messagebox.showwarning("No Patient", "Please select a patient first")
+            messagebox.showwarning(
+                "No Patient", "Please select a patient first")
             return
-        
+
         from gui.components.emergency_dialog import EmergencyDialog
         dialog = EmergencyDialog(self, self.current_patient)
         dialog.wait_window()
+
+
+    def on_key_press(self, event):
+        """Handle key press for NFC card reading"""
+        if not self.card_reading_active:
+            return
+
+        # Don't interfere if user is typing in entry fields
+        focused_widget = self.focus_get()
+        if isinstance(focused_widget, ctk.CTkEntry) or isinstance(focused_widget, ctk.CTkTextbox):
+            return
+
+        # Enter key means card scan complete
+        if event.keysym == "Return":
+            card_id = self.card_buffer.strip()
+            self.card_buffer = ""  # Reset buffer
+
+            if card_id and len(card_id) >= 8:  # Valid card ID
+                self.process_patient_card(card_id)
+        else:
+            # Append characters (ignore special keys)
+            if len(event.char) > 0 and event.char.isprintable():
+                self.card_buffer += event.char
+
+
+    def process_patient_card(self, card_id: str):
+        """Process scanned patient NFC card"""
+        print(f"Patient card scanned: {card_id}")
+
+        from core.card_manager import card_manager
+
+        # Visual feedback - flash NFC indicator
+        self.nfc_indicator.configure(text_color=COLORS['warning'])
+        self.update()
+
+        # Get patient from card
+        user_info = card_manager.get_user_by_card(card_id)
+
+        if not user_info:
+            self.nfc_indicator.configure(text_color=COLORS['danger'])
+            messagebox.showerror(
+                "Card Error",
+                f"Patient card {card_id} is not registered.\n\n"
+                "Please register the card or search manually."
+            )
+            self.after(2000, lambda: self.nfc_indicator.configure(
+                text_color=COLORS['success']))
+            return
+
+        if user_info.get('type') != 'patient':
+            self.nfc_indicator.configure(text_color=COLORS['danger'])
+            messagebox.showerror(
+                "Card Error",
+                "This is not a patient card. Please use a patient card."
+            )
+            self.after(2000, lambda: self.nfc_indicator.configure(
+                text_color=COLORS['success']))
+            return
+
+        # Get national ID from card
+        national_id = user_info.get('national_id')
+
+        # Success feedback
+        self.nfc_indicator.configure(text_color=COLORS['success'])
+
+        # Update search entry (visual feedback)
+        self.search_entry.delete(0, 'end')
+        self.search_entry.insert(0, national_id)
+
+        # Search patient
+        from core.search_engine import search_engine
+        patient = search_engine.search_by_national_id(national_id)
+
+        if patient:
+            # Show success message
+            # messagebox.showinfo(
+            #     "Patient Found",
+            #     f"Patient: {patient.get('full_name', 'Unknown')}\n"
+            #     f"Card scan successful!"
+            # )
+            print("Patient Found",
+               f"Patient: {patient.get('full_name', 'Unknown')}\n"
+               f"Card scan successful!")
+            # Show patient profile
+            self.show_patient_profile(patient)
+        else:
+            self.nfc_indicator.configure(text_color=COLORS['danger'])
+            messagebox.showerror(
+                "Patient Not Found",
+                f"Patient with ID {national_id} not found in system."
+            )
+            self.after(2000, lambda: self.nfc_indicator.configure(
+                text_color=COLORS['success']))
+
+
 if __name__ == "__main__":
     # Test dashboard
     setup_theme()
@@ -667,5 +800,6 @@ if __name__ == "__main__":
 
     app = ctk.CTk()
     app.withdraw()
+
     dashboard = DoctorDashboard(app, test_user)
     dashboard.mainloop()
