@@ -1,0 +1,36 @@
+{
+  "doctor_cards": {
+    "0724184100": {
+      "username": "dr.ahmed.hassan",
+      "name": "Dr. Ahmed Hassan Mohamed",
+      "type": "doctor"
+    },
+    "0724975956": {
+      "username": "dr.mona.saeed",
+      "name": "Dr. Mona Saeed Ibrahim",
+      "type": "doctor"
+    },
+    "3210169413": {
+      "username": "dr.khaled.mahmoud",
+      "name": "Dr. Khaled Mahmoud Ali",
+      "type": "doctor"
+    }
+  },
+  "patient_cards": {
+    "0725755156": {
+      "national_id": "3000315013434",
+      "name": "Mohamed Ali Hassan",
+      "type": "patient"
+    },
+    "0724184100": {
+      "national_id": "28803151234567",
+      "name": "Sara Ahmed Ibrahim",
+      "type": "patient"
+    },
+    "3753683735": {
+      "national_id": "29905152345678",
+      "name": "Fatma Ali Ibrahim",
+      "type": "patient"
+    }
+  }
+}

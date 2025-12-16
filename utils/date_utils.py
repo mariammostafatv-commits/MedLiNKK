@@ -261,33 +261,33 @@ def format_datetime(date_str: str, time_str: str) -> str:
         return f"{date_str} {time_str}"
 
 
-def format_date_arabic(date_str: str, format_str: str = '%Y-%m-%d') -> str:
-    """
-    Format date with Arabic month names
+# def format_date_arabic(date_str: str, format_str: str = '%Y-%m-%d') -> str:
+#     """
+#     Format date with Arabic month names
 
-    Args:
-        date_str: Date string
-        format_str: Input date format
+#     Args:
+#         date_str: Date string
+#         format_str: Input date format
 
-    Returns:
-        Date formatted with Arabic month names
+#     Returns:
+#         Date formatted with Arabic month names
 
-    Example:
-        >>> format_date_arabic('2024-11-28')
-        '28 نوفمبر 2024'
-    """
-    arabic_months = {
-        1: "يناير", 2: "فبراير", 3: "مارس", 4: "أبريل",
-        5: "مايو", 6: "يونيو", 7: "يوليو", 8: "أغسطس",
-        9: "سبتمبر", 10: "أكتوبر", 11: "نوفمبر", 12: "ديسمبر"
-    }
+#     Example:
+#         >>> format_date_arabic('2024-11-28')
+#         '28 نوفمبر 2024'
+#     """
+#     arabic_months = {
+#         1: "يناير", 2: "فبراير", 3: "مارس", 4: "أبريل",
+#         5: "مايو", 6: "يونيو", 7: "يوليو", 8: "أغسطس",
+#         9: "سبتمبر", 10: "أكتوبر", 11: "نوفمبر", 12: "ديسمبر"
+#     }
 
-    try:
-        date_obj = datetime.strptime(date_str, format_str)
-        month_arabic = arabic_months[date_obj.month]
-        return f"{date_obj.day} {month_arabic} {date_obj.year}"
-    except (ValueError, AttributeError, KeyError):
-        return date_str
+#     try:
+#         date_obj = datetime.strptime(date_str, format_str)
+#         month_arabic = arabic_months[date_obj.month]
+#         return f"{date_obj.day} {month_arabic} {date_obj.year}"
+#     except (ValueError, AttributeError, KeyError):
+#         return date_str
 
 
 def is_valid_date(date_str: str) -> bool:

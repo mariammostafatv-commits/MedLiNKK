@@ -1,0 +1,93 @@
+{
+  "visits": [
+    {
+      "visit_id": "V001",
+      "patient_national_id": "3000315013434",
+      "date": "2024-11-15",
+      "time": "10:30",
+      "doctor_id": "D001",
+      "doctor_name": "Dr. Ahmed Mohamed",
+      "hospital": "Cairo University Hospital",
+      "department": "Cardiology",
+      "visit_type": "Consultation",
+      "chief_complaint": "Chest pain and shortness of breath",
+      "diagnosis": "Stable angina",
+      "treatment_plan": "Prescribed beta-blockers, advised lifestyle changes, follow-up in 2 weeks",
+      "vital_signs": {
+        "blood_pressure": "140/90 mmHg",
+        "heart_rate": "88 bpm",
+        "temperature": "37.0°C",
+        "weight": "78 kg"
+      },
+      "prescriptions": [
+        {
+          "medication": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "duration": "30 days"
+        }
+      ],
+      "notes": "Patient reports improvement with current asthma treatment. Blood pressure slightly elevated.",
+      "attachments": []
+    },
+    {
+      "visit_id": "V002",
+      "patient_national_id": "29501012345678",
+      "date": "2024-10-20",
+      "time": "14:00",
+      "doctor_id": "D001",
+      "doctor_name": "Dr. Ahmed Mohamed",
+      "hospital": "Cairo University Hospital",
+      "department": "Cardiology",
+      "visit_type": "Follow-up",
+      "chief_complaint": "Routine check-up",
+      "diagnosis": "Asthma - controlled",
+      "treatment_plan": "Continue current medications",
+      "vital_signs": {
+        "blood_pressure": "130/85 mmHg",
+        "heart_rate": "75 bpm",
+        "temperature": "36.8°C",
+        "weight": "79 kg"
+      },
+      "prescriptions": [],
+      "notes": "Patient doing well. No complaints.",
+      "attachments": []
+    },
+    {
+      "patient_national_id": "29501012345678",
+      "date": "2025-11-27",
+      "time": "01:04",
+      "doctor_id": "D001",
+      "doctor_name": "Dr. Ahmed Mohamed",
+      "hospital": "Cairo University Hospital",
+      "department": "Cardiology",
+      "visit_type": "Emergency",
+      "chief_complaint": "sssssss",
+      "diagnosis": "sssssssssss",
+      "treatment_plan": "ssssssssss",
+      "notes": "ssssssssss",
+      "prescriptions": [],
+      "attachments": [],
+      "visit_id": "VCA5FC9C0",
+      "created_at": "2025-11-27 01:04:11"
+    },
+    {
+      "patient_national_id": "2991108017933",
+      "date": "2025-12-02",
+      "time": "19:48",
+      "doctor_id": "D001",
+      "doctor_name": "Dr. Ahmed Hassan Mohamed",
+      "hospital": "Cairo University Hospital - Kasr El Aini",
+      "department": "Cardiology",
+      "visit_type": "Consultation",
+      "chief_complaint": "ssssssss",
+      "diagnosis": "ssssssss",
+      "treatment_plan": "ssssssssssss",
+      "notes": "sssssssss",
+      "prescriptions": [],
+      "attachments": [],
+      "visit_id": "V10495E1C",
+      "created_at": "2025-12-02 19:48:29"
+    }
+  ]
+}

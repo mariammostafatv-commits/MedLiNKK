@@ -6,8 +6,8 @@ Location: gui/login_window.py (REPLACE)
 import customtkinter as ctk
 from tkinter import messagebox
 from gui.styles import *
-from core.auth_manager import auth_manager
-from core.card_manager import card_manager
+from core.auth_manager import AuthManager
+from core.card_manager import CardManager
 from core.data_manager import data_manager
 from utils.validators import validate_national_id
 from config.localization import get_string as _
@@ -18,7 +18,8 @@ class LoginWindow(ctk.CTk):
 
     def __init__(self):
         super().__init__()
-        
+        self.auth_manager = AuthManager()
+        self.card_manager = CardManager()
         # NFC card reading (background)
         self.card_buffer = ""
         self.card_reading_active = True
@@ -76,7 +77,7 @@ class LoginWindow(ctk.CTk):
         print(f"🔍 Card scanned: {card_id}")
         
         # Get user from card
-        user_info = card_manager.get_user_by_card(card_id)
+        user_info = card_manager.get_patient_by_card(card_id)
         
         if not user_info:
             # messagebox.showerror(
@@ -106,7 +107,7 @@ class LoginWindow(ctk.CTk):
             
             if user_data:
                 # Success!
-                auth_manager.current_user = user_data
+                self.auth_manager.current_user = user_data
                 # messagebox.showinfo(
                 #     "Card Login Success",
                 #     f"Welcome {user_info.get('name', '')}!"
@@ -387,8 +388,8 @@ class LoginWindow(ctk.CTk):
         self.card_reading_active = False
 
         # Attempt login
-        success, message, user_data = auth_manager.login(
-            username, password, role)
+        # success, message, user_data = self.auth_manager.login(username, password, role)
+        success, message, user_data = self.auth_manager.login(username, password, role)
 
         if success:
             # Close login window and open appropriate dashboard
@@ -423,7 +424,7 @@ class LoginWindow(ctk.CTk):
     def on_dashboard_close(self, dashboard):
         """Handle dashboard window close"""
         dashboard.destroy()
-        auth_manager.logout()
+        self.auth_manager.logout()
         self.deiconify()
         self.username_entry.delete(0, 'end')
         self.password_entry.delete(0, 'end')

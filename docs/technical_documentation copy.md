@@ -663,7 +663,7 @@ def get_patient_from_card(timeout: int) -> Tuple[bool, Optional[dict], str]
 
 **Methods**:
 ```python
-def get_user_by_card(card_id: str) -> Optional[dict]
+def get_patient_by_card(card_id: str) -> Optional[dict]
     """Get user info from card ID"""
 
 def register_card(card_id: str, user_data: dict) -> bool
@@ -1231,7 +1231,7 @@ def on_key_press(self, event):
 ```python
 def process_card(self, card_id: str):
     """Process scanned NFC card"""
-    user_info = card_manager.get_user_by_card(card_id)
+    user_info = card_manager.get_patient_by_card(card_id)
     
     if user_info:
         user_type = user_info.get('type')

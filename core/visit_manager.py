@@ -1,161 +1,307 @@
 """
-Visit manager - Handle medical visit operations
+Visit Manager - Database Version
+Handles medical visits using database instead of JSON
+Location: core/visit_manager.py
 """
-from typing import List, Dict, Optional
-from core.data_manager import data_manager
-from utils.date_utils import get_current_datetime
 import uuid
+from datetime import datetime
+from database.connection import get_db_context
+from database.models import Visit, Patient
 
 
 class VisitManager:
-    """Manages medical visit records"""
+    """
+    Manages medical visit records with database backend
+    Compatible with existing GUI - same method signatures
+    """
     
     def __init__(self):
-        self.data_manager = data_manager
+        """Initialize visit manager"""
+        pass
     
-    def get_patient_visits(self, national_id: str) -> List[Dict]:
+    def get_all_visits(self):
         """
-        Get all visits for a patient, sorted by date (newest first)
+        Get all visits
+        
+        Returns:
+            list: List of visit dictionaries
+        """
+        with get_db_context() as db:
+            visits = db.query(Visit).order_by(Visit.date.desc()).all()
+            # Convert all to dict inside session
+            return [self._visit_to_dict(visit) for visit in visits]
+    
+    def get_patient_visits(self, national_id):
+        """
+        Get all visits for a patient
         
         Args:
             national_id: Patient's national ID
         
         Returns:
-            List of visit dictionaries
+            list: List of visit dictionaries, ordered by date descending
         """
-        visits = self.data_manager.find_items(
-            'visits', 
-            'visits', 
-            'patient_national_id', 
-            national_id
-        )
-        
-        # Sort by date (newest first)
-        return sorted(
-            visits, 
-            key=lambda x: (x.get('date', ''), x.get('time', '')), 
-            reverse=True
-        )
+        with get_db_context() as db:
+            visits = db.query(Visit)\
+                .filter_by(patient_national_id=national_id)\
+                .order_by(Visit.date.desc())\
+                .all()
+            
+            # Convert all to dict inside session
+            return [self._visit_to_dict(visit) for visit in visits]
     
-    def get_visit_by_id(self, visit_id: str) -> Optional[Dict]:
-        """Get single visit by ID"""
-        return self.data_manager.find_item('visits', 'visits', 'visit_id', visit_id)
-    
-    def add_visit(self, visit_data: Dict) -> tuple[bool, str]:
+    def get_visit(self, visit_id):
         """
-        Add new visit record
+        Get visit by ID
         
         Args:
-            visit_data: Visit information dictionary
+            visit_id: Visit ID
         
         Returns:
-            (success: bool, message: str)
+            dict: Visit data if found, None otherwise
+        """
+        with get_db_context() as db:
+            visit = db.query(Visit).filter_by(visit_id=visit_id).first()
+            if visit:
+                return self._visit_to_dict(visit)
+        return None
+    
+    def add_visit(self, visit_data):
+        """
+        Add new visit
+        
+        Args:
+            visit_data: Dictionary with visit information
+        
+        Returns:
+            str: Visit ID if successful, None otherwise
         """
         try:
             # Generate visit ID if not provided
             if 'visit_id' not in visit_data:
                 visit_data['visit_id'] = f"V{uuid.uuid4().hex[:8].upper()}"
             
-            # Add timestamp
-            if 'created_at' not in visit_data:
-                visit_data['created_at'] = get_current_datetime()
+            # Parse date if string
+            if 'date' in visit_data and isinstance(visit_data['date'], str):
+                visit_data['date'] = datetime.strptime(
+                    visit_data['date'], "%Y-%m-%d"
+                ).date()
             
-            # Validate required fields
-            required_fields = ['patient_national_id', 'date', 'doctor_id', 'doctor_name']
-            for field in required_fields:
-                if field not in visit_data:
-                    return False, f"Missing required field: {field}"
+            # Set timestamps
+            visit_data['created_at'] = datetime.now()
+            visit_data['updated_at'] = datetime.now()
             
-            # Add to database
-            success = self.data_manager.add_item('visits', 'visits', visit_data)
+            # Initialize empty arrays/objects if not provided
+            if 'vital_signs' not in visit_data:
+                visit_data['vital_signs'] = {}
+            if 'prescriptions' not in visit_data:
+                visit_data['prescriptions'] = []
+            if 'attachments' not in visit_data:
+                visit_data['attachments'] = []
             
-            if success:
-                return True, "Visit added successfully"
-            else:
-                return False, "Failed to save visit"
-        
+            with get_db_context() as db:
+                # Verify patient exists
+                patient = db.query(Patient).filter_by(
+                    national_id=visit_data['patient_national_id']
+                ).first()
+                
+                if not patient:
+                    print(f"Error: Patient {visit_data['patient_national_id']} not found")
+                    return None
+                
+                # Create new visit
+                visit = Visit(**visit_data)
+                db.add(visit)
+                # Auto-commits on exit
+            
+            return visit_data['visit_id']
+            
         except Exception as e:
-            return False, f"Error adding visit: {str(e)}"
+            print(f"Error adding visit: {e}")
+            import traceback
+            traceback.print_exc()
+            return None
     
-    def update_visit(self, visit_id: str, visit_data: Dict) -> tuple[bool, str]:
+    def update_visit(self, visit_id, updates):
         """
-        Update existing visit
+        Update visit information
         
         Args:
-            visit_id: Visit ID to update
-            visit_data: Updated visit information
+            visit_id: Visit ID
+            updates: Dictionary of fields to update
         
         Returns:
-            (success: bool, message: str)
+            bool: True if successful, False otherwise
         """
         try:
-            # Add update timestamp
-            visit_data['updated_at'] = get_current_datetime()
+            # Parse date if string
+            if 'date' in updates and isinstance(updates['date'], str):
+                updates['date'] = datetime.strptime(
+                    updates['date'], "%Y-%m-%d"
+                ).date()
             
-            success = self.data_manager.update_item(
-                'visits', 
-                'visits', 
-                visit_id, 
-                'visit_id', 
-                visit_data
-            )
+            # Update timestamp
+            updates['updated_at'] = datetime.now()
             
-            if success:
-                return True, "Visit updated successfully"
-            else:
-                return False, "Failed to update visit"
-        
+            with get_db_context() as db:
+                visit = db.query(Visit).filter_by(visit_id=visit_id).first()
+                if not visit:
+                    return False
+                
+                # Update fields
+                for key, value in updates.items():
+                    if hasattr(visit, key):
+                        setattr(visit, key, value)
+                
+                # Auto-commits on exit
+            
+            return True
+            
         except Exception as e:
-            return False, f"Error updating visit: {str(e)}"
+            print(f"Error updating visit: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
     
-    def delete_visit(self, visit_id: str) -> tuple[bool, str]:
+    def delete_visit(self, visit_id):
         """
-        Delete visit record
+        Delete visit
         
         Args:
-            visit_id: Visit ID to delete
+            visit_id: Visit ID
         
         Returns:
-            (success: bool, message: str)
+            bool: True if successful, False otherwise
         """
         try:
-            success = self.data_manager.delete_item('visits', 'visits', visit_id, 'visit_id')
+            with get_db_context() as db:
+                visit = db.query(Visit).filter_by(visit_id=visit_id).first()
+                if not visit:
+                    return False
+                
+                db.delete(visit)
+                # Auto-commits on exit
             
-            if success:
-                return True, "Visit deleted successfully"
-            else:
-                return False, "Failed to delete visit"
-        
+            return True
+            
         except Exception as e:
-            return False, f"Error deleting visit: {str(e)}"
+            print(f"Error deleting visit: {e}")
+            return False
     
-    def get_visits_by_doctor(self, doctor_id: str) -> List[Dict]:
-        """Get all visits by a specific doctor"""
-        visits = self.data_manager.find_items('visits', 'visits', 'doctor_id', doctor_id)
-        return sorted(visits, key=lambda x: x.get('date', ''), reverse=True)
-    
-    def get_visits_by_date_range(self, national_id: str, start_date: str, end_date: str) -> List[Dict]:
-        """Get visits within a date range"""
-        all_visits = self.get_patient_visits(national_id)
+    def get_visits_by_doctor(self, doctor_id):
+        """
+        Get all visits by a specific doctor
         
-        filtered = []
-        for visit in all_visits:
-            visit_date = visit.get('date', '')
-            if start_date <= visit_date <= end_date:
-                filtered.append(visit)
+        Args:
+            doctor_id: Doctor's user ID
         
-        return filtered
+        Returns:
+            list: List of visit dictionaries
+        """
+        with get_db_context() as db:
+            visits = db.query(Visit)\
+                .filter_by(doctor_id=doctor_id)\
+                .order_by(Visit.date.desc())\
+                .all()
+            
+            # Convert all to dict inside session
+            return [self._visit_to_dict(visit) for visit in visits]
     
-    def get_recent_visits(self, national_id: str, limit: int = 5) -> List[Dict]:
-        """Get most recent visits for a patient"""
-        visits = self.get_patient_visits(national_id)
-        return visits[:limit]
+    def get_visits_by_date_range(self, start_date, end_date):
+        """
+        Get visits within a date range
+        
+        Args:
+            start_date: Start date (string or date object)
+            end_date: End date (string or date object)
+        
+        Returns:
+            list: List of visit dictionaries
+        """
+        # Parse dates if strings
+        if isinstance(start_date, str):
+            start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
+        if isinstance(end_date, str):
+            end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
+        
+        with get_db_context() as db:
+            visits = db.query(Visit)\
+                .filter(Visit.date >= start_date)\
+                .filter(Visit.date <= end_date)\
+                .order_by(Visit.date.desc())\
+                .all()
+            
+            # Convert all to dict inside session
+            return [self._visit_to_dict(visit) for visit in visits]
     
-    def get_visit_count(self, national_id: str) -> int:
-        """Get total visit count for a patient"""
-        visits = self.get_patient_visits(national_id)
-        return len(visits)
+    def get_visit_count(self, national_id=None):
+        """
+        Get visit count, optionally for a specific patient
+        
+        Args:
+            national_id: Optional patient national ID
+        
+        Returns:
+            int: Number of visits
+        """
+        with get_db_context() as db:
+            query = db.query(Visit)
+            
+            if national_id:
+                query = query.filter_by(patient_national_id=national_id)
+            
+            return query.count()
+    
+    def _visit_to_dict(self, visit):
+        """
+        Convert Visit model to dictionary for GUI compatibility
+        Call this ONLY inside a database session context
+        
+        Args:
+            visit: Visit SQLAlchemy model
+        
+        Returns:
+            dict: Visit data as dictionary
+        """
+        if not visit:
+            return None
+        
+        return {
+            'visit_id': visit.visit_id,
+            'patient_national_id': visit.patient_national_id,
+            'date': str(visit.date) if visit.date else None,
+            'time': visit.time,
+            
+            # Doctor information
+            'doctor_id': visit.doctor_id,
+            'doctor_name': visit.doctor_name,
+            'hospital': visit.hospital,
+            'department': visit.department,
+            
+            # Visit details
+            'visit_type': visit.visit_type,
+            'chief_complaint': visit.chief_complaint,
+            'diagnosis': visit.diagnosis,
+            'treatment_plan': visit.treatment_plan,
+            'notes': visit.notes,
+            
+            # JSON fields
+            'vital_signs': visit.vital_signs or {},
+            'prescriptions': visit.prescriptions or [],
+            'attachments': visit.attachments or [],
+            
+            # Timestamps
+            'created_at': str(visit.created_at) if visit.created_at else None,
+            'updated_at': str(visit.updated_at) if visit.updated_at else None
+        }
 
 
-# Global instance
-visit_manager = VisitManager()
+# Singleton instance
+_visit_manager = None
+
+def get_visit_manager():
+    """Get singleton instance of VisitManager"""
+    global _visit_manager
+    if _visit_manager is None:
+        _visit_manager = VisitManager()
+    return _visit_manager

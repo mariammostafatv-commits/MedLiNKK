@@ -327,7 +327,7 @@ class PatientDashboard(ctk.CTkToplevel):
         print(f"🔍 Card scanned in patient dashboard: {card_id}")
         
         # Get user from card
-        user_info = card_manager.get_user_by_card(card_id)
+        user_info = card_manager.get_patient_by_card(card_id)
         
         if not user_info:
             messagebox.showerror(

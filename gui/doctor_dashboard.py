@@ -16,7 +16,7 @@ from core.search_engine import search_engine
 
 
 class DoctorDashboard(ctk.CTkToplevel):
-    """Main doctor dashboard window"""
+    """Main doctor dashboard window here....."""
 
     def __init__(self, parent, user_data):
         super().__init__(parent)
@@ -533,7 +533,7 @@ class DoctorDashboard(ctk.CTkToplevel):
                     fg_color='transparent'
                 )
                 profile_scroll.pack(fill='both', expand=True, padx=10, pady=10)
-                
+
                 self.patient_card = PatientCard(
                     profile_scroll,
                     patient,
@@ -547,7 +547,7 @@ class DoctorDashboard(ctk.CTkToplevel):
                     fg_color='transparent'
                 )
                 profile_scroll.pack(fill='both', expand=True, padx=10, pady=10)
-                
+
                 tabview.add("Medical History")
                 tabview.add("Lab Results")
                 tabview.add("Imaging")
@@ -716,7 +716,6 @@ class DoctorDashboard(ctk.CTkToplevel):
             if len(event.char) > 0 and event.char.isprintable():
                 self.card_buffer += event.char
 
-
     def process_card(self, card_id: str):
         """Process scanned NFC card"""
         from core.card_manager import card_manager
@@ -726,11 +725,11 @@ class DoctorDashboard(ctk.CTkToplevel):
 
         print(f"🔍 Card scanned: {card_id}")
 
-        user_info = card_manager.get_user_by_card(card_id)
+        user_info = card_manager.get_patient_by_card(card_id)
 
         if not user_info:
             messagebox.showerror("Card Not Registered",
-                                f"Card {card_id} not registered")
+                                 f"Card {card_id} not registered")
             return
 
         user_type = user_info.get('type')
@@ -767,7 +766,7 @@ class DoctorDashboard(ctk.CTkToplevel):
                 from gui.doctor_dashboard import DoctorDashboard
                 new_dashboard = DoctorDashboard(self.parent, new_doctor)
                 new_dashboard.protocol("WM_DELETE_WINDOW",
-                                    lambda: self.parent.on_dashboard_close(new_dashboard))
+                                       lambda: self.parent.on_dashboard_close(new_dashboard))
             else:
                 messagebox.showerror("Error", "Doctor not found")
 
@@ -790,7 +789,7 @@ class DoctorDashboard(ctk.CTkToplevel):
                 self.show_patient_profile(patient)
             else:
                 messagebox.showerror("Not Found",
-                                    f"Patient {patient_name} not found")
+                                     f"Patient {patient_name} not found")
 
 
 if __name__ == "__main__":

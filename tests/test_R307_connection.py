@@ -23,7 +23,7 @@ import time
 # Configure the serial port
 # Replace 'COM3' with the actual serial port your CP2102 is connected to
 # On Linux, this might be something like '/dev/ttyUSB0'
-SERIAL_PORT = 'COM6'
+SERIAL_PORT = 'COM7'
 BAUD_RATE = 9600
 
 try:

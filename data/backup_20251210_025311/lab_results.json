@@ -1,0 +1,31 @@
+{
+  "result_id": "LAB001",
+  "patient_national_id": "29501012345678",
+  "date": "2024-11-10",
+  "lab_name": "Al Borg Labs",
+  "test_type": "Complete Blood Count (CBC)",
+  "status": "completed|pending",
+  "results": {
+    "Hemoglobin": "14.5 g/dL",
+    "WBC": "7.2 x10^3/uL",
+    "Platelets": "250 x10^3/uL"
+  },
+  "external_link": "https://alborg.com/results/LAB001",
+  "attachment": "attachments/lab_results/cbc_2024_11_10.pdf",
+  "ordered_by": "D001",
+  "lab_results": [
+    {
+      "patient_national_id": "29501012345678",
+      "date": "2025-11-27",
+      "lab_name": "Al Borg Medical Laboratories",
+      "test_type": "sdfsdfsdf",
+      "status": "completed",
+      "results": {},
+      "notes": "dfsdf",
+      "attachment": "",
+      "ordered_by": "D001",
+      "result_id": "LAB479322F1",
+      "created_at": "2025-11-27 01:30:47"
+    }
+  ]
+}

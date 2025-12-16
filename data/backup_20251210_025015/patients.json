@@ -1,0 +1,4029 @@
+{
+  "patients": [
+    {
+      "national_id": "3000315013434",
+      "full_name": "Ahmed Khaled Ibrahim",
+      "date_of_birth": "2000-03-15",
+      "age": 25,
+      "gender": "Male",
+      "blood_type": "A+",
+      "phone": "01031940568",
+      "email": "ahmed.khaled.ibrahim@email.com",
+      "address": "47 Maadi Street, Cairo",
+      "emergency_contact": {
+        "name": "Mona Khaled",
+        "relation": "Sister",
+        "phone": "01124905751"
+      },
+      "chronic_diseases": ["Asthma"],
+      "allergies": ["Penicillin"],
+      "current_medications": [
+        {
+          "name": "Ventolin Inhaler",
+          "dosage": "2 puffs",
+          "frequency": "As needed",
+          "started_date": "2022-06-15"
+        }
+      ],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF8501",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF8167",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Current",
+        "alcohol_consumption": "Occasional",
+        "exercise_frequency": "3-4 times per week",
+        "exercise_type": "Yoga",
+        "diet_type": "Balanced",
+        "dietary_restrictions": ["Penicillin"],
+        "occupation": "Software Engineer",
+        "occupation_hazards": ["Sedentary work"],
+        "sleep_hours": 8,
+        "stress_level": "Moderate to High"
+      },
+      "insurance": {
+        "provider": "Misr Insurance",
+        "policy_number": "INS620698",
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": "NTAG215 Keychain",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2980722018868",
+      "full_name": "Nour Mohamed Saleh",
+      "date_of_birth": "1998-07-22",
+      "age": 27,
+      "gender": "Female",
+      "blood_type": "O+",
+      "phone": "01048848216",
+      "email": "nour.mohamed.saleh@email.com",
+      "address": "17 Nasr Street, Cairo",
+      "emergency_contact": {
+        "name": "Mohamed Mohamed",
+        "relation": "Husband",
+        "phone": "01169866212"
+      },
+      "chronic_diseases": [],
+      "allergies": [],
+      "current_medications": [],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF1373",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF7861",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Rarely",
+        "exercise_type": "Walking",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Graphic Designer",
+        "occupation_hazards": ["Sedentary work"],
+        "sleep_hours": 9,
+        "stress_level": "High"
+      },
+      "insurance": {
+        "provider": "Allianz Egypt",
+        "policy_number": "INS386049",
+        "expiry": "2025-12-31",
+        "coverage_type": "Premium",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": null,
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2991108017933",
+      "full_name": "Omar Hassan Ali",
+      "date_of_birth": "1999-11-08",
+      "age": 26,
+      "gender": "Male",
+      "blood_type": "B+",
+      "phone": "01035549992",
+      "email": "omar.hassan.ali@email.com",
+      "address": "21 Mohandessin Street, Cairo",
+      "emergency_contact": {
+        "name": "Aisha Hassan",
+        "relation": "Wife",
+        "phone": "01197979871"
+      },
+      "chronic_diseases": ["Type 1 Diabetes"],
+      "allergies": ["Sulfa drugs"],
+      "current_medications": [
+        {
+          "name": "Insulin Lantus",
+          "dosage": "20 units",
+          "frequency": "Once daily at bedtime",
+          "started_date": "2020-01-10"
+        }
+      ],
+      "surgeries": [
+        {
+          "surgery_id": "SRG003-1",
+          "date": "2018-04-25",
+          "procedure": "Hernia Repair",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "surgeon": "Dr. Yasser Shokry Fouad",
+          "complications": "None",
+          "notes": "Successful procedure, full recovery",
+          "recovery_time": "2-3 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP003-1",
+          "admission_date": "2018-04-25",
+          "discharge_date": "2018-04-28",
+          "reason": "Hernia Repair",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Yasser Shokry Fouad",
+          "diagnosis": "Hernia Repair required",
+          "treatment_summary": "Surgical intervention, post-operative care",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF5799",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF5880",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Daily",
+        "exercise_type": "Walking",
+        "diet_type": "Diabetic diet",
+        "dietary_restrictions": ["Sulfa drugs"],
+        "occupation": "Pharmacist",
+        "occupation_hazards": [],
+        "sleep_hours": 9,
+        "stress_level": "Moderate"
+      },
+      "insurance": {
+        "provider": "Misr Insurance",
+        "policy_number": "INS218114",
+        "expiry": "2025-12-31",
+        "coverage_type": "Basic",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": "Mifare Classic 1K",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "3010514012088",
+      "full_name": "Hana Youssef Farid",
+      "date_of_birth": "2001-05-14",
+      "age": 24,
+      "gender": "Female",
+      "blood_type": "AB+",
+      "phone": "01089222970",
+      "email": "hana.youssef.farid@email.com",
+      "address": "58 Mohandessin Street, Cairo",
+      "emergency_contact": {
+        "name": "Hassan Youssef",
+        "relation": "Sister",
+        "phone": "01129883712"
+      },
+      "chronic_diseases": [],
+      "allergies": ["Latex"],
+      "current_medications": [],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF7944",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF3985",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Brother",
+            "age": 25,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": "OD208541",
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "Occasional",
+        "exercise_frequency": "2-3 times per week",
+        "exercise_type": "Gym",
+        "diet_type": "Balanced",
+        "dietary_restrictions": ["Latex"],
+        "occupation": "Teacher",
+        "occupation_hazards": [],
+        "sleep_hours": 9,
+        "stress_level": "Low"
+      },
+      "insurance": {
+        "provider": "Allianz Egypt",
+        "policy_number": "INS466089",
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "0400B1317194F6",
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": "NTAG215 Card",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2970930018990",
+      "full_name": "Karim Tarek Mostafa",
+      "date_of_birth": "1997-09-30",
+      "age": 28,
+      "gender": "Male",
+      "blood_type": "A-",
+      "phone": "01064847533",
+      "email": "karim.tarek.mostafa@email.com",
+      "address": "68 Mohandessin Street, Cairo",
+      "emergency_contact": {
+        "name": "Aisha Tarek",
+        "relation": "Sister",
+        "phone": "01138219851"
+      },
+      "chronic_diseases": ["Hypertension"],
+      "allergies": [],
+      "current_medications": [
+        {
+          "name": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "started_date": "2021-03-20"
+        }
+      ],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF7234",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF9567",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Brother",
+            "age": 32,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": "OD881719",
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": true
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "Occasional",
+        "exercise_frequency": "Rarely",
+        "exercise_type": "Yoga",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Accountant",
+        "occupation_hazards": [],
+        "sleep_hours": 5,
+        "stress_level": "Moderate to High"
+      },
+      "insurance": {
+        "provider": "Egyptian General Insurance",
+        "policy_number": "INS581643",
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": "NTAG215 Card",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2850412011763",
+      "full_name": "Maha Mahmoud Abdel Rahman",
+      "date_of_birth": "1985-04-12",
+      "age": 40,
+      "gender": "Female",
+      "blood_type": "O-",
+      "phone": "01069602731",
+      "email": "maha.mahmoud.abdel.rahman@email.com",
+      "address": "88 Heliopolis Street, Cairo",
+      "emergency_contact": {
+        "name": "Mohamed Mahmoud",
+        "relation": "Father",
+        "phone": "01163084262"
+      },
+      "chronic_diseases": ["Type 2 Diabetes", "Hypertension"],
+      "allergies": ["Aspirin"],
+      "current_medications": [
+        {
+          "name": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "started_date": "2021-03-20"
+        },
+        {
+          "name": "Glucophage 500mg",
+          "dosage": "1 tablet",
+          "frequency": "Twice daily",
+          "started_date": "2019-08-15"
+        }
+      ],
+      "surgeries": [
+        {
+          "surgery_id": "SRG006-1",
+          "date": "2019-12-31",
+          "procedure": "Cesarean Section",
+          "hospital": "Qasr El Aini Hospital",
+          "surgeon": "Dr. Mona Saeed Ibrahim",
+          "complications": "None",
+          "notes": "Successful delivery, healthy baby",
+          "recovery_time": "6 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP006-1",
+          "admission_date": "2019-12-31",
+          "discharge_date": "2020-01-03",
+          "reason": "Cesarean Section",
+          "hospital": "Qasr El Aini Hospital",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Mona Saeed Ibrahim",
+          "diagnosis": "Cesarean Section required",
+          "treatment_summary": "Surgical intervention, post-operative care",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF3784",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF8310",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "3-4 times per week",
+        "exercise_type": "Yoga",
+        "diet_type": "Diabetic diet",
+        "dietary_restrictions": ["Aspirin"],
+        "occupation": "School Principal",
+        "occupation_hazards": [],
+        "sleep_hours": 8,
+        "stress_level": "High"
+      },
+      "insurance": {
+        "provider": "Allianz Egypt",
+        "policy_number": "INS601417",
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "0400C347C2F7B6",
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": null,
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2820819018252",
+      "full_name": "Sherif Adel Naguib",
+      "date_of_birth": "1982-08-19",
+      "age": 43,
+      "gender": "Male",
+      "blood_type": "B-",
+      "phone": "01041369051",
+      "email": "sherif.adel.naguib@email.com",
+      "address": "5 Zamalek Street, Cairo",
+      "emergency_contact": {
+        "name": "Mona Adel",
+        "relation": "Wife",
+        "phone": "01121573352"
+      },
+      "chronic_diseases": ["High Cholesterol"],
+      "allergies": [],
+      "current_medications": [],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF7900",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF8748",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": "OD350201",
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Mona Adel",
+          "relation": "Wife",
+          "phone": "01121573352",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Current",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "2-3 times per week",
+        "exercise_type": "None",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Business Owner",
+        "occupation_hazards": [],
+        "sleep_hours": 6,
+        "stress_level": "Moderate to High"
+      },
+      "insurance": {
+        "provider": "MetLife Egypt",
+        "policy_number": "INS875835",
+        "expiry": "2025-12-31",
+        "coverage_type": "Basic",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "04002791A1FDB6",
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": "Mifare Classic 1K",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2801225017389",
+      "full_name": "Laila Sami Hasan",
+      "date_of_birth": "1980-12-25",
+      "age": 44,
+      "gender": "Female",
+      "blood_type": "A+",
+      "phone": "01054142104",
+      "email": "laila.sami.hasan@email.com",
+      "address": "9 Nasr Street, Cairo",
+      "emergency_contact": {
+        "name": "Hassan Sami",
+        "relation": "Father",
+        "phone": "01175572045"
+      },
+      "chronic_diseases": ["Hypothyroidism"],
+      "allergies": ["Iodine"],
+      "current_medications": [],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF1627",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF6056",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": "OD982357",
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Hassan Sami",
+          "relation": "Father",
+          "phone": "01175572045",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Once per week",
+        "exercise_type": "Running, Swimming",
+        "diet_type": "Balanced",
+        "dietary_restrictions": ["Iodine"],
+        "occupation": "University Professor",
+        "occupation_hazards": [],
+        "sleep_hours": 6,
+        "stress_level": "Low"
+      },
+      "insurance": {
+        "provider": "MetLife Egypt",
+        "policy_number": "INS899309",
+        "expiry": "2025-12-31",
+        "coverage_type": "Premium",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "0400CBBA743F1E",
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": null,
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2780217010354",
+      "full_name": "Tamer Fouad Zaki",
+      "date_of_birth": "1978-02-17",
+      "age": 47,
+      "gender": "Male",
+      "blood_type": "O+",
+      "phone": "01074881740",
+      "email": "tamer.fouad.zaki@email.com",
+      "address": "58 Maadi Street, Cairo",
+      "emergency_contact": {
+        "name": "Fatma Fouad",
+        "relation": "Wife",
+        "phone": "01184360717"
+      },
+      "chronic_diseases": ["Chronic back pain"],
+      "allergies": [],
+      "current_medications": [],
+      "surgeries": [
+        {
+          "surgery_id": "SRG009-1",
+          "date": "2020-07-12",
+          "procedure": "Appendectomy",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "surgeon": "Dr. Yasser Shokry Fouad",
+          "complications": "None",
+          "notes": "Successful procedure, full recovery",
+          "recovery_time": "2-3 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP009-1",
+          "admission_date": "2020-07-12",
+          "discharge_date": "2020-07-15",
+          "reason": "Appendectomy",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Yasser Shokry Fouad",
+          "diagnosis": "Appendectomy required",
+          "treatment_summary": "Surgical intervention, post-operative care",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF5727",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF3487",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Sister",
+            "age": 42,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Fatma Fouad",
+          "relation": "Wife",
+          "phone": "01184360717",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": true
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "2-3 times per week",
+        "exercise_type": "Walking",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Construction Engineer",
+        "occupation_hazards": ["Sedentary work"],
+        "sleep_hours": 5,
+        "stress_level": "Moderate to High"
+      },
+      "insurance": {
+        "provider": "Misr Insurance",
+        "policy_number": "INS795413",
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": "Mifare Classic 1K",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2880603013180",
+      "full_name": "Dina Ashraf Kamal",
+      "date_of_birth": "1988-06-03",
+      "age": 37,
+      "gender": "Female",
+      "blood_type": "AB-",
+      "phone": "01065654519",
+      "email": "dina.ashraf.kamal@email.com",
+      "address": "11 Heliopolis Street, Cairo",
+      "emergency_contact": {
+        "name": "Khaled Ashraf",
+        "relation": "Father",
+        "phone": "01156150253"
+      },
+      "chronic_diseases": ["Migraine"],
+      "allergies": ["NSAIDs"],
+      "current_medications": [],
+      "surgeries": [
+        {
+          "surgery_id": "SRG010-1",
+          "date": "2020-01-01",
+          "procedure": "Cesarean Section",
+          "hospital": "Qasr El Aini Hospital",
+          "surgeon": "Dr. Mona Saeed Ibrahim",
+          "complications": "None",
+          "notes": "Successful delivery, healthy baby",
+          "recovery_time": "6 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP010-1",
+          "admission_date": "2020-01-01",
+          "discharge_date": "2020-01-04",
+          "reason": "Cesarean Section",
+          "hospital": "Qasr El Aini Hospital",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Mona Saeed Ibrahim",
+          "diagnosis": "Cesarean Section required",
+          "treatment_summary": "Surgical intervention, post-operative care",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF9574",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF1927",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": "OD998141",
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Daily",
+        "exercise_type": "Running, Swimming",
+        "diet_type": "Balanced",
+        "dietary_restrictions": ["NSAIDs"],
+        "occupation": "Marketing Manager",
+        "occupation_hazards": [],
+        "sleep_hours": 6,
+        "stress_level": "High"
+      },
+      "insurance": {
+        "provider": "Allianz Egypt",
+        "policy_number": "INS282054",
+        "expiry": "2025-12-31",
+        "coverage_type": "Basic",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "0400B45AC468D7",
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": null,
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2681010016270",
+      "full_name": "Magdy Ibrahim Salem",
+      "date_of_birth": "1968-10-10",
+      "age": 57,
+      "gender": "Male",
+      "blood_type": "A+",
+      "phone": "01055575893",
+      "email": "magdy.ibrahim.salem@email.com",
+      "address": "54 Mohandessin Street, Cairo",
+      "emergency_contact": {
+        "name": "Hassan Ibrahim",
+        "relation": "Wife",
+        "phone": "01155606482"
+      },
+      "chronic_diseases": ["Type 2 Diabetes", "Hypertension", "Heart disease"],
+      "allergies": ["Penicillin"],
+      "current_medications": [
+        {
+          "name": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "started_date": "2021-03-20"
+        },
+        {
+          "name": "Glucophage 500mg",
+          "dosage": "1 tablet",
+          "frequency": "Twice daily",
+          "started_date": "2019-08-15"
+        }
+      ],
+      "surgeries": [
+        {
+          "surgery_id": "SRG011-1",
+          "date": "2023-02-13",
+          "procedure": "Appendectomy",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "surgeon": "Dr. Yasser Shokry Fouad",
+          "complications": "None",
+          "notes": "Successful procedure, full recovery",
+          "recovery_time": "2-3 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP011-1",
+          "admission_date": "2023-02-13",
+          "discharge_date": "2023-02-16",
+          "reason": "Appendectomy",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Yasser Shokry Fouad",
+          "diagnosis": "Appendectomy required",
+          "treatment_summary": "Surgical intervention, post-operative care",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF9321",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF7342",
+          "next_dose_due": null
+        },
+        {
+          "vaccine_name": "Influenza",
+          "date_administered": "2024-10-01",
+          "dose_number": "Annual",
+          "location": "Local Clinic",
+          "batch_number": "FLU2024",
+          "next_dose_due": "2025-10-01"
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 68,
+          "cause_of_death": "Heart attack",
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": "OD347476",
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Hassan Ibrahim",
+          "relation": "Wife",
+          "phone": "01155606482",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Current",
+        "alcohol_consumption": "Occasional",
+        "exercise_frequency": "Daily",
+        "exercise_type": "None",
+        "diet_type": "Diabetic diet",
+        "dietary_restrictions": ["Penicillin"],
+        "occupation": "Retired Teacher",
+        "occupation_hazards": [],
+        "sleep_hours": 7,
+        "stress_level": "Low"
+      },
+      "insurance": {
+        "provider": "MetLife Egypt",
+        "policy_number": "INS905992",
+        "expiry": "2025-12-31",
+        "coverage_type": "Basic",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": "Mifare Classic 1K",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2650328012043",
+      "full_name": "Samira Mohamed Amin",
+      "date_of_birth": "1965-03-28",
+      "age": 60,
+      "gender": "Female",
+      "blood_type": "O+",
+      "phone": "01086344920",
+      "email": "samira.mohamed.amin@email.com",
+      "address": "63 Tahrir Street, Cairo",
+      "emergency_contact": {
+        "name": "Khaled Mohamed",
+        "relation": "Father",
+        "phone": "01118885433"
+      },
+      "chronic_diseases": ["Osteoarthritis", "Hypertension"],
+      "allergies": [],
+      "current_medications": [
+        {
+          "name": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "started_date": "2021-03-20"
+        }
+      ],
+      "surgeries": [
+        {
+          "surgery_id": "SRG012-1",
+          "date": "2019-04-26",
+          "procedure": "Cesarean Section",
+          "hospital": "Qasr El Aini Hospital",
+          "surgeon": "Dr. Mona Saeed Ibrahim",
+          "complications": "None",
+          "notes": "Successful delivery, healthy baby",
+          "recovery_time": "6 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP012-1",
+          "admission_date": "2019-04-26",
+          "discharge_date": "2019-04-29",
+          "reason": "Cesarean Section",
+          "hospital": "Qasr El Aini Hospital",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Mona Saeed Ibrahim",
+          "diagnosis": "Cesarean Section required",
+          "treatment_summary": "Surgical intervention, post-operative care",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF1558",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF2141",
+          "next_dose_due": null
+        },
+        {
+          "vaccine_name": "Influenza",
+          "date_administered": "2024-10-01",
+          "dose_number": "Annual",
+          "location": "Local Clinic",
+          "batch_number": "FLU2024",
+          "next_dose_due": "2025-10-01"
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 68,
+          "cause_of_death": "Heart attack",
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 70,
+          "cause_of_death": "Stroke",
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Sister",
+            "age": 61,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Khaled Mohamed",
+          "relation": "Father",
+          "phone": "01118885433",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "Occasional",
+        "exercise_frequency": "3-4 times per week",
+        "exercise_type": "Walking",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Retired Nurse",
+        "occupation_hazards": [],
+        "sleep_hours": 9,
+        "stress_level": "Moderate"
+      },
+      "insurance": {
+        "provider": "Misr Insurance",
+        "policy_number": "INS964262",
+        "expiry": "2025-12-31",
+        "coverage_type": "Premium",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": "NTAG215 Card",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2700715013273",
+      "full_name": "Hassan Ali Younis",
+      "date_of_birth": "1970-07-15",
+      "age": 55,
+      "gender": "Male",
+      "blood_type": "B+",
+      "phone": "01029198315",
+      "email": "hassan.ali.younis@email.com",
+      "address": "17 Maadi Street, Cairo",
+      "emergency_contact": {
+        "name": "Fatma Ali",
+        "relation": "Father",
+        "phone": "01125493156"
+      },
+      "chronic_diseases": ["COPD", "Hypertension"],
+      "allergies": ["Sulfa drugs"],
+      "current_medications": [
+        {
+          "name": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "started_date": "2021-03-20"
+        }
+      ],
+      "surgeries": [
+        {
+          "surgery_id": "SRG013-1",
+          "date": "2016-04-19",
+          "procedure": "Hernia Repair",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "surgeon": "Dr. Yasser Shokry Fouad",
+          "complications": "None",
+          "notes": "Successful procedure, full recovery",
+          "recovery_time": "2-3 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP013-1",
+          "admission_date": "2016-04-19",
+          "discharge_date": "2016-04-22",
+          "reason": "Hernia Repair",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Yasser Shokry Fouad",
+          "diagnosis": "Hernia Repair required",
+          "treatment_summary": "Surgical intervention, post-operative care",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF2178",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF1039",
+          "next_dose_due": null
+        },
+        {
+          "vaccine_name": "Influenza",
+          "date_administered": "2024-10-01",
+          "dose_number": "Annual",
+          "location": "Local Clinic",
+          "batch_number": "FLU2024",
+          "next_dose_due": "2025-10-01"
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 68,
+          "cause_of_death": "Heart attack",
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Sister",
+            "age": 55,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": "OD779394",
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Fatma Ali",
+          "relation": "Father",
+          "phone": "01125493156",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Once per week",
+        "exercise_type": "Running, Swimming",
+        "diet_type": "Balanced",
+        "dietary_restrictions": ["Sulfa drugs"],
+        "occupation": "Taxi Driver",
+        "occupation_hazards": [],
+        "sleep_hours": 8,
+        "stress_level": "Low"
+      },
+      "insurance": {
+        "provider": "Egyptian General Insurance",
+        "policy_number": "INS756301",
+        "expiry": "2025-12-31",
+        "coverage_type": "Basic",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": "Mifare Classic 1K",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2671122017227",
+      "full_name": "Nawal Farid Mostafa",
+      "date_of_birth": "1967-11-22",
+      "age": 58,
+      "gender": "Female",
+      "blood_type": "A-",
+      "phone": "01092019451",
+      "email": "nawal.farid.mostafa@email.com",
+      "address": "20 Maadi Street, Cairo",
+      "emergency_contact": {
+        "name": "Hassan Farid",
+        "relation": "Sister",
+        "phone": "01154290723"
+      },
+      "chronic_diseases": ["Type 2 Diabetes", "Osteoporosis"],
+      "allergies": [],
+      "current_medications": [
+        {
+          "name": "Glucophage 500mg",
+          "dosage": "1 tablet",
+          "frequency": "Twice daily",
+          "started_date": "2019-08-15"
+        }
+      ],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF2272",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF5622",
+          "next_dose_due": null
+        },
+        {
+          "vaccine_name": "Influenza",
+          "date_administered": "2024-10-01",
+          "dose_number": "Annual",
+          "location": "Local Clinic",
+          "batch_number": "FLU2024",
+          "next_dose_due": "2025-10-01"
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 68,
+          "cause_of_death": "Heart attack",
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Hassan Farid",
+          "relation": "Sister",
+          "phone": "01154290723",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": true
+      },
+      "lifestyle": {
+        "smoking_status": "Current",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "2-3 times per week",
+        "exercise_type": "None",
+        "diet_type": "Diabetic diet",
+        "dietary_restrictions": [],
+        "occupation": "Housewife",
+        "occupation_hazards": [],
+        "sleep_hours": 7,
+        "stress_level": "Moderate to High"
+      },
+      "insurance": {
+        "provider": "Allianz Egypt",
+        "policy_number": "INS945269",
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "04003D78A5EA97",
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": "NTAG215 Card",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2720105018250",
+      "full_name": "Samir Abdel Aziz",
+      "date_of_birth": "1972-01-05",
+      "age": 53,
+      "gender": "Male",
+      "blood_type": "AB+",
+      "phone": "01051300059",
+      "email": "samir.abdel.aziz@email.com",
+      "address": "87 Nasr Street, Cairo",
+      "emergency_contact": {
+        "name": "Fatma Abdel",
+        "relation": "Sister",
+        "phone": "01154088677"
+      },
+      "chronic_diseases": ["Hypertension", "High Cholesterol"],
+      "allergies": [],
+      "current_medications": [
+        {
+          "name": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "started_date": "2021-03-20"
+        }
+      ],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF7962",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF7602",
+          "next_dose_due": null
+        },
+        {
+          "vaccine_name": "Influenza",
+          "date_administered": "2024-10-01",
+          "dose_number": "Annual",
+          "location": "Local Clinic",
+          "batch_number": "FLU2024",
+          "next_dose_due": "2025-10-01"
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 68,
+          "cause_of_death": "Heart attack",
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Fatma Abdel",
+          "relation": "Sister",
+          "phone": "01154088677",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "2-3 times per week",
+        "exercise_type": "Yoga",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Government Employee",
+        "occupation_hazards": [],
+        "sleep_hours": 5,
+        "stress_level": "High"
+      },
+      "insurance": {
+        "provider": "Allianz Egypt",
+        "policy_number": "INS546968",
+        "expiry": "2025-12-31",
+        "coverage_type": "Premium",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": null,
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2500520014229",
+      "full_name": "Fatma Hassan Ahmed",
+      "date_of_birth": "1950-05-20",
+      "age": 75,
+      "gender": "Female",
+      "blood_type": "O-",
+      "phone": "01017545911",
+      "email": "fatma.hassan.ahmed@email.com",
+      "address": "93 Zamalek Street, Cairo",
+      "emergency_contact": {
+        "name": "Khaled Hassan",
+        "relation": "Sister",
+        "phone": "01121338274"
+      },
+      "chronic_diseases": [
+        "Type 2 Diabetes",
+        "Hypertension",
+        "Osteoporosis",
+        "Heart disease"
+      ],
+      "allergies": ["Penicillin", "Aspirin"],
+      "current_medications": [
+        {
+          "name": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "started_date": "2021-03-20"
+        },
+        {
+          "name": "Glucophage 500mg",
+          "dosage": "1 tablet",
+          "frequency": "Twice daily",
+          "started_date": "2019-08-15"
+        }
+      ],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF3299",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF3787",
+          "next_dose_due": null
+        },
+        {
+          "vaccine_name": "Influenza",
+          "date_administered": "2024-10-01",
+          "dose_number": "Annual",
+          "location": "Local Clinic",
+          "batch_number": "FLU2024",
+          "next_dose_due": "2025-10-01"
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 68,
+          "cause_of_death": "Heart attack",
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 70,
+          "cause_of_death": "Stroke",
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Khaled Hassan",
+          "relation": "Sister",
+          "phone": "01121338274",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Current",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Rarely",
+        "exercise_type": "Gym",
+        "diet_type": "Diabetic diet",
+        "dietary_restrictions": ["Penicillin", "Aspirin"],
+        "occupation": "Retired",
+        "occupation_hazards": [],
+        "sleep_hours": 9,
+        "stress_level": "Low"
+      },
+      "insurance": {
+        "provider": "Egyptian General Insurance",
+        "policy_number": "INS979872",
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": null,
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2480912010076",
+      "full_name": "Mohamed Mahmoud Ismail",
+      "date_of_birth": "1948-09-12",
+      "age": 77,
+      "gender": "Male",
+      "blood_type": "A+",
+      "phone": "01075473534",
+      "email": "mohamed.mahmoud.ismail@email.com",
+      "address": "30 Maadi Street, Cairo",
+      "emergency_contact": {
+        "name": "Fatma Mahmoud",
+        "relation": "Father",
+        "phone": "01138735389"
+      },
+      "chronic_diseases": [
+        "Hypertension",
+        "Heart disease",
+        "Chronic kidney disease"
+      ],
+      "allergies": [],
+      "current_medications": [
+        {
+          "name": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "started_date": "2021-03-20"
+        }
+      ],
+      "surgeries": [
+        {
+          "surgery_id": "SRG017-1",
+          "date": "2021-04-16",
+          "procedure": "Hernia Repair",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "surgeon": "Dr. Yasser Shokry Fouad",
+          "complications": "None",
+          "notes": "Successful procedure, full recovery",
+          "recovery_time": "2-3 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP017-1",
+          "admission_date": "2021-04-16",
+          "discharge_date": "2021-04-19",
+          "reason": "Hernia Repair",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Yasser Shokry Fouad",
+          "diagnosis": "Hernia Repair required",
+          "treatment_summary": "Surgical intervention, post-operative care",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF5394",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF5600",
+          "next_dose_due": null
+        },
+        {
+          "vaccine_name": "Influenza",
+          "date_administered": "2024-10-01",
+          "dose_number": "Annual",
+          "location": "Local Clinic",
+          "batch_number": "FLU2024",
+          "next_dose_due": "2025-10-01"
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 68,
+          "cause_of_death": "Heart attack",
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 70,
+          "cause_of_death": "Stroke",
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Fatma Mahmoud",
+          "relation": "Father",
+          "phone": "01138735389",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "Occasional",
+        "exercise_frequency": "2-3 times per week",
+        "exercise_type": "None",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Retired Doctor",
+        "occupation_hazards": [],
+        "sleep_hours": 8,
+        "stress_level": "Low"
+      },
+      "insurance": {
+        "provider": "MetLife Egypt",
+        "policy_number": "INS903434",
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "0400DC748EFE2E",
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": null,
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2531208013669",
+      "full_name": "Zeinab Kamal Naguib",
+      "date_of_birth": "1953-12-08",
+      "age": 71,
+      "gender": "Female",
+      "blood_type": "B+",
+      "phone": "01049317287",
+      "email": "zeinab.kamal.naguib@email.com",
+      "address": "62 Maadi Street, Cairo",
+      "emergency_contact": {
+        "name": "Ahmed Kamal",
+        "relation": "Husband",
+        "phone": "01164456279"
+      },
+      "chronic_diseases": ["Hypertension", "Arthritis"],
+      "allergies": [],
+      "current_medications": [
+        {
+          "name": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "started_date": "2021-03-20"
+        }
+      ],
+      "surgeries": [
+        {
+          "surgery_id": "SRG018-1",
+          "date": "2016-05-30",
+          "procedure": "Cesarean Section",
+          "hospital": "Qasr El Aini Hospital",
+          "surgeon": "Dr. Mona Saeed Ibrahim",
+          "complications": "None",
+          "notes": "Successful delivery, healthy baby",
+          "recovery_time": "6 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP018-1",
+          "admission_date": "2016-05-30",
+          "discharge_date": "2016-06-02",
+          "reason": "Cesarean Section",
+          "hospital": "Qasr El Aini Hospital",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Mona Saeed Ibrahim",
+          "diagnosis": "Cesarean Section required",
+          "treatment_summary": "Surgical intervention, post-operative care",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF7148",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF5396",
+          "next_dose_due": null
+        },
+        {
+          "vaccine_name": "Influenza",
+          "date_administered": "2024-10-01",
+          "dose_number": "Annual",
+          "location": "Local Clinic",
+          "batch_number": "FLU2024",
+          "next_dose_due": "2025-10-01"
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 68,
+          "cause_of_death": "Heart attack",
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 70,
+          "cause_of_death": "Stroke",
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Sister",
+            "age": 70,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Ahmed Kamal",
+          "relation": "Husband",
+          "phone": "01164456279",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Current",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Rarely",
+        "exercise_type": "None",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Retired Teacher",
+        "occupation_hazards": [],
+        "sleep_hours": 9,
+        "stress_level": "High"
+      },
+      "insurance": {
+        "provider": "MetLife Egypt",
+        "policy_number": "INS618804",
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "0400913A690CDE",
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": "Mifare Classic 1K",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "3150610013381",
+      "full_name": "Yasmin Tarek Mohamed",
+      "date_of_birth": "2015-06-10",
+      "age": 10,
+      "gender": "Female",
+      "blood_type": "O+",
+      "phone": "01013904990",
+      "email": "yasmin.tarek.mohamed@email.com",
+      "address": "82 Maadi Street, Cairo",
+      "emergency_contact": {
+        "name": "Hassan Tarek",
+        "relation": "Father",
+        "phone": "01141942663"
+      },
+      "chronic_diseases": [],
+      "allergies": ["Peanuts"],
+      "current_medications": [],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF6961",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF3267",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Sister",
+            "age": 11,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": true
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Once per week",
+        "exercise_type": "Gym",
+        "diet_type": "Balanced",
+        "dietary_restrictions": ["Peanuts"],
+        "occupation": "Student - Primary School",
+        "occupation_hazards": [],
+        "sleep_hours": 5,
+        "stress_level": "Moderate to High"
+      },
+      "insurance": {
+        "provider": "MetLife Egypt",
+        "policy_number": "INS836303",
+        "expiry": "2025-12-31",
+        "coverage_type": "Basic",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": null,
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "3120228010419",
+      "full_name": "Adam Khaled Hassan",
+      "date_of_birth": "2012-02-28",
+      "age": 13,
+      "gender": "Male",
+      "blood_type": "A+",
+      "phone": "01076157915",
+      "email": "adam.khaled.hassan@email.com",
+      "address": "57 Zamalek Street, Cairo",
+      "emergency_contact": {
+        "name": "Mona Khaled",
+        "relation": "Wife",
+        "phone": "01148126853"
+      },
+      "chronic_diseases": ["Asthma"],
+      "allergies": [],
+      "current_medications": [
+        {
+          "name": "Ventolin Inhaler",
+          "dosage": "2 puffs",
+          "frequency": "As needed",
+          "started_date": "2022-06-15"
+        }
+      ],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF1496",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF9464",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Sister",
+            "age": 17,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": "OD278964",
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": true
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "2-3 times per week",
+        "exercise_type": "None",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Student - Preparatory School",
+        "occupation_hazards": [],
+        "sleep_hours": 5,
+        "stress_level": "Moderate"
+      },
+      "insurance": {
+        "provider": "Allianz Egypt",
+        "policy_number": "INS174359",
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "040028D74D8DC8",
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": "Mifare Classic 1K",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "3081115015324",
+      "full_name": "Mariam Ahmed Saleh",
+      "date_of_birth": "2008-11-15",
+      "age": 17,
+      "gender": "Female",
+      "blood_type": "B-",
+      "phone": "01081518937",
+      "email": "mariam.ahmed.saleh@email.com",
+      "address": "89 Nasr Street, Cairo",
+      "emergency_contact": {
+        "name": "Hassan Ahmed",
+        "relation": "Sister",
+        "phone": "01162281252"
+      },
+      "chronic_diseases": ["Type 1 Diabetes"],
+      "allergies": ["Penicillin"],
+      "current_medications": [
+        {
+          "name": "Insulin Lantus",
+          "dosage": "20 units",
+          "frequency": "Once daily at bedtime",
+          "started_date": "2020-01-10"
+        }
+      ],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF4811",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF1434",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Brother",
+            "age": 19,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": "OD592644",
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "3-4 times per week",
+        "exercise_type": "Walking",
+        "diet_type": "Diabetic diet",
+        "dietary_restrictions": ["Penicillin"],
+        "occupation": "Student - Secondary School",
+        "occupation_hazards": [],
+        "sleep_hours": 9,
+        "stress_level": "Moderate"
+      },
+      "insurance": {
+        "provider": "Allianz Egypt",
+        "policy_number": "INS305860",
+        "expiry": "2025-12-31",
+        "coverage_type": "Basic",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": "Mifare Classic 1K",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2920407019298",
+      "full_name": "Waleed Nabil Fouad",
+      "date_of_birth": "1992-04-07",
+      "age": 33,
+      "gender": "Male",
+      "blood_type": "O+",
+      "phone": "01098185932",
+      "email": "waleed.nabil.fouad@email.com",
+      "address": "21 Heliopolis Street, Cairo",
+      "emergency_contact": {
+        "name": "Mona Nabil",
+        "relation": "Sister",
+        "phone": "01156994353"
+      },
+      "chronic_diseases": ["Epilepsy"],
+      "allergies": [],
+      "current_medications": [],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF4675",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF2139",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Brother",
+            "age": 35,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": "OD146435",
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "Occasional",
+        "exercise_frequency": "3-4 times per week",
+        "exercise_type": "Walking",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Lawyer",
+        "occupation_hazards": [],
+        "sleep_hours": 5,
+        "stress_level": "High"
+      },
+      "insurance": {
+        "provider": "Misr Insurance",
+        "policy_number": "INS810077",
+        "expiry": "2025-12-31",
+        "coverage_type": "Basic",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": "NTAG215 Keychain",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2950823013404",
+      "full_name": "Rana Hossam Zaki",
+      "date_of_birth": "1995-08-23",
+      "age": 30,
+      "gender": "Female",
+      "blood_type": "A-",
+      "phone": "01062796192",
+      "email": "rana.hossam.zaki@email.com",
+      "address": "59 Tahrir Street, Cairo",
+      "emergency_contact": {
+        "name": "Khaled Hossam",
+        "relation": "Husband",
+        "phone": "01128350883"
+      },
+      "chronic_diseases": ["Anxiety disorder"],
+      "allergies": ["Latex"],
+      "current_medications": [],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF8602",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF5998",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Brother",
+            "age": 30,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Former",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Daily",
+        "exercise_type": "Running, Swimming",
+        "diet_type": "Balanced",
+        "dietary_restrictions": ["Latex"],
+        "occupation": "Dentist",
+        "occupation_hazards": [],
+        "sleep_hours": 8,
+        "stress_level": "Low"
+      },
+      "insurance": {
+        "provider": "MetLife Egypt",
+        "policy_number": "INS670684",
+        "expiry": "2025-12-31",
+        "coverage_type": "Premium",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": null,
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2750130013313",
+      "full_name": "Yasser Galal Salem",
+      "date_of_birth": "1975-01-30",
+      "age": 50,
+      "gender": "Male",
+      "blood_type": "B+",
+      "phone": "01093555551",
+      "email": "yasser.galal.salem@email.com",
+      "address": "51 Maadi Street, Cairo",
+      "emergency_contact": {
+        "name": "Aisha Galal",
+        "relation": "Sister",
+        "phone": "01119446685"
+      },
+      "chronic_diseases": ["Hypertension", "Sleep apnea"],
+      "allergies": [],
+      "current_medications": [
+        {
+          "name": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "started_date": "2021-03-20"
+        }
+      ],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF1989",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF7005",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 68,
+          "cause_of_death": "Heart attack",
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Sister",
+            "age": 45,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Aisha Galal",
+          "relation": "Sister",
+          "phone": "01119446685",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Rarely",
+        "exercise_type": "Yoga",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Airline Pilot",
+        "occupation_hazards": [],
+        "sleep_hours": 8,
+        "stress_level": "Moderate"
+      },
+      "insurance": {
+        "provider": "Misr Insurance",
+        "policy_number": "INS244111",
+        "expiry": "2025-12-31",
+        "coverage_type": "Premium",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "0400379CCAF707",
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": "NTAG215 Keychain",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2901018011068",
+      "full_name": "Heba Ramadan Soliman",
+      "date_of_birth": "1990-10-18",
+      "age": 35,
+      "gender": "Female",
+      "blood_type": "AB+",
+      "phone": "01038162059",
+      "email": "heba.ramadan.soliman@email.com",
+      "address": "48 Mohandessin Street, Cairo",
+      "emergency_contact": {
+        "name": "Mohamed Ramadan",
+        "relation": "Husband",
+        "phone": "01194507275"
+      },
+      "chronic_diseases": [],
+      "allergies": ["Shellfish"],
+      "current_medications": [],
+      "surgeries": [
+        {
+          "surgery_id": "SRG025-1",
+          "date": "2021-11-27",
+          "procedure": "Cesarean Section",
+          "hospital": "Qasr El Aini Hospital",
+          "surgeon": "Dr. Mona Saeed Ibrahim",
+          "complications": "None",
+          "notes": "Successful delivery, healthy baby",
+          "recovery_time": "6 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP025-1",
+          "admission_date": "2021-11-27",
+          "discharge_date": "2021-11-30",
+          "reason": "Cesarean Section",
+          "hospital": "Qasr El Aini Hospital",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Mona Saeed Ibrahim",
+          "diagnosis": "Cesarean Section required",
+          "treatment_summary": "Surgical intervention, post-operative care",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF4592",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF5413",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": "OD475541",
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "2-3 times per week",
+        "exercise_type": "Gym",
+        "diet_type": "Balanced",
+        "dietary_restrictions": ["Shellfish"],
+        "occupation": "Journalist",
+        "occupation_hazards": [],
+        "sleep_hours": 9,
+        "stress_level": "Moderate"
+      },
+      "insurance": {
+        "provider": "Misr Insurance",
+        "policy_number": "INS499665",
+        "expiry": "2025-12-31",
+        "coverage_type": "Premium",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "04007427F753AF",
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": "Mifare Classic 1K",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2830325010312",
+      "full_name": "Amr Shokry Abdallah",
+      "date_of_birth": "1983-03-25",
+      "age": 42,
+      "gender": "Male",
+      "blood_type": "O-",
+      "phone": "01068556048",
+      "email": "amr.shokry.abdallah@email.com",
+      "address": "92 Zamalek Street, Cairo",
+      "emergency_contact": {
+        "name": "Fatma Shokry",
+        "relation": "Father",
+        "phone": "01121521322"
+      },
+      "chronic_diseases": ["Irritable Bowel Syndrome"],
+      "allergies": ["Gluten"],
+      "current_medications": [],
+      "surgeries": [
+        {
+          "surgery_id": "SRG026-1",
+          "date": "2018-04-06",
+          "procedure": "Hernia Repair",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "surgeon": "Dr. Yasser Shokry Fouad",
+          "complications": "None",
+          "notes": "Successful procedure, full recovery",
+          "recovery_time": "2-3 weeks"
+        }
+      ],
+      "hospitalizations": [
+        {
+          "hospitalization_id": "HSP026-1",
+          "admission_date": "2018-04-06",
+          "discharge_date": "2018-04-09",
+          "reason": "Hernia Repair",
+          "hospital": "Cairo University Hospital - Kasr El Aini",
+          "department": "General Surgery",
+          "attending_doctor": "Dr. Yasser Shokry Fouad",
+          "diagnosis": "Hernia Repair required",
+          "treatment_summary": "Surgical intervention, post-operative care",
+          "outcome": "Full recovery"
+        }
+      ],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF3223",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF8139",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Fatma Shokry",
+          "relation": "Father",
+          "phone": "01121521322",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Daily",
+        "exercise_type": "Gym",
+        "diet_type": "Balanced",
+        "dietary_restrictions": ["Gluten"],
+        "occupation": "Chef",
+        "occupation_hazards": [],
+        "sleep_hours": 8,
+        "stress_level": "Low"
+      },
+      "insurance": {
+        "provider": "Misr Insurance",
+        "policy_number": "INS904579",
+        "expiry": "2025-12-31",
+        "coverage_type": "Comprehensive",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": null,
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2870709010022",
+      "full_name": "Noha Sami Ibrahim",
+      "date_of_birth": "1987-07-09",
+      "age": 38,
+      "gender": "Female",
+      "blood_type": "A+",
+      "phone": "01039093519",
+      "email": "noha.sami.ibrahim@email.com",
+      "address": "69 Maadi Street, Cairo",
+      "emergency_contact": {
+        "name": "Mohamed Sami",
+        "relation": "Husband",
+        "phone": "01146754653"
+      },
+      "chronic_diseases": ["Polycystic Ovary Syndrome"],
+      "allergies": [],
+      "current_medications": [],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF6888",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF4963",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Former",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Rarely",
+        "exercise_type": "None",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "Pharmacist",
+        "occupation_hazards": [],
+        "sleep_hours": 9,
+        "stress_level": "Moderate"
+      },
+      "insurance": {
+        "provider": "Egyptian General Insurance",
+        "policy_number": "INS769407",
+        "expiry": "2025-12-31",
+        "coverage_type": "Premium",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": null,
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": "NTAG215 Keychain",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2941214017159",
+      "full_name": "Mostafa Adel Karim",
+      "date_of_birth": "1994-12-14",
+      "age": 30,
+      "gender": "Male",
+      "blood_type": "B-",
+      "phone": "01060135872",
+      "email": "mostafa.adel.karim@email.com",
+      "address": "6 Zamalek Street, Cairo",
+      "emergency_contact": {
+        "name": "Mona Adel",
+        "relation": "Sister",
+        "phone": "01152660391"
+      },
+      "chronic_diseases": [],
+      "allergies": ["Pollen"],
+      "current_medications": [],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF6101",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF5207",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [
+          {
+            "relation": "Sister",
+            "age": 27,
+            "medical_conditions": []
+          }
+        ],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "Occasional",
+        "exercise_frequency": "3-4 times per week",
+        "exercise_type": "Yoga",
+        "diet_type": "Balanced",
+        "dietary_restrictions": ["Pollen"],
+        "occupation": "Civil Engineer",
+        "occupation_hazards": ["Sedentary work"],
+        "sleep_hours": 5,
+        "stress_level": "Moderate to High"
+      },
+      "insurance": {
+        "provider": "Egyptian General Insurance",
+        "policy_number": "INS478396",
+        "expiry": "2025-12-31",
+        "coverage_type": "Basic",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "0400830184ACF2",
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": null,
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "3030522019762",
+      "full_name": "Salma Taha Younes",
+      "date_of_birth": "2003-05-22",
+      "age": 22,
+      "gender": "Female",
+      "blood_type": "AB-",
+      "phone": "01074230718",
+      "email": "salma.taha.younes@email.com",
+      "address": "5 Zamalek Street, Cairo",
+      "emergency_contact": {
+        "name": "Hassan Taha",
+        "relation": "Husband",
+        "phone": "01195914293"
+      },
+      "chronic_diseases": ["Scoliosis"],
+      "allergies": [],
+      "current_medications": [],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF2891",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF1850",
+          "next_dose_due": null
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": true,
+          "age": 65,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": true,
+          "age": 62,
+          "age_at_death": null,
+          "cause_of_death": null,
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": []
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": true,
+        "organ_donor_card_number": "OD370260",
+        "power_of_attorney": {
+          "has_poa": false,
+          "name": null,
+          "relation": null,
+          "phone": null,
+          "document_date": null
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": true
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Rarely",
+        "exercise_type": "Yoga",
+        "diet_type": "Balanced",
+        "dietary_restrictions": [],
+        "occupation": "University Student - Medicine",
+        "occupation_hazards": [],
+        "sleep_hours": 5,
+        "stress_level": "Moderate to High"
+      },
+      "insurance": {
+        "provider": "Allianz Egypt",
+        "policy_number": "INS520932",
+        "expiry": "2025-12-31",
+        "coverage_type": "Premium",
+        "pre_authorization_required": false
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "040043801DE390",
+      "nfc_card_assigned": false,
+      "nfc_card_assignment_date": null,
+      "nfc_card_type": "NTAG215 Card",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    },
+    {
+      "national_id": "2600903013855",
+      "full_name": "Ibrahim Ashraf Naguib",
+      "date_of_birth": "1960-09-03",
+      "age": 65,
+      "gender": "Male",
+      "blood_type": "A+",
+      "phone": "01040122522",
+      "email": "ibrahim.ashraf.naguib@email.com",
+      "address": "89 Nasr Street, Cairo",
+      "emergency_contact": {
+        "name": "Aisha Ashraf",
+        "relation": "Mother",
+        "phone": "01112019329"
+      },
+      "chronic_diseases": [
+        "Type 2 Diabetes",
+        "Hypertension",
+        "Prostate enlargement"
+      ],
+      "allergies": ["Sulfa drugs"],
+      "current_medications": [
+        {
+          "name": "Concor 5mg",
+          "dosage": "1 tablet",
+          "frequency": "Once daily",
+          "started_date": "2021-03-20"
+        },
+        {
+          "name": "Glucophage 500mg",
+          "dosage": "1 tablet",
+          "frequency": "Twice daily",
+          "started_date": "2019-08-15"
+        }
+      ],
+      "surgeries": [],
+      "hospitalizations": [],
+      "vaccinations": [
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-06-15",
+          "dose_number": "1st dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF8344",
+          "next_dose_due": "2021-07-15"
+        },
+        {
+          "vaccine_name": "COVID-19 (Pfizer)",
+          "date_administered": "2021-07-20",
+          "dose_number": "2nd dose",
+          "location": "Cairo Vaccination Center",
+          "batch_number": "PF6604",
+          "next_dose_due": null
+        },
+        {
+          "vaccine_name": "Influenza",
+          "date_administered": "2024-10-01",
+          "dose_number": "Annual",
+          "location": "Local Clinic",
+          "batch_number": "FLU2024",
+          "next_dose_due": "2025-10-01"
+        }
+      ],
+      "family_history": {
+        "father": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 68,
+          "cause_of_death": "Heart attack",
+          "medical_conditions": ["Hypertension", "Diabetes Type 2"]
+        },
+        "mother": {
+          "alive": false,
+          "age": null,
+          "age_at_death": 70,
+          "cause_of_death": "Stroke",
+          "medical_conditions": ["Hypertension", "Osteoporosis"]
+        },
+        "siblings": [],
+        "genetic_conditions": [
+          "Family history of cardiovascular disease",
+          "Family history of diabetes"
+        ]
+      },
+      "disabilities_special_needs": {
+        "has_disability": false,
+        "disability_type": null,
+        "mobility_aids": [],
+        "hearing_impairment": false,
+        "visual_impairment": false,
+        "cognitive_impairment": false,
+        "communication_needs": [],
+        "accessibility_requirements": [],
+        "notes": ""
+      },
+      "emergency_directives": {
+        "dnr_status": false,
+        "dnr_date": null,
+        "organ_donor": false,
+        "organ_donor_card_number": null,
+        "power_of_attorney": {
+          "has_poa": true,
+          "name": "Aisha Ashraf",
+          "relation": "Mother",
+          "phone": "01112019329",
+          "document_date": "2022-03-15"
+        },
+        "living_will": false,
+        
+        "blood_transfusion_consent": true,
+        "tissue_donation": false
+      },
+      "lifestyle": {
+        "smoking_status": "Never",
+        "alcohol_consumption": "None",
+        "exercise_frequency": "Once per week",
+        "exercise_type": "Yoga",
+        "diet_type": "Diabetic diet",
+        "dietary_restrictions": ["Sulfa drugs"],
+        "occupation": "Retired Engineer",
+        "occupation_hazards": ["Sedentary work"],
+        "sleep_hours": 7,
+        "stress_level": "Moderate"
+      },
+      "insurance": {
+        "provider": "MetLife Egypt",
+        "policy_number": "INS725897",
+        "expiry": "2025-12-31",
+        "coverage_type": "Premium",
+        "pre_authorization_required": true
+      },
+      "external_links": {},
+      "created_at": "2024-11-01 10:00:00",
+      "last_updated": "2024-11-28 10:00:00",
+      "nfc_card_uid": "04007F77D97CEE",
+      "nfc_card_assigned": true,
+      "nfc_card_assignment_date": "2024-11-20",
+      "nfc_card_type": "Mifare Classic 1K",
+      "nfc_card_status": "active",
+      "nfc_card_last_scan": null,
+      "nfc_scan_count": 0
+    }
+  ]
+}
