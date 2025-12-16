@@ -5,7 +5,7 @@ MySQL Version - Compatible with existing GUI
 
 from datetime import datetime, date, timedelta
 from core.database import get_db
-from core.models import Vaccination, Patient
+from database.models import Vaccination, Patient
 
 class VaccinationManager:
     """Manage patient vaccinations"""

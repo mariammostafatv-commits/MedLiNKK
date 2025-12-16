@@ -5,7 +5,7 @@ MySQL Version - Compatible with existing GUI
 
 from datetime import datetime
 from core.database import get_db
-from core.models import Doctor, User, HardwareAuditLog
+from database.models import Doctor, User, HardwareAuditLog
 import uuid
 
 class FingerprintManager:

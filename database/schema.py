@@ -1,105 +1,250 @@
 """
-Database Schema Definition for MedLink
-All table structures and relationships
+Complete Database Schema for MedLink
+Based on actual JSON data structures from the project
 """
 
-from datetime import datetime
-
 class DatabaseSchema:
-    """Define all database tables and their structures"""
+    """Complete database schema matching all JSON data structures"""
     
     @staticmethod
     def get_all_tables():
-        """Get all table creation SQL statements"""
+        """Get all table creation SQL statements in correct order"""
         return {
+            # Core tables (no foreign keys)
             'users': DatabaseSchema.users_table(),
             'patients': DatabaseSchema.patients_table(),
+            
+            # Patient-related tables
+            'surgeries': DatabaseSchema.surgeries_table(),
+            'hospitalizations': DatabaseSchema.hospitalizations_table(),
+            'vaccinations': DatabaseSchema.vaccinations_table(),
+            'current_medications': DatabaseSchema.current_medications_table(),
+            
+            # Visit-related tables
             'visits': DatabaseSchema.visits_table(),
             'prescriptions': DatabaseSchema.prescriptions_table(),
             'vital_signs': DatabaseSchema.vital_signs_table(),
+            
+            # Medical records
             'lab_results': DatabaseSchema.lab_results_table(),
             'imaging_results': DatabaseSchema.imaging_results_table(),
+            
+            # NFC Cards
             'doctor_cards': DatabaseSchema.doctor_cards_table(),
             'patient_cards': DatabaseSchema.patient_cards_table(),
+            
+            # Audit
             'hardware_audit_log': DatabaseSchema.hardware_audit_log_table(),
         }
     
     @staticmethod
     def users_table():
-        """Doctors and staff users table"""
+        """Users table (doctors and patients for authentication)"""
         return """
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             user_id VARCHAR(50) UNIQUE NOT NULL,
             username VARCHAR(100) UNIQUE NOT NULL,
             password_hash VARCHAR(255) NOT NULL,
+            role ENUM('doctor', 'nurse', 'admin', 'staff', 'patient') NOT NULL,
             full_name VARCHAR(200) NOT NULL,
-            email VARCHAR(150) UNIQUE,
+            email VARCHAR(150),
             phone VARCHAR(20),
+            
+            -- Doctor-specific fields
             specialization VARCHAR(100),
-            license_number VARCHAR(50),
             hospital VARCHAR(200),
-            department VARCHAR(100),
-            user_type ENUM('doctor', 'nurse', 'admin', 'staff') DEFAULT 'doctor',
-            is_active BOOLEAN DEFAULT TRUE,
-            last_login DATETIME,
+            license_number VARCHAR(50),
+            years_experience INT,
+            
+            -- Biometric fields
+            fingerprint_id INT,
+            fingerprint_enrolled BOOLEAN DEFAULT FALSE,
+            fingerprint_enrollment_date DATE,
+            nfc_card_uid VARCHAR(50),
+            biometric_enabled BOOLEAN DEFAULT FALSE,
+            last_fingerprint_login DATETIME,
+            fingerprint_login_count INT DEFAULT 0,
+            
+            -- Patient-specific fields
+            national_id VARCHAR(14),
+            date_of_birth DATE,
+            
+            -- System fields
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            last_login DATETIME,
+            login_count INT DEFAULT 0,
+            account_status ENUM('active', 'inactive', 'suspended') DEFAULT 'active',
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            
             INDEX idx_username (username),
             INDEX idx_user_id (user_id),
-            INDEX idx_user_type (user_type)
+            INDEX idx_role (role),
+            INDEX idx_national_id (national_id),
+            INDEX idx_nfc_card (nfc_card_uid)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         """
     
     @staticmethod
     def patients_table():
-        """Patient information table"""
+        """Complete patient information table"""
         return """
         CREATE TABLE IF NOT EXISTS patients (
             id INT AUTO_INCREMENT PRIMARY KEY,
             national_id VARCHAR(14) UNIQUE NOT NULL,
             full_name VARCHAR(200) NOT NULL,
             date_of_birth DATE NOT NULL,
-            gender ENUM('male', 'female') NOT NULL,
+            age INT,
+            gender ENUM('Male', 'Female') NOT NULL,
             blood_type ENUM('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'),
+            
+            -- Contact Information
             phone VARCHAR(20),
             email VARCHAR(150),
             address TEXT,
             city VARCHAR(100),
             governorate VARCHAR(100),
-            emergency_contact_name VARCHAR(200),
-            emergency_contact_phone VARCHAR(20),
-            emergency_contact_relation VARCHAR(50),
             
-            -- Medical Information
-            chronic_conditions JSON,
+            -- Emergency Contact (JSON)
+            emergency_contact JSON,
+            
+            -- Medical Information (JSON arrays)
+            chronic_diseases JSON,
             allergies JSON,
-            current_medications JSON,
+            
+            -- Family History (Complex JSON)
             family_history JSON,
-            disabilities JSON,
             
-            -- Emergency Directives
-            dnr_status BOOLEAN DEFAULT FALSE,
-            organ_donor BOOLEAN DEFAULT FALSE,
-            power_of_attorney VARCHAR(200),
-            religious_preferences TEXT,
+            -- Disabilities & Special Needs (JSON object)
+            disabilities_special_needs JSON,
             
-            -- Lifestyle
-            smoking_status ENUM('never', 'former', 'current'),
-            alcohol_consumption ENUM('none', 'occasional', 'moderate', 'heavy'),
-            exercise_frequency ENUM('none', 'rarely', 'weekly', 'daily'),
-            dietary_preferences TEXT,
+            -- Emergency Directives (JSON object with nested objects)
+            emergency_directives JSON,
+            
+            -- Lifestyle (JSON object)
+            lifestyle JSON,
+            
+            -- Insurance (JSON object)
+            insurance JSON,
+            
+            -- External Links
+            external_links JSON,
+            
+            -- NFC Card Information
+            nfc_card_uid VARCHAR(50),
+            nfc_card_assigned BOOLEAN DEFAULT FALSE,
+            nfc_card_assignment_date DATE,
+            nfc_card_type VARCHAR(50),
+            nfc_card_status ENUM('active', 'inactive', 'lost', 'damaged') DEFAULT 'active',
+            nfc_card_last_scan DATETIME,
+            nfc_scan_count INT DEFAULT 0,
             
             -- System fields
-            registered_by VARCHAR(50),
-            is_active BOOLEAN DEFAULT TRUE,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             
             INDEX idx_national_id (national_id),
             INDEX idx_full_name (full_name),
             INDEX idx_phone (phone),
-            FOREIGN KEY (registered_by) REFERENCES users(user_id) ON DELETE SET NULL
+            INDEX idx_nfc_card (nfc_card_uid)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        """
+    
+    @staticmethod
+    def surgeries_table():
+        """Patient surgeries table"""
+        return """
+        CREATE TABLE IF NOT EXISTS surgeries (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            surgery_id VARCHAR(50) UNIQUE NOT NULL,
+            patient_national_id VARCHAR(14) NOT NULL,
+            surgery_type VARCHAR(200) NOT NULL,
+            surgery_date DATE NOT NULL,
+            surgeon VARCHAR(200),
+            hospital VARCHAR(200),
+            reason TEXT,
+            outcome TEXT,
+            complications TEXT,
+            notes TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            
+            INDEX idx_patient (patient_national_id),
+            INDEX idx_surgery_date (surgery_date),
+            FOREIGN KEY (patient_national_id) REFERENCES patients(national_id) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        """
+    
+    @staticmethod
+    def hospitalizations_table():
+        """Patient hospitalizations table"""
+        return """
+        CREATE TABLE IF NOT EXISTS hospitalizations (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            hospitalization_id VARCHAR(50) UNIQUE NOT NULL,
+            patient_national_id VARCHAR(14) NOT NULL,
+            hospital VARCHAR(200) NOT NULL,
+            admission_date DATE NOT NULL,
+            discharge_date DATE,
+            reason TEXT,
+            diagnosis TEXT,
+            treatment TEXT,
+            length_of_stay INT,
+            notes TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            
+            INDEX idx_patient (patient_national_id),
+            INDEX idx_admission_date (admission_date),
+            FOREIGN KEY (patient_national_id) REFERENCES patients(national_id) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        """
+    
+    @staticmethod
+    def vaccinations_table():
+        """Patient vaccinations table"""
+        return """
+        CREATE TABLE IF NOT EXISTS vaccinations (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            patient_national_id VARCHAR(14) NOT NULL,
+            vaccine_name VARCHAR(200) NOT NULL,
+            date_administered DATE NOT NULL,
+            dose_number VARCHAR(50),
+            location VARCHAR(200),
+            batch_number VARCHAR(100),
+            next_dose_due DATE,
+            administrator VARCHAR(200),
+            notes TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            
+            INDEX idx_patient (patient_national_id),
+            INDEX idx_vaccine (vaccine_name),
+            INDEX idx_date (date_administered),
+            FOREIGN KEY (patient_national_id) REFERENCES patients(national_id) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        """
+    
+    @staticmethod
+    def current_medications_table():
+        """Patient current medications table"""
+        return """
+        CREATE TABLE IF NOT EXISTS current_medications (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            patient_national_id VARCHAR(14) NOT NULL,
+            medication_name VARCHAR(200) NOT NULL,
+            dosage VARCHAR(100),
+            frequency VARCHAR(100),
+            started_date DATE,
+            end_date DATE,
+            prescribed_by VARCHAR(200),
+            reason TEXT,
+            notes TEXT,
+            is_active BOOLEAN DEFAULT TRUE,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            
+            INDEX idx_patient (patient_national_id),
+            INDEX idx_medication (medication_name),
+            INDEX idx_active (is_active),
+            FOREIGN KEY (patient_national_id) REFERENCES patients(national_id) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         """
     
@@ -115,7 +260,7 @@ class DatabaseSchema:
             doctor_name VARCHAR(200) NOT NULL,
             
             visit_date DATE NOT NULL,
-            visit_time TIME NOT NULL,
+            visit_time TIME,
             hospital VARCHAR(200),
             department VARCHAR(100),
             visit_type ENUM('Consultation', 'Follow-up', 'Emergency', 'Routine') NOT NULL,
@@ -143,7 +288,7 @@ class DatabaseSchema:
     
     @staticmethod
     def prescriptions_table():
-        """Prescriptions related to visits"""
+        """Prescriptions from visits"""
         return """
         CREATE TABLE IF NOT EXISTS prescriptions (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -162,7 +307,7 @@ class DatabaseSchema:
     
     @staticmethod
     def vital_signs_table():
-        """Vital signs recorded during visits"""
+        """Vital signs from visits"""
         return """
         CREATE TABLE IF NOT EXISTS vital_signs (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -308,6 +453,7 @@ class DatabaseSchema:
             fingerprint_id INT,
             
             success BOOLEAN DEFAULT TRUE,
+            accessed_by VARCHAR(50),
             access_type VARCHAR(100),
             ip_address VARCHAR(45),
             device_name VARCHAR(100),

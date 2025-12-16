@@ -7,7 +7,22 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.pool import StaticPool
 from contextlib import contextmanager
-from database.config import DATABASE_URL, ENGINE_CONFIG, SESSION_CONFIG, DB_TYPE
+from config.database_config import *
+
+
+DB_TYPE = 'mysql'  # or 'sqlite'
+DATABASE_URL = f"mysql+pymysql://{DATABASE_CONFIG['user']}:{DATABASE_CONFIG['password']}@{DATABASE_CONFIG['host']}/{DATABASE_CONFIG['database']}?charset={DATABASE_CONFIG['charset']}"
+ENGINE_CONFIG = {
+    'pool_pre_ping': True,
+    'pool_recycle': 3600,
+    'echo': False,  # Set to True for SQL query logging}
+    }
+
+SESSION_CONFIG ={
+    'autocommit': DATABASE_CONFIG.get('autocommit', False),
+    'autoflush': True,  
+    
+}
 
 # Create SQLAlchemy engine
 if DB_TYPE == 'sqlite':

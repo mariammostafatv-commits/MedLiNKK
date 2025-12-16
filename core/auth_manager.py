@@ -6,7 +6,7 @@ Handles user login, registration, and authentication
 import hashlib
 from datetime import datetime
 from core.database import get_db
-from core.models import User, Doctor, Patient
+from database.models import User, Doctor, Patient
 
 class AuthManager:
     """Manage user authentication"""

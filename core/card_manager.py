@@ -5,7 +5,7 @@ MySQL Version - Compatible with existing GUI
 
 from datetime import datetime, date
 from core.database import get_db
-from core.models import NFCCard, Patient, Doctor, User
+from database.models import NFCCard, Patient, Doctor, User
 
 class CardManager:
     """Manage NFC cards for patients and doctors"""

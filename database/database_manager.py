@@ -1,5 +1,5 @@
 """
-Database Manager for MedLink
+Complete Database Manager for MedLink
 Handles database creation, migrations, and operations
 """
 
@@ -9,17 +9,15 @@ from colorama import Fore, Style, init
 from pathlib import Path
 import sys
 
-# Add parent directory to path
-sys.path.append(str(Path(__file__).parent.parent))
-
-from config.database_config import DATABASE_CONFIG, DB_SETTINGS
+# Import from our modules
 from database.schema import DatabaseSchema
+from config.database_config import *
 
 init(autoreset=True)
 
 
 class DatabaseManager:
-    """Comprehensive database management for MedLink"""
+    """Complete database management for MedLink"""
     
     def __init__(self, config=None):
         """
@@ -96,13 +94,11 @@ class DatabaseManager:
                 return False
             
             # Check if exists
-            exists = self.database_exists()
-            
-            if exists and drop_if_exists:
+            if self.database_exists() and drop_if_exists:
                 print(f"{Fore.YELLOW}⚠️  Database '{self.db_name}' exists - Dropping...{Style.RESET_ALL}")
                 self.cursor.execute(f"DROP DATABASE IF EXISTS {self.db_name}")
                 print(f"{Fore.GREEN}✅ Database dropped{Style.RESET_ALL}\n")
-            elif exists:
+            elif self.database_exists():
                 print(f"{Fore.GREEN}✅ Database '{self.db_name}' already exists{Style.RESET_ALL}")
                 self.disconnect()
                 return True
@@ -144,7 +140,7 @@ class DatabaseManager:
             if not self.connect():
                 return False
             
-            # Get all table schemas
+            # Get all table schemas in correct order
             tables = DatabaseSchema.get_all_tables()
             
             created_count = 0
@@ -228,14 +224,18 @@ class DatabaseManager:
             
             print(f"{Fore.CYAN}Tables:{Style.RESET_ALL}\n")
             
+            total_rows = 0
             for table in tables:
                 info = self.get_table_info(table)
                 if info:
                     column_count = len(info['columns'])
                     row_count = info['row_count']
-                    print(f"{Fore.WHITE}  • {table:.<30} {column_count} columns, {row_count:,} rows{Style.RESET_ALL}")
+                    total_rows += row_count
+                    print(f"{Fore.WHITE}  • {table:.<30} {column_count} cols, {row_count:>8,} rows{Style.RESET_ALL}")
             
-            print()
+            print(f"\n{Fore.GREEN}  Total Tables: {len(tables)}{Style.RESET_ALL}")
+            print(f"{Fore.GREEN}  Total Records: {total_rows:,}{Style.RESET_ALL}\n")
+            
             self.disconnect()
             
         except Error as e:

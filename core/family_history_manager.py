@@ -5,7 +5,7 @@ MySQL Version - Compatible with existing GUI
 
 from datetime import datetime
 from core.database import get_db
-from core.models import FamilyHistory, Patient
+from database.models import FamilyHistory, Patient
 
 class FamilyHistoryManager:
     """Manage patient family medical history"""

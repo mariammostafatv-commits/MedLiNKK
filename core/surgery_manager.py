@@ -5,7 +5,7 @@ MySQL Version - Compatible with existing GUI
 
 from datetime import datetime, date
 from core.database import get_db
-from core.models import Surgery, Patient
+from database.models import Surgery, Patient
 import uuid
 
 class SurgeryManager:

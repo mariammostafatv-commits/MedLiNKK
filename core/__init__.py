@@ -1,33 +1,91 @@
 """
-MedLink Managers Package
-Import all managers here for easy access
+MedLink Core Module
+Database connection and ORM models
 """
 
-from core.auth_manager import AuthManager, auth_manager
-from core.patient_manager import PatientManager, patient_manager
-from core.doctor_manager import DoctorManager, doctor_manager
-from core.medical_managers import (
-    VisitManager, LabResultsManager, ImagingManager,
-    NFCManager, HardwareAuditManager,
-    visit_manager, lab_manager, imaging_manager,
-    nfc_manager, audit_manager
+from core.database import (
+    Base,
+    get_db,
+    get_db_context,
+    get_engine,
+    init_db,
+    drop_db,
+    test_connection,
+    SessionLocal,
+    ScopedSession
+)
+
+from database.models import (
+    # Main Models
+    User,
+    Patient,
+    Doctor,  # Alias for User
+    Surgery,
+    Hospitalization,
+    Vaccination,
+    CurrentMedication,
+    Visit,
+    Prescription,
+    VitalSign,
+    LabResult,
+    ImagingResult,
+    DoctorCard,
+    PatientCard,
+    NFCCard,
+    HardwareAuditLog,
+    
+    # Enums
+    UserRole,
+    Gender,
+    BloodType,
+    VisitType,
+    TestStatus,
+    ImagingType,
+    CardStatus,
+    AccountStatus,
+    EventType,
 )
 
 __all__ = [
-    'AuthManager',
-    'PatientManager',
-    'DoctorManager',
-    'VisitManager',
-    'LabResultsManager',
-    'ImagingManager',
-    'NFCManager',
-    'HardwareAuditManager',
-    'auth_manager',
-    'patient_manager',
-    'doctor_manager',
-    'visit_manager',
-    'lab_manager',
-    'imaging_manager',
-    'nfc_manager',
-    'audit_manager',
+    # Database functions
+    'Base',
+    'get_db',
+    'get_db_context',
+    'get_engine',
+    'init_db',
+    'drop_db',
+    'test_connection',
+    'SessionLocal',
+    'ScopedSession',
+    
+    # Models
+    'User',
+    'Patient',
+    'Doctor',
+    'Surgery',
+    'Hospitalization',
+    'Vaccination',
+    'CurrentMedication',
+    'Visit',
+    'Prescription',
+    'VitalSign',
+    'LabResult',
+    'ImagingResult',
+    'DoctorCard',
+    'PatientCard',
+    'NFCCard',
+    'HardwareAuditLog',
+    
+    # Enums
+    'UserRole',
+    'Gender',
+    'BloodType',
+    'VisitType',
+    'TestStatus',
+    'ImagingType',
+    'CardStatus',
+    'AccountStatus',
+    'EventType',
 ]
+
+__version__ = '1.0.0'

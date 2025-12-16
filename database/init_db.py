@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from database.connection import init_database, test_connection, reset_database
-from database.config import DATABASE_URL, DB_TYPE
+from config.database_config import DATABASE_URL, DB_TYPE
 
 
 def main():

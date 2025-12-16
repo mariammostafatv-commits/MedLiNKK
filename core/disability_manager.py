@@ -5,7 +5,7 @@ MySQL Version - Compatible with existing GUI
 
 from datetime import datetime
 from core.database import get_db
-from core.models import Disability, Patient
+from database.models import Disability, Patient
 
 class DisabilityManager:
     """Manage patient disability information"""

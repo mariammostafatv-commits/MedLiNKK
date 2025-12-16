@@ -6,7 +6,7 @@ Handles all patient-related operations
 from datetime import datetime, date
 from sqlalchemy import or_, and_
 from core.database import get_db
-from core.models import (
+from database.models import (
     Patient, Allergy, ChronicDisease, CurrentMedication,
     Surgery, Hospitalization, Vaccination, FamilyHistory,
     Disability, EmergencyDirective, Lifestyle, Insurance,

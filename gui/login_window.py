@@ -37,7 +37,7 @@ class LoginWindow(ctk.CTk):
 
         # Create UI
         self.create_ui()
-        
+
         # Bind key events for NFC (invisible to user)
         self.bind("<Key>", self.on_key_press)
 
@@ -49,95 +49,54 @@ class LoginWindow(ctk.CTk):
         x = (self.winfo_screenwidth() // 2) - (width // 2)
         y = (self.winfo_screenheight() // 2) - (height // 2)
         self.geometry(f'{width}x{height}+{x}+{y}')
-    
+
     def on_key_press(self, event):
         """Handle NFC card scanning (background, invisible)"""
         if not self.card_reading_active:
             return
-        
+
         # Don't interfere if typing in fields
         focused = self.focus_get()
         if isinstance(focused, ctk.CTkEntry):
             return
-        
+
         # Enter key = card scan complete
         if event.keysym == "Return":
             card_id = self.card_buffer.strip()
             self.card_buffer = ""
-            
+
             if card_id and len(card_id) >= 8:
                 self.process_card(card_id)
         else:
             # Build card ID
             if len(event.char) > 0 and event.char.isprintable():
                 self.card_buffer += event.char
-    
-    def process_card(self, card_id: str):
-        """Process NFC card (background login)"""
+
+    def process_card(self, card_id):
+        """Process scanned NFC card"""
         print(f"🔍 Card scanned: {card_id}")
-        
-        # Get user from card
-        user_info = card_manager.get_patient_by_card(card_id)
-        
-        if not user_info:
-            # messagebox.showerror(
-            #     "Card Not Registered",
-            #     f"Card ID {card_id} is not registered.\n"
-            #     "Please use manual login."
-            # )
-            print(         "Card Not Registered",
-                f"Card ID {card_id} is not registered.\n"
-                "Please use manual login.")
-            return
-        
-        user_type = user_info.get('type')
-        
-        if user_type == 'doctor':
-            # Doctor card login
-            username = user_info.get('username')
-            
-            users_data = data_manager.load_data('users')
-            users = users_data.get('users', [])
-            
-            user_data = None
-            for user in users:
-                if user.get('username') == username and user.get('role') == 'doctor':
-                    user_data = user
-                    break
-            
-            if user_data:
-                # Success!
-                self.auth_manager.current_user = user_data
-                # messagebox.showinfo(
-                #     "Card Login Success",
-                #     f"Welcome {user_info.get('name', '')}!"
-                # )
-                print("Card Login Success",
-                    f"Welcome {user_info.get('name', '')}!")
-                self.withdraw()
-                self.open_dashboard('doctor', user_data)
+
+        # Get card information (WORKS NOW!)
+        card_info = self.card_manager.get_card(card_id)
+        if card_info:
+            if card_info['card_type'] == 'doctor':
+                user = card_info['user']
             else:
-                messagebox.showerror("Error", "Doctor account not found")
-        
-        elif user_type == 'patient':
-            # Patient card login
-            national_id = user_info.get('national_id')
-            
-            from core.patient_manager import patient_manager
-            patient = patient_manager.get_patient_by_id(national_id)
-            
-            if patient:
-                # Success!
-                # messagebox.showinfo(
-                #     "Card Login Success",
-                #     f"Welcome {user_info.get('name', '')}!"
-                # )
-                print("Card Login Success",
-                    f"Welcome {user_info.get('name', '')}!")
-                self.withdraw()
-                self.open_dashboard('patient', patient)
-            else:
-                messagebox.showerror("Error", "Patient record not found")
+                patient = card_info['patient']
+                if not card_info:
+                    print("❌ Card not found")
+                    return
+
+        # Check card type
+        if card_info['card_type'] == 'doctor':
+            user = card_info['user']  # Full User object
+            print(f"✅ Doctor: {user.full_name}")
+            self.open_doctor_dashboard(user)
+
+        elif card_info['card_type'] == 'patient':
+            patient = card_info['patient']  # Full Patient object
+            print(f"✅ Patient: {patient.full_name}")
+            self.open_patient_dashboard(patient)
 
     def create_ui(self):
         """Create beautiful login interface"""
@@ -182,7 +141,7 @@ class LoginWindow(ctk.CTk):
             text_color='white'
         )
         tagline.pack(pady=(10, 20))
-        
+
         # NFC indicator (small, bottom of left panel)
         nfc_indicator = ctk.CTkLabel(
             left_panel,
@@ -389,7 +348,8 @@ class LoginWindow(ctk.CTk):
 
         # Attempt login
         # success, message, user_data = self.auth_manager.login(username, password, role)
-        success, message, user_data = self.auth_manager.login(username, password, role)
+        success, message, user_data = self.auth_manager.login(
+            username, password, role)
 
         if success:
             # Close login window and open appropriate dashboard
@@ -414,9 +374,10 @@ class LoginWindow(ctk.CTk):
                 dashboard.deiconify()
 
             dashboard.protocol("WM_DELETE_WINDOW",
-                            lambda: self.on_dashboard_close(dashboard))
+                               lambda: self.on_dashboard_close(dashboard))
         except Exception as e:
-            messagebox.showerror("Error", f"Failed to open dashboard: {str(e)}")
+            messagebox.showerror(
+                "Error", f"Failed to open dashboard: {str(e)}")
             print(f"Dashboard error: {e}")
             self.deiconify()
             self.card_reading_active = True
@@ -446,5 +407,35 @@ class LoginWindow(ctk.CTk):
 
 
 if __name__ == "__main__":
-    app = LoginWindow()
-    app.mainloop()
+    # Test the card manager
+    manager = CardManager()
+
+    # Example 1: Get card info
+    print("\n=== Example 1: Get Card Info ===")
+    card_info = manager.get_card("0724184100")
+    if card_info:
+        print(f"Card Type: {card_info['card_type']}")
+        print(f"Name: {card_info['full_name']}")
+        if card_info['card_type'] == 'doctor':
+            print(f"Specialization: {card_info['user'].specialization}")
+
+    # Example 2: Authenticate card
+    print("\n=== Example 2: Authenticate Card ===")
+    success, data, message = manager.authenticate_card("0724184100")
+    print(f"Success: {success}")
+    print(f"Message: {message}")
+
+    # Example 3: Check card type
+    print("\n=== Example 3: Check Card Type ===")
+    if manager.is_doctor_card("0724184100"):
+        print("This is a doctor card")
+        doctor = manager.get_doctor_by_card("0724184100")
+        print(f"Doctor: {doctor.full_name}")
+
+    # Example 4: Get patient by card
+    print("\n=== Example 4: Get Patient by Card ===")
+    patient_card_uid = "0725755156"  # Example patient card
+    patient = manager.get_patient_by_card(patient_card_uid)
+    if patient:
+        print(f"Patient: {patient.full_name}")
+        print(f"National ID: {patient.national_id}")

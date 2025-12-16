@@ -5,7 +5,7 @@ Handles doctor-related operations
 
 from datetime import datetime
 from core.database import get_db
-from core.models import Doctor, User, Visit
+from database.models import Doctor, User, Visit
 
 class DoctorManager:
     """Manage doctor records"""

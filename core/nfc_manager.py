@@ -1,246 +1,327 @@
 """
-Card Manager - NFC Card Management
-MySQL Version - Compatible with existing GUI
+NFC Card Manager for MedLink
+Handles NFC card authentication and operations
 """
 
-from datetime import datetime, date
 from core.database import get_db
-from core.models import NFCCard, Patient, Doctor, User
+from database.models import DoctorCard, PatientCard, User, Patient
+from datetime import datetime
+
 
 class CardManager:
-    """Manage NFC cards for patients and doctors"""
+    """Manage NFC card operations"""
     
     def __init__(self):
-        pass
-    
-    def register_card(self, card_uid, card_type, linked_to, name, **kwargs):
-        """
-        Register new NFC card
-        
-        Args:
-            card_uid: Card UID from scanner
-            card_type: 'doctor' or 'patient'
-            linked_to: user_id or national_id
-            name: Full name
-        """
-        with get_db() as db:
-            # Check if card already exists
-            existing = db.query(NFCCard).filter(NFCCard.card_uid == card_uid).first()
-            if existing:
-                return {'success': False, 'message': 'Card already registered'}
-            
-            card = NFCCard(
-                card_uid=card_uid,
-                card_type=card_type,
-                linked_to=linked_to,
-                name=name,
-                is_active=True,
-                assigned_date=date.today(),
-                **kwargs
-            )
-            db.add(card)
-            db.commit()
-            db.refresh(card)
-            
-            return {'success': True, 'card': card, 'message': 'Card registered successfully'}
+        """Initialize card manager"""
+        self.db = None
     
     def get_card(self, card_uid):
-        """Get card by UID"""
-        with get_db() as db:
-            return db.query(NFCCard).filter(NFCCard.card_uid == card_uid).first()
-    
-    def get_card_by_user(self, linked_to):
-        """Get card by linked user/patient"""
-        with get_db() as db:
-            return db.query(NFCCard).filter(
-                NFCCard.linked_to == linked_to,
-                NFCCard.is_active == True
+        """
+        Get card information by UID (works for both doctor and patient cards)
+        
+        Args:
+            card_uid (str): NFC card UID
+            
+        Returns:
+            dict: Card information with user/patient data or None
+        """
+        db = get_db()
+        try:
+            # Try to find doctor card first
+            doctor_card = db.query(DoctorCard).filter_by(
+                card_uid=card_uid,
+                is_active=True
             ).first()
+            
+            if doctor_card:
+                # Get associated user
+                user = db.query(User).filter_by(user_id=doctor_card.user_id).first()
+                
+                # Update last used
+                doctor_card.last_used = datetime.now()
+                db.commit()
+                
+                return {
+                    'card_type': 'doctor',
+                    'card_uid': doctor_card.card_uid,
+                    'user_id': doctor_card.user_id,
+                    'username': doctor_card.username,
+                    'full_name': doctor_card.full_name,
+                    'user': user,  # Full user object
+                    'card': doctor_card  # Card object
+                }
+            
+            # Try to find patient card
+            patient_card = db.query(PatientCard).filter_by(
+                card_uid=card_uid,
+                is_active=True
+            ).first()
+            
+            if patient_card:
+                # Get associated patient
+                patient = db.query(Patient).filter_by(
+                    national_id=patient_card.national_id
+                ).first()
+                
+                # Update last used
+                patient_card.last_used = datetime.now()
+                db.commit()
+                
+                return {
+                    'card_type': 'patient',
+                    'card_uid': patient_card.card_uid,
+                    'national_id': patient_card.national_id,
+                    'full_name': patient_card.full_name,
+                    'patient': patient,  # Full patient object
+                    'card': patient_card  # Card object
+                }
+            
+            # Card not found
+            return None
+            
+        finally:
+            db.close()
     
     def authenticate_card(self, card_uid):
         """
-        Authenticate user by NFC card
-        Returns: dict with success, card_type, user_info
+        Authenticate a card and return user/patient information
+        
+        Args:
+            card_uid (str): NFC card UID
+            
+        Returns:
+            tuple: (success: bool, data: dict, message: str)
         """
-        with get_db() as db:
-            card = db.query(NFCCard).filter(
-                NFCCard.card_uid == card_uid,
-                NFCCard.is_active == True
+        card_info = self.get_card(card_uid)
+        
+        if not card_info:
+            return False, None, "Card not found or inactive"
+        
+        if card_info['card_type'] == 'doctor':
+            return True, card_info, f"Welcome, Dr. {card_info['full_name']}"
+        else:
+            return True, card_info, f"Welcome, {card_info['full_name']}"
+    
+    def is_doctor_card(self, card_uid):
+        """Check if card is a doctor card"""
+        db = get_db()
+        try:
+            card = db.query(DoctorCard).filter_by(card_uid=card_uid).first()
+            return card is not None
+        finally:
+            db.close()
+    
+    def is_patient_card(self, card_uid):
+        """Check if card is a patient card"""
+        db = get_db()
+        try:
+            card = db.query(PatientCard).filter_by(card_uid=card_uid).first()
+            return card is not None
+        finally:
+            db.close()
+    
+    def get_doctor_by_card(self, card_uid):
+        """
+        Get doctor (User) by card UID
+        
+        Args:
+            card_uid (str): NFC card UID
+            
+        Returns:
+            User: Doctor user object or None
+        """
+        db = get_db()
+        try:
+            doctor_card = db.query(DoctorCard).filter_by(
+                card_uid=card_uid,
+                is_active=True
             ).first()
             
-            if not card:
-                return {'success': False, 'message': 'Card not found or inactive'}
+            if doctor_card:
+                user = db.query(User).filter_by(user_id=doctor_card.user_id).first()
+                return user
+            return None
+        finally:
+            db.close()
+    
+    def get_patient_by_card(self, card_uid):
+        """
+        Get patient by card UID
+        
+        Args:
+            card_uid (str): NFC card UID
             
-            # Update scan info
-            card.last_scan = datetime.now()
-            card.scan_count += 1
+        Returns:
+            Patient: Patient object or None
+        """
+        db = get_db()
+        try:
+            patient_card = db.query(PatientCard).filter_by(
+                card_uid=card_uid,
+                is_active=True
+            ).first()
+            
+            if patient_card:
+                patient = db.query(Patient).filter_by(
+                    national_id=patient_card.national_id
+                ).first()
+                return patient
+            return None
+        finally:
+            db.close()
+    
+    def get_card_info(self, card_uid):
+        """
+        Get detailed card information (alias for get_card)
+        
+        Args:
+            card_uid (str): NFC card UID
+            
+        Returns:
+            dict: Card information or None
+        """
+        return self.get_card(card_uid)
+    
+    def register_doctor_card(self, card_uid, user_id, username, full_name):
+        """
+        Register a new doctor card
+        
+        Args:
+            card_uid (str): NFC card UID
+            user_id (str): Doctor user ID
+            username (str): Doctor username
+            full_name (str): Doctor full name
+            
+        Returns:
+            bool: Success status
+        """
+        db = get_db()
+        try:
+            # Check if card already exists
+            existing = db.query(DoctorCard).filter_by(card_uid=card_uid).first()
+            if existing:
+                return False, "Card already registered"
+            
+            # Create new doctor card
+            card = DoctorCard(
+                card_uid=card_uid,
+                user_id=user_id,
+                username=username,
+                full_name=full_name,
+                is_active=True
+            )
+            db.add(card)
             db.commit()
             
-            # Get user info based on card type
-            if card.card_type == 'doctor':
-                user = db.query(User).filter(User.user_id == card.linked_to).first()
-                if user:
-                    return {
-                        'success': True,
-                        'card_type': 'doctor',
-                        'user_id': user.user_id,
-                        'username': user.username,
-                        'full_name': user.full_name,
-                        'role': user.role
-                    }
-            
-            elif card.card_type == 'patient':
-                patient = db.query(Patient).filter(
-                    Patient.national_id == card.linked_to
-                ).first()
-                if patient:
-                    return {
-                        'success': True,
-                        'card_type': 'patient',
-                        'national_id': patient.national_id,
-                        'full_name': patient.full_name,
-                        'blood_type': patient.blood_type,
-                        'age': patient.age
-                    }
-            
-            return {'success': False, 'message': 'User not found'}
+            return True, "Doctor card registered successfully"
+        except Exception as e:
+            db.rollback()
+            return False, f"Error: {str(e)}"
+        finally:
+            db.close()
     
-    def update_card(self, card_uid, update_data):
-        """Update card information"""
-        with get_db() as db:
-            card = db.query(NFCCard).filter(NFCCard.card_uid == card_uid).first()
+    def register_patient_card(self, card_uid, national_id, full_name):
+        """
+        Register a new patient card
+        
+        Args:
+            card_uid (str): NFC card UID
+            national_id (str): Patient national ID
+            full_name (str): Patient full name
             
-            if card:
-                for key, value in update_data.items():
-                    if hasattr(card, key):
-                        setattr(card, key, value)
-                
-                db.commit()
-                return {'success': True, 'message': 'Card updated'}
+        Returns:
+            tuple: (success: bool, message: str)
+        """
+        db = get_db()
+        try:
+            # Check if card already exists
+            existing = db.query(PatientCard).filter_by(card_uid=card_uid).first()
+            if existing:
+                return False, "Card already registered"
             
-            return {'success': False, 'message': 'Card not found'}
+            # Create new patient card
+            card = PatientCard(
+                card_uid=card_uid,
+                national_id=national_id,
+                full_name=full_name,
+                is_active=True
+            )
+            db.add(card)
+            db.commit()
+            
+            return True, "Patient card registered successfully"
+        except Exception as e:
+            db.rollback()
+            return False, f"Error: {str(e)}"
+        finally:
+            db.close()
     
     def deactivate_card(self, card_uid):
-        """Deactivate card (lost/stolen)"""
-        with get_db() as db:
-            card = db.query(NFCCard).filter(NFCCard.card_uid == card_uid).first()
+        """
+        Deactivate a card (mark as inactive)
+        
+        Args:
+            card_uid (str): NFC card UID
             
-            if card:
-                card.is_active = False
+        Returns:
+            tuple: (success: bool, message: str)
+        """
+        db = get_db()
+        try:
+            # Try doctor card
+            doctor_card = db.query(DoctorCard).filter_by(card_uid=card_uid).first()
+            if doctor_card:
+                doctor_card.is_active = False
                 db.commit()
-                return {'success': True, 'message': 'Card deactivated'}
+                return True, "Doctor card deactivated"
             
-            return {'success': False, 'message': 'Card not found'}
+            # Try patient card
+            patient_card = db.query(PatientCard).filter_by(card_uid=card_uid).first()
+            if patient_card:
+                patient_card.is_active = False
+                db.commit()
+                return True, "Patient card deactivated"
+            
+            return False, "Card not found"
+        except Exception as e:
+            db.rollback()
+            return False, f"Error: {str(e)}"
+        finally:
+            db.close()
     
     def activate_card(self, card_uid):
-        """Reactivate card"""
-        with get_db() as db:
-            card = db.query(NFCCard).filter(NFCCard.card_uid == card_uid).first()
+        """
+        Activate a card
+        
+        Args:
+            card_uid (str): NFC card UID
             
-            if card:
-                card.is_active = True
+        Returns:
+            tuple: (success: bool, message: str)
+        """
+        db = get_db()
+        try:
+            # Try doctor card
+            doctor_card = db.query(DoctorCard).filter_by(card_uid=card_uid).first()
+            if doctor_card:
+                doctor_card.is_active = True
                 db.commit()
-                return {'success': True, 'message': 'Card activated'}
+                return True, "Doctor card activated"
             
-            return {'success': False, 'message': 'Card not found'}
-    
-    def get_all_cards(self, card_type=None, active_only=True):
-        """Get all cards, optionally filtered"""
-        with get_db() as db:
-            query = db.query(NFCCard)
-            
-            if card_type:
-                query = query.filter(NFCCard.card_type == card_type)
-            
-            if active_only:
-                query = query.filter(NFCCard.is_active == True)
-            
-            return query.order_by(NFCCard.name).all()
-    
-    def get_card_stats(self, card_uid):
-        """Get card usage statistics"""
-        with get_db() as db:
-            card = db.query(NFCCard).filter(NFCCard.card_uid == card_uid).first()
-            
-            if card:
-                return {
-                    'card_uid': card.card_uid,
-                    'name': card.name,
-                    'card_type': card.card_type,
-                    'is_active': card.is_active,
-                    'assigned_date': card.assigned_date,
-                    'last_scan': card.last_scan,
-                    'scan_count': card.scan_count
-                }
-            
-            return None
-    
-    def search_cards(self, search_term):
-        """Search cards by name or UID"""
-        with get_db() as db:
-            search = f"%{search_term}%"
-            return db.query(NFCCard).filter(
-                (NFCCard.name.like(search)) |
-                (NFCCard.card_uid.like(search))
-            ).all()
-    
-    def link_card_to_patient(self, card_uid, national_id):
-        """Link existing card to patient"""
-        with get_db() as db:
-            # Get patient
-            patient = db.query(Patient).filter(
-                Patient.national_id == national_id
-            ).first()
-            
-            if not patient:
-                return {'success': False, 'message': 'Patient not found'}
-            
-            # Get card
-            card = db.query(NFCCard).filter(NFCCard.card_uid == card_uid).first()
-            
-            if not card:
-                return {'success': False, 'message': 'Card not found'}
-            
-            # Link card
-            card.linked_to = national_id
-            card.name = patient.full_name
-            card.card_type = 'patient'
-            card.is_active = True
-            
-            # Update patient
-            patient.nfc_card_uid = card_uid
-            patient.nfc_card_assigned = True
-            patient.nfc_card_assignment_date = date.today()
-            patient.nfc_card_type = 'NFC Card'
-            patient.nfc_card_status = 'active'
-            
-            db.commit()
-            
-            return {'success': True, 'message': 'Card linked to patient'}
-    
-    def unlink_card(self, card_uid):
-        """Unlink card from user"""
-        with get_db() as db:
-            card = db.query(NFCCard).filter(NFCCard.card_uid == card_uid).first()
-            
-            if card:
-                # If patient card, update patient record
-                if card.card_type == 'patient':
-                    patient = db.query(Patient).filter(
-                        Patient.national_id == card.linked_to
-                    ).first()
-                    if patient:
-                        patient.nfc_card_uid = None
-                        patient.nfc_card_assigned = False
-                        patient.nfc_card_status = 'inactive'
-                
-                # Delete card
-                db.delete(card)
+            # Try patient card
+            patient_card = db.query(PatientCard).filter_by(card_uid=card_uid).first()
+            if patient_card:
+                patient_card.is_active = True
                 db.commit()
-                
-                return {'success': True, 'message': 'Card unlinked'}
+                return True, "Patient card activated"
             
-            return {'success': False, 'message': 'Card not found'}
+            return False, "Card not found"
+        except Exception as e:
+            db.rollback()
+            return False, f"Error: {str(e)}"
+        finally:
+            db.close()
 
-# Global instance
+
+# Create a global instance for easy access
 card_manager = CardManager()
