@@ -4,7 +4,7 @@ Location: core/patient_manager.py (REPLACE YOUR FILE)
 """
 
 from core.database import get_db
-from core.models import User import Patient, Surgery, Hospitalization, Vaccination, CurrentMedication
+from core.models import User ,Patient, Surgery, Hospitalization, Vaccination, CurrentMedication
 from datetime import datetime
 
 class PatientManager:

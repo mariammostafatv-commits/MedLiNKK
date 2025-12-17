@@ -356,7 +356,7 @@ class LoginWindow(ctk.CTk):
         # Attempt login
         # success, message, user_data = self.auth_manager.login(username, password, role)
         success, message, user_data = self.auth_manager.login(
-            username, password, role)
+            username, password)
 
         if success:
             # Close login window and open appropriate dashboard

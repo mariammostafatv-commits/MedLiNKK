@@ -1,45 +1,70 @@
 """
-FIXED Authentication Manager - Works with GUI
-Location: core/auth_manager.py (REPLACE YOUR FILE)
+Authentication Manager - FIXED FOR DATABASE
+Handles user authentication with correct password verification
+
+Location: core/auth_manager.py
 """
 
-import hashlib
+from core.database import get_db
+from core.models import User, Doctor
+from utils.security import verify_password
 from datetime import datetime
-from core.database import get_db, get_db_context
-from core.models import User
+
 
 class AuthManager:
-    """Manage user authentication - COMPLETE FIX"""
+    """Manage user authentication"""
     
     def __init__(self):
-        self.current_user = None
+        pass
     
-    @staticmethod
-    def hash_password(password: str) -> str:
-        """Hash password using SHA-256"""
-        return hashlib.sha256(password.encode()).hexdigest()
-    
-    def authenticate(self, username: str, password: str):
+    def authenticate(self, username: str, password: str) -> dict:
         """
-        Authenticate user - Returns dict or None
-        BACKWARD COMPATIBLE with old code
+        Authenticate user with username and password
+        
+        Args:
+            username: User's username
+            password: Plain text password
+            
+        Returns:
+            dict with 'success', 'user', and 'message' keys
         """
-        db = get_db()
         try:
-            password_hash = self.hash_password(password)
-            
-            user = db.query(User).filter(
-                User.username == username,
-                User.password_hash == password_hash
-            ).first()
-            
-            if user and user.account_status.value == 'active':
-                # Update login info
+            with get_db() as db:
+                # Step 1: Find user by username ONLY
+                user = db.query(User).filter(
+                    User.username == username
+                ).first()
+                
+                # Step 2: Check if user exists
+                if not user:
+                    return {
+                        'success': False,
+                        'user': None,
+                        'message': 'Invalid username or password'
+                    }
+                
+                # Step 3: Check if user is active
+                if not user.is_active:
+                    return {
+                        'success': False,
+                        'user': None,
+                        'message': 'Account is inactive'
+                    }
+                
+                # Step 4: Verify password using verify_password function
+                # ✅ CORRECT WAY - Use verify_password()
+                if not verify_password(password, user.password_hash):
+                    return {
+                        'success': False,
+                        'user': None,
+                        'message': 'Invalid username or password'
+                    }
+                
+                # Step 5: Update last login
                 user.last_login = datetime.now()
-                user.login_count = (user.login_count or 0) + 1
                 db.commit()
                 
-                # Convert to dict while in session (CRITICAL!)
+                # Step 6: Get additional user info
                 user_dict = {
                     'user_id': user.user_id,
                     'username': user.username,
@@ -47,235 +72,99 @@ class AuthManager:
                     'email': user.email,
                     'phone': user.phone,
                     'role': user.role.value,
-                    'national_id': user.national_id,
-                    'specialization': user.specialization,
-                    'hospital': user.hospital,
-                    'license_number': user.license_number,
-                    'last_login': user.last_login,
-                    'login_count': user.login_count
+                    'is_active': user.is_active
                 }
                 
-                self.current_user = user_dict
-                return user_dict
-            
-            return None
-            
-        finally:
-            db.close()
-    
-    def login(self, username: str, password: str, role: str = None):
-        """
-        Login user - Returns tuple (success, message, user_data)
-        NEW METHOD for GUI compatibility
-        """
-        db = get_db()
-        try:
-            password_hash = self.hash_password(password)
-            
-            # Query user
-            user = db.query(User).filter(
-                User.username == username,
-                User.password_hash == password_hash
-            ).first()
-            print(User.password_hash)
-            if not user:
-                return False, "Invalid username or password", None
-            
-            # Check account status
-            if user.account_status.value != 'active':
-                return False, "Account is inactive", None
-            
-            # Check role if specified
-            if role and user.role.value != role:
-                return False, f"This account is not a {role} account", None
-            
-            # Update login info
-            user.last_login = datetime.now()
-            user.login_count = (user.login_count or 0) + 1
-            db.commit()
-            
-            # Convert to dict while in session
-            user_data = {
-                'user_id': user.user_id,
-                'username': user.username,
-                'full_name': user.full_name,
-                'email': user.email,
-                'phone': user.phone,
-                'role': user.role.value,
-                'national_id': user.national_id,
-                'specialization': user.specialization,
-                'hospital': user.hospital,
-                'license_number': user.license_number,
-                'last_login': user.last_login,
-                'login_count': user.login_count
-            }
-            
-            self.current_user = user_data
-            return True, f"Welcome, {user.full_name}!", user_data
-            
+                # If doctor, add doctor info
+                if user.role.value == 'doctor':
+                    doctor = db.query(Doctor).filter(
+                        Doctor.user_id == user.user_id
+                    ).first()
+                    
+                    if doctor:
+                        user_dict.update({
+                            'doctor_id': doctor.doctor_id,
+                            'national_id': doctor.national_id,
+                            'specialization': doctor.specialization,
+                            'license_number': doctor.license_number,
+                            'hospital': doctor.hospital
+                        })
+                
+                return {
+                    'success': True,
+                    'user': user,  # Return SQLAlchemy object for session
+                    'user_dict': user_dict,  # Return dict for display
+                    'message': 'Login successful'
+                }
+        
         except Exception as e:
-            return False, f"Login error: {str(e)}", None
-        finally:
-            db.close()
+            print(f"Authentication error: {e}")
+            return {
+                'success': False,
+                'user': None,
+                'message': f'Authentication error: {str(e)}'
+            }
     
-    def logout(self):
-        """Logout current user"""
-        self.current_user = None
-    
-    def is_logged_in(self):
-        """Check if user is logged in"""
-        return self.current_user is not None
-    
-    def get_current_user(self):
-        """Get current logged in user"""
-        return self.current_user
+    def get_user_by_id(self, user_id: int):
+        """Get user by ID"""
+        with get_db() as db:
+            return db.query(User).filter(User.user_id == user_id).first()
     
     def get_user_by_username(self, username: str):
-        """Get user by username - returns dict"""
-        db = get_db()
-        try:
-            user = db.query(User).filter(User.username == username).first()
-            
-            if user:
-                return {
-                    'user_id': user.user_id,
-                    'username': user.username,
-                    'full_name': user.full_name,
-                    'role': user.role.value,
-                    'national_id': user.national_id
-                }
-            return None
-        finally:
-            db.close()
+        """Get user by username"""
+        with get_db() as db:
+            return db.query(User).filter(User.username == username).first()
     
-    def get_user_by_id(self, user_id: str):
-        """Get user by user_id - returns dict"""
-        db = get_db()
-        try:
-            user = db.query(User).filter(User.user_id == user_id).first()
-            
-            if user:
-                return {
-                    'user_id': user.user_id,
-                    'username': user.username,
-                    'full_name': user.full_name,
-                    'role': user.role.value,
-                    'specialization': user.specialization,
-                    'hospital': user.hospital
-                }
-            return None
-        finally:
-            db.close()
+    def login(self, username: str, password: str):
+        """
+        Login method for backward compatibility with login_window.py
+        Returns: (success, message, user_data)
+        """
+        result = self.authenticate(username, password)
+        
+        if result['success']:
+            return (
+                True,
+                result['message'],
+                result.get('user_dict', result['user'])
+            )
+        else:
+            return (
+                False,
+                result['message'],
+                None
+            )
     
-    def create_user(self, user_data: dict):
-        """Create new user"""
-        db = get_db()
+    def change_password(self, user_id: int, old_password: str, new_password: str) -> dict:
+        """Change user password"""
+        from utils.security import hash_password
+        
         try:
-            # Hash password
-            if 'password' in user_data:
-                user_data['password_hash'] = self.hash_password(user_data.pop('password'))
-            
-            user = User(**user_data)
-            db.add(user)
-            db.commit()
-            db.refresh(user)
-            
-            return {
-                'user_id': user.user_id,
-                'username': user.username,
-                'full_name': user.full_name
-            }
+            with get_db() as db:
+                user = db.query(User).filter(User.user_id == user_id).first()
+                
+                if not user:
+                    return {'success': False, 'message': 'User not found'}
+                
+                # Verify old password
+                if not verify_password(old_password, user.password_hash):
+                    return {'success': False, 'message': 'Current password is incorrect'}
+                
+                # Set new password
+                user.password_hash = hash_password(new_password)
+                db.commit()
+                
+                return {'success': True, 'message': 'Password changed successfully'}
+        
         except Exception as e:
-            db.rollback()
-            print(f"Error creating user: {e}")
-            return None
-        finally:
-            db.close()
-    
-    def update_password(self, username: str, new_password: str):
-        """Update user password"""
-        db = get_db()
-        try:
-            user = db.query(User).filter(User.username == username).first()
-            
-            if user:
-                user.password_hash = self.hash_password(new_password)
-                db.commit()
-                return True
-            return False
-        except:
-            db.rollback()
-            return False
-        finally:
-            db.close()
-    
-    def check_username_exists(self, username: str) -> bool:
-        """Check if username already exists"""
-        db = get_db()
-        try:
-            user = db.query(User).filter(User.username == username).first()
-            return user is not None
-        finally:
-            db.close()
-    
-    def get_user_role(self, username: str) -> str:
-        """Get user role"""
-        db = get_db()
-        try:
-            user = db.query(User).filter(User.username == username).first()
-            return user.role.value if user else None
-        finally:
-            db.close()
-    
-    def activate_user(self, username: str):
-        """Activate user account"""
-        db = get_db()
-        try:
-            user = db.query(User).filter(User.username == username).first()
-            if user:
-                user.account_status = 'active'
-                db.commit()
-                return True
-            return False
-        except:
-            db.rollback()
-            return False
-        finally:
-            db.close()
-    
-    def deactivate_user(self, username: str):
-        """Deactivate user account"""
-        db = get_db()
-        try:
-            user = db.query(User).filter(User.username == username).first()
-            if user:
-                user.account_status = 'inactive'
-                db.commit()
-                return True
-            return False
-        except:
-            db.rollback()
-            return False
-        finally:
-            db.close()
-    
-    def get_all_doctors(self):
-        """Get all doctors - returns list of dicts"""
-        db = get_db()
-        try:
-            doctors = db.query(User).filter(User.role == 'doctor').all()
-            
-            return [{
-                'user_id': d.user_id,
-                'username': d.username,
-                'full_name': d.full_name,
-                'specialization': d.specialization,
-                'hospital': d.hospital,
-                'license_number': d.license_number
-            } for d in doctors]
-        finally:
-            db.close()
+            return {'success': False, 'message': f'Error: {str(e)}'}
 
 
 # Global instance
 auth_manager = AuthManager()
+
+
+# For backward compatibility
+def get_auth_manager():
+    """Get global auth manager instance"""
+    return auth_manager

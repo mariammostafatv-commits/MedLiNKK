@@ -127,7 +127,7 @@ def create_database():
     config = get_database_config()
     password = config['password']
     
-    if password == 'YOUR_MYSQL_PASSWORD':
+    if password == 'password':
         print_error("Please set your MySQL password!")
         password = input(f"{BLUE}Enter MySQL root password: {END}")
         config['password'] = password
