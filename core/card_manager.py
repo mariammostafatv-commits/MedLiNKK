@@ -3,6 +3,7 @@ FIXED Card Manager - Works with GUI NFC Login
 Location: core/card_manager.py (REPLACE YOUR FILE)
 """
 
+from core.models import DoctorCard, PatientCard
 from core.database import get_db
 from core.models import DoctorCard, PatientCard, User, Patient
 from datetime import datetime
@@ -15,104 +16,60 @@ class CardManager:
         """Initialize card manager"""
         pass
 
-    def get_card(self, card_uid):
-        """
-        Get card information by UID (works for both doctor and patient cards)
-        Returns dict with card_type, user/patient data
+    from datetime import datetime
 
-        Args:
-            card_uid (str): NFC card UID
 
-        Returns:
-            dict: {
-                'card_type': 'doctor'/'patient',
-                'card_uid': str,
-                'full_name': str,
-                'user': User object (for doctors),
-                'patient': Patient object (for patients),
-                'card': Card object
-            } or None
-        """
+class CardManager:
+    def get_card(self, card_uid: str):
         db = get_db()
         try:
-            # Try to find doctor card first
-            doctor_card = db.query(DoctorCard).filter_by(
-                card_uid=card_uid,
-                is_active=True
-
+            # Doctor
+            dc = db.query(DoctorCard).filter(
+                DoctorCard.card_uid == card_uid,
+                DoctorCard.is_active == True
             ).first()
 
-            if doctor_card:
-                # Get associated user
-                user = db.query(User).filter_by(
-                    user_id=doctor_card.user_id).first()
+            if dc:
+                dc.last_used = datetime.now()
+                db.commit()
 
-                if user:
-                    # Update last used
-                    doctor_card.last_used = datetime.now()
-                    db.commit()
-                    doctor_card.last_used = datetime.now()
-                    print(f"Doctor card last used: {doctor_card}")
-                    # Convert to dict for GUI (CRITICAL!)
-
-                    return {
-                        "card_type": "doctor",
-                        "card_uid": doctor_card.card_uid,
-                        "user_id": doctor_card.user_id,
-                        "username": doctor_card.username,
-                        "full_name": doctor_card.full_name,
-                        "is_active": doctor_card.is_active,
-                        "card": {
-                            "is_active": doctor_card.is_active,
-                            "issued_date": doctor_card.issued_date,
-                            "last_used": doctor_card.last_used,
-                        }
+                # ✅ dc.user يجيب User تلقائيًا بالعلاقة
+                return {
+                    "card_type": "doctor",
+                    "card_uid": dc.card_uid,
+                    "full_name": dc.full_name,
+                    "username": dc.username,
+                    "user_id": dc.user_id,
+                    "user": None if not dc.user else {
+                        "user_id": dc.user.user_id,
+                        "username": dc.user.username,
+                        "full_name": dc.user.full_name,
+                        "role": dc.user.role,
                     }
+                }
 
-            # Try to find patient card
-            patient_card = db.query(PatientCard).filter_by(
-                card_uid=card_uid,
-                is_active=True
+            # Patient
+            pc = db.query(PatientCard).filter(
+                PatientCard.card_uid == card_uid,
+                PatientCard.is_active == True
             ).first()
 
-            if patient_card:
-                # Get associated patient
-                patient = db.query(Patient).filter_by(
-                    national_id=patient_card.national_id
-                ).first()
+            if pc:
+                pc.last_used = datetime.now()
+                db.commit()
 
-                if patient:
-                    # Update last used
-                    patient_card.last_used = datetime.now()
-                    db.commit()
-
-                    # Convert to dict for GUI (CRITICAL!)
-                    return {
-                        'card_type': 'patient',
-                        'card_uid': patient_card.card_uid,
-                        'national_id': patient_card.national_id,
-                        'full_name': patient_card.full_name,
-                        'patient': {  # Dict instead of ORM object
-                            'id': patient.id,
-                            'national_id': patient.national_id,
-                            'full_name': patient.full_name,
-                            'date_of_birth': patient.date_of_birth,
-                            'age': patient.age,
-                            'gender': patient.gender.value if patient.gender else None,
-                            'blood_type': patient.blood_type.value if patient.blood_type else None,
-                            'phone': patient.phone,
-                            'email': patient.email
-                        },
-                        'card': {
-                            'card_uid': patient_card.card_uid,
-                            'is_active': patient_card.is_active,
-                            'last_used': patient_card.last_used
-                        }
+                return {
+                    "card_type": "patient",
+                    "card_uid": pc.card_uid,
+                    "full_name": pc.full_name,
+                    "national_id": pc.patient_national_id,
+                    "patient": None if not pc.patient else {
+                        "national_id": pc.patient.national_id,
+                        "full_name": pc.patient.full_name,
                     }
+                }
 
-            # Card not found
             return None
-
         finally:
             db.close()
 

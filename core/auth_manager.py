@@ -77,7 +77,7 @@ class AuthManager:
                 User.username == username,
                 User.password_hash == password_hash
             ).first()
-            
+            print(User.password_hash)
             if not user:
                 return False, "Invalid username or password", None
             

@@ -78,6 +78,8 @@ class LoginWindow(ctk.CTk):
 
         # Get card information (WORKS NOW!)
         card_info = self.card_manager.get_card(card_id)
+        
+        print(card_info)
         if card_info:
             if card_info['card_type'] == 'doctor':
                 user = card_info['user']

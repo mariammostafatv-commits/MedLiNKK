@@ -89,7 +89,6 @@ __all__ = [
     'CardStatus',
     'AccountStatus',
     'EventType',
-    'is_active',
 ]
 
 __version__ = '1.0.0'
