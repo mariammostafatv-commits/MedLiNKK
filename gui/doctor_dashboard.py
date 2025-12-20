@@ -717,79 +717,120 @@ class DoctorDashboard(ctk.CTkToplevel):
                 self.card_buffer += event.char
 
     def process_card(self, card_id: str):
-        """Process scanned NFC card"""
+        """
+        Process scanned NFC card - COMPLETE FIXED VERSION
+        
+        Handles:
+        - Patient cards → Load patient profile
+        - Doctor cards → Offer to switch doctor
+        - Unknown cards → Show error
+        """
         from core.card_manager import card_manager
-        from core.data_manager import data_manager
-        from core.search_engine import search_engine
         from tkinter import messagebox
 
         print(f"🔍 Card scanned: {card_id}")
 
-        user_info = card_manager.get_patient_by_card(card_id)
-
-        if not user_info:
-            messagebox.showerror("Card Not Registered",
-                                 f"Card {card_id} not registered")
-            return
-
-        user_type = user_info.get('type')
-
-        if user_type == 'doctor':
-            # Doctor card → Switch doctor
-            username = user_info.get('username')
-            doctor_name = user_info.get('name', '')
-
-            confirm = messagebox.askyesno(
-                "Switch Doctor",
-                f"Switch to {doctor_name}?\n\n"
-                "This will logout current doctor."
+        # Check card type
+        if card_manager.is_patient_card(card_id):
+            # ========================================
+            # PATIENT CARD SCANNED
+            # ========================================
+            print("✅ Patient card detected!")
+            
+            # Get complete patient data
+            patient_data = card_manager.get_patient_by_card(card_id)
+            
+            if patient_data:
+                patient_name = patient_data.get('full_name', 'Unknown')
+                national_id = patient_data.get('national_id', '')
+                age = patient_data.get('age', 0)
+                blood_type = patient_data.get('blood_type', 'Unknown')
+                
+                print(f"✅ Patient found: {patient_name}")
+                print(f"   National ID: {national_id}")
+                print(f"   Age: {age}, Blood Type: {blood_type}")
+                
+                # ✅ CRITICAL: Load patient profile into dashboard
+                try:
+                    self.show_patient_profile(patient_data)
+                    
+                    # Show success notification
+                    messagebox.showinfo(
+                        "✅ Patient Profile Loaded",
+                        f"Name: {patient_name}\n"
+                        f"ID: {national_id}\n"
+                        f"Age: {age} years\n"
+                        f"Blood Type: {blood_type}\n\n"
+                        "All patient information is now loaded."
+                    )
+                except Exception as e:
+                    print(f"❌ Error loading patient profile: {e}")
+                    import traceback
+                    traceback.print_exc()
+                    
+                    messagebox.showerror(
+                        "Error",
+                        f"Failed to load patient profile:\n{str(e)}"
+                    )
+            else:
+                print(f"❌ No patient found for card: {card_id}")
+                messagebox.showerror(
+                    "Patient Not Found",
+                    f"Card {card_id} is registered but patient data not found.\n\n"
+                    "Please contact system administrator."
+                )
+        
+        elif card_manager.is_doctor_card(card_id):
+            # ========================================
+            # DOCTOR CARD SCANNED (Another Doctor)
+            # ========================================
+            print("✅ Doctor card detected!")
+            
+            doctor_data = card_manager.get_doctor_by_card(card_id)
+            
+            if doctor_data:
+                doctor_name = doctor_data.get('full_name', 'Unknown')
+                specialization = doctor_data.get('specialization', 'General')
+                
+                # Check if it's the same doctor
+                current_doctor = self.user_data.get('full_name', '')
+                
+                if doctor_name == current_doctor:
+                    messagebox.showinfo(
+                        "Same Doctor",
+                        f"You are already logged in as Dr. {doctor_name}"
+                    )
+                    return
+                
+                # Ask if they want to switch doctors
+                result = messagebox.askyesno(
+                    "Switch Doctor Account?",
+                    f"Switch to Dr. {doctor_name}?\n"
+                    f"Specialization: {specialization}\n\n"
+                    "This will logout the current doctor\n"
+                    "and login as the new doctor."
+                )
+                
+                if result:
+                    print(f"Switching to Dr. {doctor_name}...")
+                    # Logout current doctor and return to login
+                    self.logout()
+            else:
+                messagebox.showerror(
+                    "Doctor Not Found",
+                    f"Doctor card {card_id} is registered but doctor not found."
+                )
+        
+        else:
+            # ========================================
+            # UNKNOWN CARD
+            # ========================================
+            print(f"❌ Unknown card: {card_id}")
+            messagebox.showerror(
+                "Card Not Registered",
+                f"Card {card_id} is not registered in the system.\n\n"
+                "Please register this card before using it."
             )
-
-            if not confirm:
-                return
-
-            users_data = data_manager.load_data('users')
-            users = users_data.get('users', [])
-
-            new_doctor = None
-            for user in users:
-                if user.get('username') == username and user.get('role') == 'doctor':
-                    new_doctor = user
-                    break
-
-            if new_doctor:
-                messagebox.showinfo("Doctor Switched",
-                                    f"Now logged in as {doctor_name}")
-
-                self.destroy()
-
-                from gui.doctor_dashboard import DoctorDashboard
-                new_dashboard = DoctorDashboard(self.parent, new_doctor)
-                new_dashboard.protocol("WM_DELETE_WINDOW",
-                                       lambda: self.parent.on_dashboard_close(new_dashboard))
-            else:
-                messagebox.showerror("Error", "Doctor not found")
-
-        elif user_type == 'patient':
-            # Patient card → Search patient
-            national_id = user_info.get('national_id')
-            patient_name = user_info.get('name', '')
-
-            if hasattr(self, 'search_entry'):
-                self.search_entry.delete(0, 'end')
-                self.search_entry.insert(0, national_id)
-
-            results = search_engine.search_patients(national_id)
-
-            if results:
-                patient = results[0]
-                # messagebox.showinfo("Patient Found",
-                #                     f"Found: {patient_name}\n\nOpening profile...")
-                print(f"Patient Found: {patient_name}\nOpening profile...")
-                self.show_patient_profile(patient)
-            else:
-                messagebox.showerror("Not Found",
-                                     f"Patient {patient_name} not found")
 
 
 if __name__ == "__main__":
