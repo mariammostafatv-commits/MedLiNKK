@@ -4,8 +4,53 @@ Location: core/patient_manager.py (REPLACE YOUR FILE)
 """
 
 from core.database import get_db
-from core.models import User ,Patient, Surgery, Hospitalization, Vaccination, CurrentMedication
+from core.models import User, Patient, Surgery, Hospitalization, Vaccination, CurrentMedication
 from datetime import datetime
+
+
+def safe_get_patient_attr(patient, attr_name, default=None):
+    """
+    Safely get patient attribute with fallback
+    Handles both missing attributes and Phase 8-13 field mappings
+    """
+    # Attribute mappings for Phase 8-13
+    attr_mapping = {
+        'disabilities_special_needs': 'disabilities',  # Use disabilities relationship
+    }
+    
+    # Check if attribute is mapped to a different name
+    if attr_name in attr_mapping:
+        actual_attr = attr_mapping[attr_name]
+        if actual_attr and hasattr(patient, actual_attr):
+            value = getattr(patient, actual_attr)
+            # Convert relationship to list of dicts
+            if hasattr(value, '__iter__') and not isinstance(value, (str, dict)):
+                try:
+                    return [item.to_dict() if hasattr(item, 'to_dict') else str(item) for item in value]
+                except:
+                    return list(value) if value else []
+            return value
+        return default
+    
+    # Try to get the attribute normally
+    if hasattr(patient, attr_name):
+        value = getattr(patient, attr_name)
+        
+        # Handle SQLAlchemy relationships (convert to list)
+        if hasattr(value, '__iter__') and not isinstance(value, (str, dict)):
+            try:
+                return [item.to_dict() if hasattr(item, 'to_dict') else str(item) for item in value]
+            except:
+                return list(value) if value else []
+        
+        # Handle enums
+        if hasattr(value, 'value'):
+            return value.value
+        
+        return value
+    
+    return default
+
 
 class PatientManager:
     """Manage patient records - COMPLETE FIX"""
@@ -198,6 +243,7 @@ class PatientManager:
         """
         Convert Patient ORM object to dict
         MUST be called while session is active!
+        ✅ FIXED: Safe attribute access for Phase 8-13 fields
         """
         return {
             'id': patient.id,
@@ -218,7 +264,10 @@ class PatientManager:
             'chronic_diseases': patient.chronic_diseases or [],
             'allergies': patient.allergies or [],
             'family_history': patient.family_history or {},
-            'disabilities_special_needs': patient.disabilities_special_needs or {},
+            
+            # ✅ FIXED LINE 221 - Safe access for Phase 8-13 fields
+            'disabilities_special_needs': safe_get_patient_attr(patient, 'disabilities_special_needs', {}),
+            
             'emergency_directives': patient.emergency_directives or {},
             'lifestyle': patient.lifestyle or {},
             'insurance': patient.insurance or {},

@@ -1,7 +1,7 @@
 """
-    Authentication Manager - FIXED with CORRECT column names
-    Uses actual database structure: username (not user_id)
-    Location: core/auth_manager.py
+Authentication Manager - FINAL VERSION
+Handles both doctors (user_id) and patients (national_id)
+Location: core/auth_manager.py
 """
 
 from core.database import get_db
@@ -26,7 +26,7 @@ class AuthManager:
                 if not user:
                     return False, "Invalid username or password", None
                 
-                if not hash_password(user.password_hash, password):
+                if not verify_password(password, user.password_hash):
                     return False, "Invalid username or password", None
                 
                 # Check account status
@@ -46,14 +46,17 @@ class AuthManager:
             return False, f"Login error: {str(e)}", None
     
     def login_with_nfc(self, card_uid: str) -> Tuple[bool, str, Optional[Dict]]:
-        """Authenticate user with NFC card UID - FIXED with correct column names"""
+        """
+        Authenticate user with NFC card UID
+        Handles BOTH doctors (owner_id = user_id) and patients (owner_id = national_id)
+        """
         try:
             with get_db() as db:
-                # Use actual column names from screenshot: username (not user_id)
+                # Query card from nfc_cards table
                 result = db.execute(
                     text("""
-                        SELECT card_uid, username, full_name, card_type, 
-                               specialization, is_active, status
+                        SELECT card_uid, owner_id, owner_name, card_type, 
+                               is_active, status
                         FROM nfc_cards 
                         WHERE card_uid = :card_uid
                     """),
@@ -64,13 +67,13 @@ class AuthManager:
                     print(f"❌ Card {card_uid} not found in database")
                     return False, "Card not recognized", None
                 
-                # Parse result (CORRECT column order)
-                db_card_uid, username, full_name, card_type, specialization, is_active, status = result
+                # Parse result
+                db_card_uid, owner_id, owner_name, card_type, is_active, status = result
                 
                 print(f"✅ Card found: UID={db_card_uid}, Type={card_type}, Active={is_active}, Status={status}")
-                print(f"   Username: {username}, Name: {full_name}")
+                print(f"   Owner ID: {owner_id}, Name: {owner_name}")
                 
-                # Check if active (handle integer 0/1 or boolean)
+                # Check if active
                 if is_active in [0, False, '0', 'false']:
                     return False, "Card is inactive", None
                 
@@ -78,14 +81,42 @@ class AuthManager:
                 if status and str(status).lower() != 'active':
                     return False, f"Card status: {status}", None
                 
-                # Get user by username (from nfc_cards table)
-                user = db.query(User).filter(User.username == username).first()
-                
-                if not user:
-                    return False, f"User account '{username}' not found", None
-                
-                # Convert to dict
-                user_data = self._convert_user_to_dict(user)
+                # Handle based on card type
+                if card_type == 'doctor':
+                    # Doctor: owner_id is user_id in users table
+                    user = db.query(User).filter(User.user_id == str(owner_id)).first()
+                    
+                    if not user:
+                        return False, f"Doctor account (ID: {owner_id}) not found", None
+                    
+                    user_data = self._convert_user_to_dict(user)
+                    
+                elif card_type == 'patient':
+                    # Patient: owner_id is national_id in patients table
+                    patient = db.query(Patient).filter(Patient.national_id == str(owner_id)).first()
+                    
+                    if not patient:
+                        return False, f"Patient (ID: {owner_id}) not found", None
+                    
+                    # Convert patient to user_data format
+                    user_data = {
+                        'user_id': patient.national_id,  # Use national_id as user_id
+                        'username': f"patient_{patient.national_id}",
+                        'full_name': patient.full_name,
+                        'role': 'patient',
+                        'national_id': patient.national_id,
+                        'age': patient.age,
+                        'gender': patient.gender.value if hasattr(patient.gender, 'value') else str(patient.gender),
+                        'blood_type': patient.blood_type.value if hasattr(patient.blood_type, 'value') else str(patient.blood_type),
+                        'phone': patient.phone,
+                        'email': patient.email,
+                        'specialization': None,
+                        'license_number': None,
+                        'hospital': None,
+                        'department': None
+                    }
+                else:
+                    return False, f"Unknown card type: {card_type}", None
                 
                 # Store current user
                 self.current_user = user_data

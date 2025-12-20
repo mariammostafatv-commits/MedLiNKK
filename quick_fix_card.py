@@ -1,45 +1,34 @@
 """
-ONE-COMMAND FIX - Update Dr. Ahmed Hassan's card UID
-Uses correct column names: username (not user_id)
+Show ACTUAL table structure - no guessing!
 """
 
 from core.database import get_db
 from sqlalchemy import text
 
-def fix_card():
-    """Update Dr. Ahmed Hassan's card UID"""
+def show_table_structure():
+    """Show actual columns in nfc_cards table"""
     try:
         with get_db() as db:
-            # Show before
-            print("\n📋 BEFORE:")
-            result = db.execute(
-                text("SELECT card_uid, username, full_name FROM nfc_cards WHERE username = 'dr.ahmed.hassan'")
-            ).fetchone()
+            # Method 1: DESCRIBE table
+            print("=" * 80)
+            print("ACTUAL COLUMNS IN nfc_cards TABLE:")
+            print("=" * 80)
+            result = db.execute(text("DESCRIBE nfc_cards")).fetchall()
+            for row in result:
+                print(f"  {row[0]:<20} {row[1]:<20} {row[2]:<5} {row[3]:<5}")
+            
+            # Method 2: Show first row
+            print("\n" + "=" * 80)
+            print("SAMPLE DATA (first row):")
+            print("=" * 80)
+            result = db.execute(text("SELECT * FROM nfc_cards LIMIT 1")).fetchone()
             if result:
-                print(f"   {result[0]} - {result[2]} ({result[1]})")
+                # Get column names
+                columns = db.execute(text("SELECT * FROM nfc_cards LIMIT 0")).keys()
+                for i, col in enumerate(columns):
+                    print(f"  {col}: {result[i]}")
             else:
-                print("   Dr. Ahmed Hassan not found! Showing all cards:")
-                results = db.execute(text("SELECT card_uid, username, full_name FROM nfc_cards LIMIT 5")).fetchall()
-                for uid, username, name in results:
-                    print(f"   {uid} - {name} ({username})")
-                return
-            
-            # Update
-            print("\n🔧 Updating card UID...")
-            db.execute(
-                text("UPDATE nfc_cards SET card_uid = '0724184100' WHERE username = 'dr.ahmed.hassan'")
-            )
-            db.commit()
-            
-            # Show after
-            print("\n✅ AFTER:")
-            result = db.execute(
-                text("SELECT card_uid, username, full_name FROM nfc_cards WHERE username = 'dr.ahmed.hassan'")
-            ).fetchone()
-            if result:
-                print(f"   {result[0]} - {result[2]} ({result[1]})")
-            
-            print("\n🎊 SUCCESS! Now scan card: 0724184100")
+                print("  No data in table")
     
     except Exception as e:
         print(f"❌ Error: {e}")
@@ -47,6 +36,4 @@ def fix_card():
         traceback.print_exc()
 
 if __name__ == "__main__":
-    print("🔧 Fixing Dr. Ahmed Hassan's card UID...\n")
-    fix_card()
-    print("\n✅ Done! Test with: python main.py")
+    show_table_structure()

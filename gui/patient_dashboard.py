@@ -76,23 +76,87 @@ class PatientDashboard(ctk.CTkToplevel):
                 return
 
             # Get patient data
-            self.patient_data = patient_manager.get_patient_by_id(
-                national_id)
+            patient_data = patient_manager.get_patient_by_id(national_id)
 
-            if not self.patient_data:
+            if not patient_data:
                 messagebox.showerror(
                     "Error", "Could not load patient data")
                 self.destroy()
                 return
 
+            # ✅ FIX: Add safe attribute wrapper for Phase 8-13 fields
+            patient_data = patient_manager.get_patient_by_id(national_id)
+            # ... error checking ...
+            self.patient_data = self._safe_patient_data(patient_data)
+
             print(f"✅ Patient data loaded: {
-                  self.patient_data.get('full_name')}")
+                self.patient_data.get('full_name')}")
 
         except Exception as e:
             print(f"Error loading patient data: {e}")
-            messagebox.showerror("Error", f"Failed to load patient data: {
-                                 str(e)}")
+            import traceback
+            traceback.print_exc()
+            messagebox.showerror("Error", f"Failed to load patient data: {str(e)}")
             self.destroy()
+
+
+    def _safe_patient_data(self, patient_data):
+        """
+        Add safe defaults for missing Phase 8-13 attributes
+        Prevents 'attribute not found' errors in components
+        """
+        # If it's already a dict, just add missing fields
+        if isinstance(patient_data, dict):
+            safe_data = patient_data.copy()
+        else:
+            # If it's a Patient object, convert to dict
+            safe_data = {
+                'national_id': getattr(patient_data, 'national_id', ''),
+                'full_name': getattr(patient_data, 'full_name', ''),
+                'date_of_birth': getattr(patient_data, 'date_of_birth', None),
+                'age': getattr(patient_data, 'age', 0),
+                'gender': getattr(patient_data, 'gender', 'Unknown'),
+                'blood_type': getattr(patient_data, 'blood_type', 'Unknown'),
+                'phone': getattr(patient_data, 'phone', ''),
+                'email': getattr(patient_data, 'email', ''),
+                'address': getattr(patient_data, 'address', ''),
+                'city': getattr(patient_data, 'city', ''),
+                'governorate': getattr(patient_data, 'governorate', ''),
+                # Relationships (convert to list)
+                'allergies': list(getattr(patient_data, 'allergies', [])),
+                'chronic_diseases': list(getattr(patient_data, 'chronic_diseases', [])),
+                'current_medications': list(getattr(patient_data, 'current_medications', [])),
+                'surgeries': list(getattr(patient_data, 'surgeries', [])),
+                'hospitalizations': list(getattr(patient_data, 'hospitalizations', [])),
+                'vaccinations': list(getattr(patient_data, 'vaccinations', [])),
+                'family_history': list(getattr(patient_data, 'family_history', [])),
+                'visits': list(getattr(patient_data, 'visits', [])),
+                'lab_results': list(getattr(patient_data, 'lab_results', [])),
+                'imaging_results': list(getattr(patient_data, 'imaging_results', [])),
+                'emergency_directives': list(getattr(patient_data, 'emergency_directives', [])),
+            }
+
+        # ✅ Add Phase 8-13 fields with safe defaults (prevent errors)
+        phase8_defaults = {
+            # Use 'disabilities' relationship
+            'disabilities_special_needs': safe_data.get('disabilities', []),
+            'disabilities': list(getattr(patient_data, 'disabilities', [])) if not isinstance(patient_data, dict) else safe_data.get('disabilities', []),
+            'dnr_status': False,  # Not implemented yet
+            'organ_donor': False,  # Not implemented yet
+            'power_of_attorney': None,  # Not implemented yet
+            'religious_preferences': None,  # Not implemented yet
+            'smoking_status': 'Unknown',  # Not implemented yet
+            'alcohol_consumption': 'Unknown',  # Not implemented yet
+            'exercise_frequency': 'Unknown',  # Not implemented yet
+            'dietary_preferences': None,  # Not implemented yet
+        }
+
+        # Add missing fields only (don't overwrite existing)
+        for key, default_value in phase8_defaults.items():
+            if key not in safe_data:
+                safe_data[key] = default_value
+
+        return safe_data
 
     def create_ui(self):
         """Create patient dashboard UI with Phase 8 enhancements"""
@@ -296,21 +360,22 @@ class PatientDashboard(ctk.CTkToplevel):
         """Logout and return to login screen"""
         self.destroy()
         self.parent.deiconify()
+
     def on_key_press(self, event):
         """Handle NFC card scanning"""
         if not self.card_reading_active:
             return
-        
+
         # Don't interfere if typing in entry fields
         focused = self.focus_get()
         if isinstance(focused, ctk.CTkEntry) or isinstance(focused, ctk.CTkTextbox):
             return
-        
+
         # Enter key = card scan complete
         if event.keysym == "Return":
             card_id = self.card_buffer.strip()
             self.card_buffer = ""
-            
+
             if card_id and len(card_id) >= 8:
                 self.process_card(card_id)
         else:
@@ -323,26 +388,26 @@ class PatientDashboard(ctk.CTkToplevel):
         from core.card_manager import card_manager
         from core.patient_manager import patient_manager
         from tkinter import messagebox
-        
+
         print(f"🔍 Card scanned in patient dashboard: {card_id}")
-        
+
         # Get user from card
         user_info = card_manager.get_patient_by_card(card_id)
-        
+
         if not user_info:
             messagebox.showerror(
                 "Card Not Registered",
                 f"Card ID {card_id} is not registered in the system."
             )
             return
-        
+
         user_type = user_info.get('type')
-        
+
         if user_type == 'patient':
             # Patient card → Switch patient
             national_id = user_info.get('national_id')
             patient_name = user_info.get('name', '')
-            
+
             # Check if same patient
             current_id = self.patient_data.get('national_id')
             if current_id == national_id:
@@ -351,38 +416,38 @@ class PatientDashboard(ctk.CTkToplevel):
                     "You are already logged in with this account."
                 )
                 return
-            
+
             # Ask for confirmation
             confirm = messagebox.askyesno(
                 "Switch Patient Account",
                 f"Switch to {patient_name}'s account?\n\n"
                 "This will logout the current patient."
             )
-            
+
             if not confirm:
                 return
-            
+
             # Get patient data
             new_patient = patient_manager.get_patient(national_id)
-            
+
             if new_patient:
                 # Success! Switch patient
                 messagebox.showinfo(
                     "Account Switched",
                     f"Now logged in as {patient_name}"
                 )
-                
+
                 # Close current dashboard
                 self.destroy()
-                
+
                 # Open new dashboard with new patient
                 from gui.patient_dashboard import PatientDashboard
                 new_dashboard = PatientDashboard(self.parent, new_patient)
-                new_dashboard.protocol("WM_DELETE_WINDOW", 
-                                    lambda: self.parent.on_dashboard_close(new_dashboard))
+                new_dashboard.protocol("WM_DELETE_WINDOW",
+                                       lambda: self.parent.on_dashboard_close(new_dashboard))
             else:
                 messagebox.showerror("Error", "Patient record not found")
-        
+
         elif user_type == 'doctor':
             # Doctor card scanned in patient dashboard
             messagebox.showwarning(
