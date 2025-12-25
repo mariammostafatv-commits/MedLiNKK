@@ -8,53 +8,55 @@ from core.models import User, Patient, Surgery, Hospitalization, Vaccination, Cu
 from datetime import datetime
 
 
-def safe_get_patient_attr(patient, attr_name, default=None):
-    """
-    Safely get patient attribute with fallback
-    Handles both missing attributes and Phase 8-13 field mappings
-    """
-    # Attribute mappings for Phase 8-13
-    attr_mapping = {
-        'disabilities_special_needs': 'disabilities',  # Use disabilities relationship
-    }
+# def safe_get_patient_attr(patient, attr_name, default=None):
+#     """
+#     Safely get patient attribute with fallback
+#     Handles both missing attributes and Phase 8-13 field mappings
+#     """
+#     # Attribute mappings for Phase 8-13
+#     attr_mapping = {
+#         'disabilities_special_needs': 'disabilities',  # Use disabilities relationship
+#     }
     
-    # Check if attribute is mapped to a different name
-    if attr_name in attr_mapping:
-        actual_attr = attr_mapping[attr_name]
-        if actual_attr and hasattr(patient, actual_attr):
-            value = getattr(patient, actual_attr)
-            # Convert relationship to list of dicts
-            if hasattr(value, '__iter__') and not isinstance(value, (str, dict)):
-                try:
-                    return [item.to_dict() if hasattr(item, 'to_dict') else str(item) for item in value]
-                except:
-                    return list(value) if value else []
-            return value
-        return default
+#     # Check if attribute is mapped to a different name
+#     if attr_name in attr_mapping:
+#         actual_attr = attr_mapping[attr_name]
+#         if actual_attr and hasattr(patient, actual_attr):
+#             value = getattr(patient, actual_attr)
+#             # Convert relationship to list of dicts
+#             if hasattr(value, '__iter__') and not isinstance(value, (str, dict)):
+#                 try:
+#                     return [item.to_dict() if hasattr(item, 'to_dict') else str(item) for item in value]
+#                 except:
+#                     return list(value) if value else []
+#             return value
+#         return default
     
-    # Try to get the attribute normally
-    if hasattr(patient, attr_name):
-        value = getattr(patient, attr_name)
+#     # Try to get the attribute normally
+#     if hasattr(patient, attr_name):
+#         value = getattr(patient, attr_name)
         
-        # Handle SQLAlchemy relationships (convert to list)
-        if hasattr(value, '__iter__') and not isinstance(value, (str, dict)):
-            try:
-                return [item.to_dict() if hasattr(item, 'to_dict') else str(item) for item in value]
-            except:
-                return list(value) if value else []
+#         # Handle SQLAlchemy relationships (convert to list)
+#         if hasattr(value, '__iter__') and not isinstance(value, (str, dict)):
+#             try:
+#                 return [item.to_dict() if hasattr(item, 'to_dict') else str(item) for item in value]
+#             except:
+#                 return list(value) if value else []
         
-        # Handle enums
-        if hasattr(value, 'value'):
-            return value.value
+#         # Handle enums
+#         if hasattr(value, 'value'):
+#             return value.value
         
-        return value
+#         return value
     
-    return default
+#     return default
 
 
 class PatientManager:
     """Manage patient records - COMPLETE FIX"""
-    
+
+        
+        
     def get_patient(self, national_id: str):
         """
         Get patient by national ID - returns dict
@@ -67,13 +69,13 @@ class PatientManager:
         """
         db = get_db()
         try:
-            patient = db.query(Patient).filter_by(national_id=national_id).first()
+            patient = db.query(Patient).filter_by(national_id=national_id).first() 
             
             if not patient:
                 return None
-            
             # Convert to dict while in session (CRITICAL!)
-            return self._patient_to_dict(patient)
+            # data = self._patient_to_dict(patient)
+            return
         finally:
             db.close()
     
@@ -83,6 +85,7 @@ class PatientManager:
     
     def get_all_patients(self):
         """Get all patients - returns list of dicts"""
+        
         db = get_db()
         try:
             patients = db.query(Patient).order_by(Patient.full_name).all()
@@ -94,11 +97,11 @@ class PatientManager:
         """Search patients by name or national ID"""
         db = get_db()
         try:
-            search = f"%{search_term}%"
+            self.search = f"%{search_term}%" # natianl id 
             patients = db.query(Patient).filter(
-                (Patient.full_name.ilike(search)) |
-                (Patient.national_id.ilike(search)) |
-                (Patient.phone.ilike(search))
+                (Patient.full_name.ilike(self.search)) |
+                (Patient.national_id.ilike(self.search)) |
+                (Patient.phone.ilike(self.search))
             ).limit(50).all()
             
             return [self._patient_to_dict(p) for p in patients]
@@ -106,13 +109,14 @@ class PatientManager:
             db.close()
     
     def create_patient(self, patient_data: dict):
+        patient_data = {"national_id":"123345546567"}
         """Create new patient"""
         db = get_db()
         try:
             patient = Patient(**patient_data)
-            db.add(patient)
-            db.commit()
-            db.refresh(patient)
+            db.add(patient) # add to database
+            db.commit() # save 
+            db.refresh(patient) 
             return self._patient_to_dict(patient)
         except Exception as e:
             db.rollback()
@@ -122,6 +126,7 @@ class PatientManager:
             db.close()
     
     def update_patient(self, national_id: str, update_data: dict):
+        update_data ={"car": ""}
         """Update patient information"""
         db = get_db()
         try:
@@ -286,3 +291,4 @@ class PatientManager:
 
 # Global instance
 patient_manager = PatientManager()
+

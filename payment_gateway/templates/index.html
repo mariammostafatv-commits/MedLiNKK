@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MedLink Payment Gateway</title>
+    <style>
+        /* Modern, professional design like Stripe */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .payment-card {
+            max-width: 450px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        /* Beautiful form styling */
+    </style>
+</head>
+<body>
+    <div class="payment-card">
+        <h2>🏥 MedLink Payment</h2>
+        <p>Invoice: <strong>LAB001</strong></p>
+        <p>Amount: <strong>500.00 EGP</strong></p>
+        
+        <form id="payment-form">
+            <input type="text" placeholder="Card Number" 
+                   value="4532-1234-5678-1234">
+            <input type="text" placeholder="MM/YY" value="12/25">
+            <input type="text" placeholder="CVV" value="123">
+            
+            <button type="submit">💳 Pay 500.00 EGP</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -6,7 +6,6 @@ import customtkinter as ctk
 from gui.login_window import LoginWindow
 from gui.styles import setup_theme
 
-76
 def main():
     """Main application entry point"""
     # Setup theme
